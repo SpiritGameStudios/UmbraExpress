@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.cca;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.UmbraExpressGameRules;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Colors;
@@ -18,10 +19,9 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     public static final ComponentKey<BroadcastWorldComponent> KEY = ComponentRegistry.getOrCreate(UmbraExpress.id("broadcast"), BroadcastWorldComponent.class);
 
     public static final int COOLDOWN_MULTIPLIER = 5;
-    public static final int MAX_ANNOUNCEMENT_TICKS = 45 * 20;
 
     protected boolean broadcasting = false;
-    protected int announcementTicks = MAX_ANNOUNCEMENT_TICKS;
+    protected int announcementTicks;
     protected int cooldown = 0;
     protected UUID announcerUuid = null;
 
@@ -31,6 +31,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
 
     public BroadcastWorldComponent(World world) {
         this.world = world;
+		this.announcementTicks = maxBroadcastTicks();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
                 this.markDirty();
             } else {
                 this.cooldown = 0;
-                this.announcementTicks = MAX_ANNOUNCEMENT_TICKS;
+                this.announcementTicks = maxBroadcastTicks();
             }
         }
 
@@ -96,7 +97,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
             }
             cooldown = 0;
         } else {
-            cooldown = (MAX_ANNOUNCEMENT_TICKS - announcementTicks) * getCooldownMultiplier(this.world);
+            cooldown = (maxBroadcastTicks() - announcementTicks) * getCooldownMultiplier(this.world);
             announcementTicks = 0;
         }
 
@@ -106,7 +107,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
 
     public void reset() {
         this.broadcasting = false;
-        this.announcementTicks = MAX_ANNOUNCEMENT_TICKS;
+        this.announcementTicks = maxBroadcastTicks();
         this.cooldown = 0;
         this.announcerUuid = null;
         this.markDirty();
@@ -127,6 +128,10 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     public boolean isBroadcasting() {
         return this.broadcasting;
     }
+
+	public int maxBroadcastTicks() {
+		return world.getGameRules().getInt(UmbraExpressGameRules.MAX_BROADCAST_TICKS);
+	}
 
     @Override
     public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {

@@ -26,18 +26,12 @@ public class ClientPlayerInteractionManagerMixin {
     @Expression("this.gameMode == SPECTATOR")
     @ModifyExpressionValue(method = "interactBlockInternal", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean bypassSpectatorCheck(boolean original, @Local(argsOnly = true) BlockHitResult hitResult) {
-        if (!original) {
-            return false;
-        }
+        if (!original) return false;
 
         BlockPos blockPos = hitResult.getBlockPos();
-        if (blockPos == null) {
-            return true;
-        }
-        if (this.client.world == null) {
-            return true;
-        }
 
-        return !UmbraExpress.canBeUsedByGhost(this.client.world.getBlockState(blockPos).getBlock());
+		if (blockPos == null || this.client.world == null) return true;
+
+		return !UmbraExpress.canBeUsedByGhost(this.client.world.getBlockState(blockPos).getBlock());
     }
 }
