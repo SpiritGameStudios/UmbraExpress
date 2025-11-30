@@ -41,19 +41,23 @@ public class MurderGameModeMixin {
 				continue;
 			}
 
-			int numberToAssign = replacer.playerNumbers().numberToAssign(totalPlayers, withRole.size());
+			int numberToAssign = replacer.playerNumbers().numberToTryAssign(totalPlayers, withRole.size());
 			if (numberToAssign <= 0) {
 				continue;
 			}
 
 			final Role replacement = replacer.replacement();
+			final RoleReplacer.ReplacementChecker checker = replacer.checker();
 
 			for (int i = 0; i < numberToAssign; i++) {
 				withRole = gameComponent.getAllWithRole(original);
 				if (withRole.isEmpty()) {
 					continue;
 				}
-				gameComponent.addRole(Util.getRandom(withRole, world.getRandom()), replacement);
+				UUID uuid = Util.getRandom(withRole, world.getRandom());
+				if (checker.shouldAssign(world, uuid)) {
+					gameComponent.addRole(uuid, replacement);
+				}
 			}
 		}
 	}

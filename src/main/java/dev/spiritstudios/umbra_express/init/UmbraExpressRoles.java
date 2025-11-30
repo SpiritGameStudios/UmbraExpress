@@ -6,12 +6,17 @@ import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
+import dev.spiritstudios.umbra_express.role.RoleReplacer.PlayerNumbers;
+import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementChecker;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
+import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
 
 public class UmbraExpressRoles {
 
@@ -42,11 +47,14 @@ public class UmbraExpressRoles {
 		return RoleAnnouncementTexts.registerRoleAnnouncementText(new RoleAnnouncementTexts.RoleAnnouncementText(name, color));
 	}
 
-    public static void init() {
-        // NO-OP
-    }
-
-	static {
-		ROLE_REPLACEMENTS.add()
+	public static void registerReplacer(Role original, Role replacement, PlayerNumbers playerNumbers, ReplacementChecker replacementChecker) {
+		ROLE_REPLACEMENTS.add(new RoleReplacer(original, replacement, playerNumbers, replacementChecker));
 	}
+
+    public static void init() {
+        registerReplacer(CIVILIAN, CONDUCTOR, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
+		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
+		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
+		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ONE , ReplacementChecker.fromRandom(0.5F));
+    }
 }
