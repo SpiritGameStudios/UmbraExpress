@@ -15,8 +15,8 @@ loom {
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
-
 	maven {
 		name = "Spirit Studios Releases"
 		url = uri("https://maven.spiritstudios.dev/releases/")
@@ -26,6 +26,36 @@ repositories {
 			includeGroupAndSubgroups("dev.spiritstudios")
 		}
 	}
+	maven {
+		name = "Modrinth"
+		url = uri("https://api.modrinth.com/maven")
+		content {
+			includeGroup("maven.modrinth")
+		}
+	}
+	maven {
+		name = "Mod Menu"
+		url = uri("https://maven.terraformersmc.com/releases/")
+	}
+	// CCA, Ratatouille
+	maven {
+		name = "Ladysnake Mods"
+		url = uri("https://maven.ladysnake.org/releases")
+	}
+	maven {
+		name = "Datasync"
+		url = uri("https://maven.uuid.gg/releases")
+	}
+	maven {
+		url = uri("https://maven.maxhenkel.de/repository/public")
+	}
+}
+
+
+fabricApi {
+	configureDataGeneration {
+		client = true
+	}
 }
 
 dependencies {
@@ -34,6 +64,26 @@ dependencies {
 	modImplementation(libs.fabric.loader)
 
 	modImplementation(libs.fabric.api)
+
+	modImplementation(libs.trainmurdermystery)
+
+	modImplementation(libs.ratatouille)
+
+	modImplementation(libs.cca.base)
+	modImplementation(libs.cca.world)
+	modImplementation(libs.cca.entity)
+	modImplementation(libs.cca.scoreboard)
+
+	modRuntimeOnly(libs.modmenu)
+
+	modImplementation(libs.voicechat.api)
+	modImplementation(libs.voicechat)
+}
+
+loom {
+	runConfigs.forEach {
+		it.ideConfigGenerated(true)
+	}
 }
 
 tasks.processResources {
