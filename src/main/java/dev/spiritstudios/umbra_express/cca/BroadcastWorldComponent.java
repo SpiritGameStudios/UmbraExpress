@@ -1,7 +1,9 @@
 package dev.spiritstudios.umbra_express.cca;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
 import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -19,6 +21,8 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     public static final ComponentKey<BroadcastWorldComponent> KEY = ComponentRegistry.getOrCreate(UmbraExpress.id("broadcast"), BroadcastWorldComponent.class);
 
     public static final int COOLDOWN_MULTIPLIER = 5;
+
+	public static final int DEFAULT_BROADCAST_TICKS = GameConstants.getInTicks(0, 45);
 
     protected boolean broadcasting = false;
     protected int announcementTicks;
@@ -130,7 +134,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     }
 
 	public int maxBroadcastTicks() {
-		return world.getGameRules().getInt(UmbraExpressGameRules.MAX_BROADCAST_TICKS);
+		return UmbraExpressCommands.maxBroadcastTicks;
 	}
 
     @Override

@@ -7,6 +7,7 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
+import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.command.BroadcastTicksCommand;
 import dev.spiritstudios.umbra_express.command.DisableRoleCommand;
 import dev.spiritstudios.umbra_express.command.ForceDevelopmentCommand;
@@ -25,7 +26,7 @@ public class UmbraExpressCommands {
 	public static boolean development = FabricLoader.getInstance().isDevelopmentEnvironment();
 	public static Role devForcedRole = UmbraExpressRoles.ASSASSIN;
 
-	public static int maxBroadcastTicks = GameConstants.getInTicks(0, 45);
+	public static int maxBroadcastTicks = BroadcastWorldComponent.DEFAULT_BROADCAST_TICKS;
 
 	public static final List<Role> disabledRoles = new ArrayList<>();
 

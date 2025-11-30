@@ -54,6 +54,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add(letterHitList + ".target", "- %s");
 		// end credit
 		translationBuilder.add(letterHitList + ".absent", "Thank you for eliminating the targets. We have no further requests at this moment.");
+
+		translationBuilder.add("commands.umbraexpress.maxbroadcastticks.set", "maxBroadcastTicks was set to %s");
+		translationBuilder.add("commands.umbraexpress.maxbroadcastticks.get", "maxBroadcastTicks is currently %s");
+		translationBuilder.add("commands.umbraexpress.maxbroadcastticks.reset", "maxBroadcastTicks was reset to %s");
 	}
 
 	public static void generateForInnocent(Role role, TranslationBuilder translationBuilder) {
