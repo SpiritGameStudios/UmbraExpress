@@ -5,7 +5,15 @@
 	"mixins": [
 		"haunting.GameFunctionsMixin",
 		"haunting.GameWorldComponentMixin",
-		"haunting.ServerPlayerInteractionManagerMixin"
+		"haunting.ServerPlayerInteractionManagerMixin",
+		"roles.GameFunctionsMixin",
+		"roles.MurderGameModeMixin",
+		"roles.conductor.ButtonBlockMixin",
+		"roles.conductor.GameFunctionsMixin",
+		"roles.conductor.MurderGameModeMixin",
+		"roles.conductor.PlayerMoodComponentMixin",
+		"roles.conductor.PlayerMoodComponentMixin$TaskMixin",
+		"roles.conductor.TMMModelGenAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1

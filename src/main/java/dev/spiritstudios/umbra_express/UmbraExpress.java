@@ -4,7 +4,11 @@ import dev.doctor4t.trainmurdermystery.block.NeonPillarBlock;
 import dev.doctor4t.trainmurdermystery.block.NeonTubeBlock;
 import dev.doctor4t.trainmurdermystery.block.OrnamentBlock;
 import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
+import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
+import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
+import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -14,8 +18,13 @@ public class UmbraExpress implements ModInitializer {
     public static final String MOD_ID = "umbra_express";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	public static final boolean DEVELOPMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
+
     @Override
     public void onInitialize() {
+		UmbraExpressRoles.init();
+		UmbraExpressBlocks.init();
+		UmbraExpressBlockEntities.init();
     }
 
 	public static Identifier id(String path) {

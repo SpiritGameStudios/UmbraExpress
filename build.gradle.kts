@@ -55,6 +55,7 @@ repositories {
 fabricApi {
 	configureDataGeneration {
 		client = true
+		modId = "umbra_express"
 	}
 }
 
@@ -78,12 +79,6 @@ dependencies {
 
 	modImplementation(libs.voicechat.api)
 	modImplementation(libs.voicechat)
-}
-
-loom {
-	runConfigs.forEach {
-		it.ideConfigGenerated(true)
-	}
 }
 
 tasks.processResources {

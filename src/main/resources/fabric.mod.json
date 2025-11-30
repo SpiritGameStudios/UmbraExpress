@@ -19,8 +19,15 @@
     "client": [
       "dev.spiritstudios.umbra_express.UmbraExpressClient"
     ],
+	"fabric-datagen": [
+	  "dev.spiritstudios.umbra_express.datagen.UmbraExpressDataGenerator"
+	],
 	"voicechat": [
+	  "dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin",
 	  "dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin"
+	],
+	"cardinal-components": [
+	  "dev.spiritstudios.umbra_express.init.UmbraExpressWorldComponents"
 	]
   },
   "mixins": [
@@ -43,6 +50,9 @@
 				"modmenu.github_releases": "https://github.com/SpiritGameStudios/UmbraExpress/releases",
 				"modmenu.modrinth": "https://modrinth.com/mod/umbra_express"
 			}
-		}
+		},
+		"cardinal-components": [
+			"umbra_express:broadcast"
+		]
 	}
 }
