@@ -1,0 +1,7 @@
+{
+  "parent": "trainmurdermystery:block/elevator_button_pressed",
+	"textures": {
+		"0": "trainmurdermystery:block/elevator_button",
+		"particle": "trainmurdermystery:block/elevator_button"
+	}
+}
