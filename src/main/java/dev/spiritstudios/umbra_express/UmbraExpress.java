@@ -27,7 +27,7 @@ public class UmbraExpress implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final boolean DEVELOPMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.BARTENDER;
+	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.CONDUCTOR;
 
     @Override
     public void onInitialize() {
