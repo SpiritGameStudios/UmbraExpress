@@ -3,6 +3,7 @@
 	"package": "dev.spiritstudios.umbra_express.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
+		"haunting.ClientPlayerInteractionManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

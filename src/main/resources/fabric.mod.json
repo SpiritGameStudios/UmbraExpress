@@ -18,7 +18,10 @@
     ],
     "client": [
       "dev.spiritstudios.umbra_express.UmbraExpressClient"
-    ]
+    ],
+	"voicechat": [
+	  "dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin"
+	]
   },
   "mixins": [
 	  "umbra_express.mixins.json",

@@ -3,6 +3,9 @@
 	"package": "dev.spiritstudios.umbra_express.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"haunting.GameFunctionsMixin",
+		"haunting.GameWorldComponentMixin",
+		"haunting.ServerPlayerInteractionManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
