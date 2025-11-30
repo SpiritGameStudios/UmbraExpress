@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.render;
 
 import dev.spiritstudios.umbra_express.block.entity.BroadcastButtonBlockEntity;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.Camera;
@@ -12,12 +13,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class BroadcastButtonBlockEntityRenderer implements BlockEntityRenderer<BroadcastButtonBlockEntity> {
-
     protected final TextRenderer textRenderer;
 
     public BroadcastButtonBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
@@ -27,34 +28,49 @@ public class BroadcastButtonBlockEntityRenderer implements BlockEntityRenderer<B
     @Override
     public void render(BroadcastButtonBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         Camera camera = MinecraftClient.getInstance().getEntityRenderDispatcher().camera;
-        Vec3d cameraPos = camera.getPos();
 
-		// text rendering is weird, I could probably use the original matrixstack but whatever
-        MatrixStack matrixStack = new MatrixStack();
-        matrixStack.push();
-        Vec3d pos = entity.getPos().toCenterPos().subtract(cameraPos);
-        matrixStack.translate(pos.x, pos.y, pos.z);
+		matrices.push();
 
-        matrixStack.push();
+		matrices.translate(0.5, 0, 0.5);
         final float signScale = 0.04F;
-        matrixStack.scale(-signScale, -signScale, -signScale);
-        matrixStack.translate(0, 2, 0);
-        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-camera.getYaw()));
+		matrices.scale(-signScale, -signScale, -signScale);
+		matrices.translate(0, 2, 0);
 
-        ClientWorld clientWorld = MinecraftClient.getInstance().world;
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-camera.getYaw()));
+
+        ClientWorld world = MinecraftClient.getInstance().world;
         final float lineHeight = 10;
 
-        if (clientWorld != null) {
-            BroadcastWorldComponent broadcast = BroadcastWorldComponent.KEY.get(clientWorld);
+        if (world != null) {
+            BroadcastWorldComponent broadcast = BroadcastWorldComponent.KEY.get(world);
             int color = broadcast.getRenderColor();
-            OrderedText orderedText = Text.literal(String.valueOf(broadcast.getTicksForRendering())).asOrderedText();
-            float x = (float)(-this.textRenderer.getWidth(orderedText) / 2);
-            float j = 4 * lineHeight / 2;
-            this.textRenderer.draw(orderedText, x, -j, color, false, matrixStack.peek().getPositionMatrix(), vertexConsumers, TextRenderer.TextLayerType.POLYGON_OFFSET, 0, 15728880);
+
+			float seconds = (float) broadcast.getTicksForRendering() / SharedConstants.TICKS_PER_SECOND;
+			float mins = seconds / 60;
+
+			String leftSec = String.valueOf(MathHelper.floor(seconds / 10) % 10);
+			String rightSec = String.valueOf(MathHelper.floor(seconds) % 10);
+
+			String leftMin = String.valueOf(MathHelper.floor(mins / 10) % 6);
+			String rightMin = String.valueOf(MathHelper.floor(mins) % 10);
+
+			String text = leftMin + rightMin + ":" + leftSec + rightSec;
+
+			float x = (float)(-this.textRenderer.getWidth(text) / 2);
+			float y = -(4 * lineHeight / 2);
+
+            this.textRenderer.draw(
+				text,
+				x, y,
+				color,
+				false,
+				matrices.peek().getPositionMatrix(),
+				vertexConsumers, TextRenderer.TextLayerType.POLYGON_OFFSET,
+				0x00000000,
+				light
+			);
         }
 
-        matrixStack.pop();
-
-        matrixStack.pop();
-    }
+		matrices.pop();
+	}
 }

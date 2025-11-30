@@ -26,6 +26,7 @@ public class UmbraExpress implements ModInitializer {
 
     @Override
     public void onInitialize() {
+		UmbraExpressGameRules.init();
 		UmbraExpressRoles.init();
 		UmbraExpressBlocks.init();
 		UmbraExpressBlockEntities.init();

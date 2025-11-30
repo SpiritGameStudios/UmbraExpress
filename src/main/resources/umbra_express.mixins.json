@@ -2,6 +2,9 @@
 	"required": true,
 	"package": "dev.spiritstudios.umbra_express.mixin",
 	"compatibilityLevel": "JAVA_21",
+	"mixinextras": {
+		"minVersion": "0.5.0"
+	},
 	"mixins": [
 		"dev.GameFunctionsMixin",
 		"dev.MurderGameModeMixin",
