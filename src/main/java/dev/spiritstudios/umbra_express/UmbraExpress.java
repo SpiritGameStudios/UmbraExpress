@@ -5,7 +5,7 @@ import dev.doctor4t.trainmurdermystery.block.NeonPillarBlock;
 import dev.doctor4t.trainmurdermystery.block.NeonTubeBlock;
 import dev.doctor4t.trainmurdermystery.block.OrnamentBlock;
 import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
-import dev.spiritstudios.umbra_express.command.UmbraExpressCommands;
+import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
@@ -24,7 +24,7 @@ public class UmbraExpress implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final boolean DEVELOPMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.CONDUCTOR;
+	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.BARTENDER;
 
     @Override
     public void onInitialize() {
