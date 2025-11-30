@@ -28,7 +28,7 @@ public record RoleReplacer(Role original, Role replacement, PlayerNumbers player
 		for (int i = 0; i < numberToAssign; i++) {
 			withRole = gameComponent.getAllWithRole(this.original);
 			if (withRole.isEmpty()) {
-				continue;
+				return;
 			}
 			UUID uuid = Util.getRandom(withRole, serverWorld.getRandom());
 			if (this.checker.shouldAssign(serverWorld, uuid)) {
@@ -39,6 +39,7 @@ public record RoleReplacer(Role original, Role replacement, PlayerNumbers player
 
 	@FunctionalInterface
 	public interface PlayerNumbers {
+		PlayerNumbers ALL = ((total, ofReplacedRole) -> ofReplacedRole);
 		PlayerNumbers ONE = ((total, ofReplacedRole) -> 1);
 
 		int numberToTryAssign(int total, int ofReplacedRole);
