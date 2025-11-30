@@ -13,7 +13,7 @@ public interface UmbraExpressItems {
 
     ItemRegistrar REGISTRAR = new ItemRegistrar(UmbraExpress.MOD_ID);
 
-	Item MASTER_KEY = REGISTRAR.create("master_key", new LockpickItem(new Item.Settings().maxCount(1)), TMMItems.EQUIPMENT_GROUP);
+	Item MASTER_KEY = REGISTRAR.create("master_key", new Item(new Item.Settings().maxCount(1)), TMMItems.EQUIPMENT_GROUP);
 
 	static void init() {
         REGISTRAR.registerEntries();

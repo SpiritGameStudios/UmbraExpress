@@ -11,6 +11,7 @@ import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -56,7 +57,7 @@ public class MurderGameModeMixin {
 	@Expression("winStatus != NONE")
 	@ModifyExpressionValue(method = "tickServerGameLoop", at = @At("MIXINEXTRAS:EXPRESSION"), remap = true)
 	private boolean endlessDev(boolean original) {
-        if (UmbraExpress.DEVELOPMENT) {
+        if (UmbraExpress.DEVELOPMENT && !FabricLoader.getInstance().isModLoaded("carpet")) {
 			return false;
         }
 		return original;
