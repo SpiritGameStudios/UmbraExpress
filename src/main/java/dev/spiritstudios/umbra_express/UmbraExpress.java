@@ -27,7 +27,7 @@ public class UmbraExpress implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final boolean DEVELOPMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.LOCKSMITH;
+	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.BARTENDER;
 
     @Override
     public void onInitialize() {
@@ -38,6 +38,16 @@ public class UmbraExpress implements ModInitializer {
 		UmbraExpressBlockEntities.init();
 
 		CommandRegistrationCallback.EVENT.register(UmbraExpressCommands::init);
+
+		CanSeePoison.EVENT.register(entity -> {
+			if (!(entity instanceof PlayerEntity player)) {
+				return false;
+			}
+
+			GameWorldComponent game = GameWorldComponent.KEY.get(player.getWorld());
+			return UmbraExpressRoles.BARTENDER.equals(game.getRole(player));
+		});
+
     }
 
 	public static Identifier id(String path) {
