@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.mixin.dev;
 
 import dev.doctor4t.trainmurdermystery.TMM;
-import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,6 +13,6 @@ public class TMMMixin {
 
 	@Inject(method = "isSupporter", at = @At("HEAD"), cancellable = true, remap = true)
 	private static void developmentCommands(PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
-		if (UmbraExpress.DEVELOPMENT) cir.setReturnValue(true);
+		if (UmbraExpressCommands.development) cir.setReturnValue(true);
 	}
 }

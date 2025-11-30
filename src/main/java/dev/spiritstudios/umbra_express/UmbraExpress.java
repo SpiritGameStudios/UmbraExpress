@@ -9,7 +9,6 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.event.CanSeePoison;
 import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
-import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
@@ -26,12 +25,8 @@ public class UmbraExpress implements ModInitializer {
     public static final String MOD_ID = "umbra_express";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final boolean DEVELOPMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.LOCKSMITH;
-
     @Override
     public void onInitialize() {
-		UmbraExpressGameRules.init();
 		UmbraExpressRoles.init();
 		UmbraExpressBlocks.init();
 		UmbraExpressItems.init();
@@ -39,6 +34,7 @@ public class UmbraExpress implements ModInitializer {
 
 		CommandRegistrationCallback.EVENT.register(UmbraExpressCommands::init);
 
+		// TODO: no seeing poison in beds
 		CanSeePoison.EVENT.register(entity -> {
 			if (!(entity instanceof PlayerEntity player)) {
 				return false;

@@ -10,7 +10,7 @@ import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
-import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
@@ -31,8 +30,8 @@ public class MurderGameModeMixin {
 
 	@Inject(method = "assignRolesAndGetKillerCount", at = @At("RETURN"), cancellable = true)
 	private static void forceDevRole(@NotNull ServerWorld serverWorld, @NotNull List<ServerPlayerEntity> players, GameWorldComponent gameComponent, CallbackInfoReturnable<Integer> cir) {
-		if (UmbraExpress.DEVELOPMENT && !players.isEmpty()) {
-			GameProfile host = serverWorld.getServer().getHostProfile(); // allows carpet
+		if (UmbraExpressCommands.development && !players.isEmpty()) {
+			GameProfile host = serverWorld.getServer().getHostProfile(); // if in singleplayer, force role
 			if (host == null) {
 				return;
 			}
@@ -42,9 +41,9 @@ public class MurderGameModeMixin {
 				return;
 			}
 
-			gameComponent.addRole(player, UmbraExpress.DEV_FORCED_ROLE);
+			gameComponent.addRole(player, UmbraExpressCommands.devForcedRole);
 
-			boolean devKiller = UmbraExpress.DEV_FORCED_ROLE.canUseKiller();
+			boolean devKiller = UmbraExpressCommands.devForcedRole.canUseKiller();
 			if (devKiller) {
 				PlayerShopComponent.KEY.get(player).setBalance(GameConstants.MONEY_START);
 			}
@@ -57,7 +56,7 @@ public class MurderGameModeMixin {
 	@Expression("winStatus != NONE")
 	@ModifyExpressionValue(method = "tickServerGameLoop", at = @At("MIXINEXTRAS:EXPRESSION"), remap = true)
 	private boolean endlessDev(boolean original) {
-        if (UmbraExpress.DEVELOPMENT && !FabricLoader.getInstance().isModLoaded("carpet")) {
+        if (UmbraExpressCommands.development && !FabricLoader.getInstance().isModLoaded("carpet")) {
 			return false;
         }
 		return original;
