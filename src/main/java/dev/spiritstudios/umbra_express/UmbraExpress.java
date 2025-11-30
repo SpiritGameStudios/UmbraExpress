@@ -7,6 +7,7 @@ import dev.doctor4t.trainmurdermystery.block.OrnamentBlock;
 import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
 import dev.spiritstudios.umbra_express.command.UmbraExpressCommands;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
+import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;

@@ -2,7 +2,7 @@ package dev.spiritstudios.umbra_express.cca;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.UmbraExpress;
-import dev.spiritstudios.umbra_express.UmbraExpressGameRules;
+import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Colors;
