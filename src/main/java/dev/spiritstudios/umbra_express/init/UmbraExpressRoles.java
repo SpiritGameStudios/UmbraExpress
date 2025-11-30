@@ -9,6 +9,7 @@ import dev.spiritstudios.umbra_express.role.RoleReplacer;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.PlayerNumbers;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementChecker;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,43 +19,43 @@ import java.util.Map;
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
 
-public class UmbraExpressRoles {
+@ApiStatus.NonExtendable
+public interface UmbraExpressRoles {
 
-	public static final List<Role> ROLES = new ArrayList<>();
-	public static final Map<Role, RoleAnnouncementTexts.RoleAnnouncementText> TEXTS = new HashMap<>();
-	public static final List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
+	Map<Role, RoleAnnouncementTexts.RoleAnnouncementText> TEXTS = new HashMap<>();
+	List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
 
-    public static final Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
-	public static final Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x7604E7, false);
-	public static final Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0x7604E7, false);
-	public static final Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04);
+    Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
+	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x7604E7, false);
+	Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0x7604E7, false);
+	Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04);
 
-	public static Role registerInnocent(Identifier id, int color, boolean canSeeTime) {
+	static Role registerInnocent(Identifier id, int color, boolean canSeeTime) {
 		return registerRole(new Role(id, color, true, false, Role.MoodType.REAL, GameConstants.getInTicks(0, 10), canSeeTime));
 	}
 
-	public static Role registerKiller(Identifier id, int color) {
+	static Role registerKiller(Identifier id, int color) {
 		return registerRole(new Role(id, color, false, true, Role.MoodType.FAKE, -1, true));
 	}
 
-	public static Role registerRole(Role role) {
+	static Role registerRole(Role role) {
 		RoleAnnouncementTexts.RoleAnnouncementText text = registerText(role.identifier().getPath(), role.color());
 		TEXTS.put(role, text);
 		return TMMRoles.registerRole(role);
 	}
 
-	public static RoleAnnouncementTexts.RoleAnnouncementText registerText(String name, int color) {
+	static RoleAnnouncementTexts.RoleAnnouncementText registerText(String name, int color) {
 		return RoleAnnouncementTexts.registerRoleAnnouncementText(new RoleAnnouncementTexts.RoleAnnouncementText(name, color));
 	}
 
-	public static void registerReplacer(Role original, Role replacement, PlayerNumbers playerNumbers, ReplacementChecker replacementChecker) {
+	static void registerReplacer(Role original, Role replacement, PlayerNumbers playerNumbers, ReplacementChecker replacementChecker) {
 		ROLE_REPLACEMENTS.add(new RoleReplacer(original, replacement, playerNumbers, replacementChecker));
 	}
 
-    public static void init() {
+    static void init() {
         registerReplacer(CIVILIAN, CONDUCTOR, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
-		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ONE , ReplacementChecker.fromRandom(0.5F));
+		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ONE, ReplacementChecker.fromRandom(0.5F));
     }
 }

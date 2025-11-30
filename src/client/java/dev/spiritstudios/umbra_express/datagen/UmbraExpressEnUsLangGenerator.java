@@ -1,6 +1,8 @@
 package dev.spiritstudios.umbra_express.datagen;
 
+import dev.doctor4t.ratatouille.util.TextUtils;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
+import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.RegistryWrapper;
@@ -23,5 +25,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
         translationBuilder.add("task.broadcast", "broadcasting.");
 
         UmbraExpressBlocks.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
-    }
+		//UmbraExpressItems.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
+
+		String masterKeyTranslation = TextUtils.getItemTranslationKey(UmbraExpressItems.MASTER_KEY);
+		translationBuilder.add(masterKeyTranslation, "Locksmith's Lockpick");
+		translationBuilder.add(masterKeyTranslation + ".tooltip", "Use on any locked door to open it (no cooldown)");
+	}
 }

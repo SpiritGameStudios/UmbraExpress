@@ -5,5 +5,7 @@
   "announcement.title.conductor": "Conductors",
   "announcement.win.conductor": "Passengers Win!",
   "block.umbra_express.broadcast_button": "Broadcast Button",
+  "item.umbra_express.master_key": "Locksmith's Lockpick",
+  "item.umbra_express.master_key.tooltip": "Use on any locked door to open it (no cooldown)",
   "task.broadcast": "broadcasting."
 }

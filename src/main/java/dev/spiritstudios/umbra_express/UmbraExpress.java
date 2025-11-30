@@ -7,6 +7,7 @@ import dev.doctor4t.trainmurdermystery.block.OrnamentBlock;
 import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
 import dev.spiritstudios.umbra_express.command.UmbraExpressCommands;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
+import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import net.fabricmc.api.ModInitializer;
@@ -28,6 +29,7 @@ public class UmbraExpress implements ModInitializer {
     public void onInitialize() {
 		UmbraExpressRoles.init();
 		UmbraExpressBlocks.init();
+		UmbraExpressItems.init();
 		UmbraExpressBlockEntities.init();
 
 		CommandRegistrationCallback.EVENT.register(UmbraExpressCommands::init);
