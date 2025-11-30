@@ -79,6 +79,9 @@ dependencies {
 
 	modImplementation(libs.voicechat.api)
 	modImplementation(libs.voicechat)
+
+	include(libs.midnightlib)
+	modImplementation(libs.midnightlib)
 }
 
 tasks.processResources {
