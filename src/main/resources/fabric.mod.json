@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "id": "umbra_express",
+  "version": "${version}",
+  "name": "Umbra Express",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/SpiritGameStudios/UmbraExpress",
+    "issues": "https://github.com/SpiritGameStudios/UmbraExpress/issues"
+  },
+  "license": "MPL-2.0",
+  "icon": "assets/umbra_express/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.spiritstudios.umbra_express.UmbraExpress"
+    ],
+    "client": [
+      "dev.spiritstudios.umbra_express.UmbraExpressClient"
+    ]
+  },
+  "mixins": [
+	  "umbra_express.mixins.json",
+    {
+      "config": "umbra_express.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/TTmx7d2axf",
+				"modmenu.github_releases": "https://github.com/SpiritGameStudios/UmbraExpress/releases",
+				"modmenu.modrinth": "https://modrinth.com/mod/umbra_express"
+			}
+		}
+	}
+}
