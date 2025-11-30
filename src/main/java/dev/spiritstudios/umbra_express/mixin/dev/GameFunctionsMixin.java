@@ -1,4 +1,4 @@
-package dev.spiritstudios.umbra_express.mixin.roles;
+package dev.spiritstudios.umbra_express.mixin.dev;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;

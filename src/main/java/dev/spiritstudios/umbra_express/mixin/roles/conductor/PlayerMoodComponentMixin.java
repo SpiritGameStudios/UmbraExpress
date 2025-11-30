@@ -8,6 +8,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
+import dev.spiritstudios.umbra_express.role.task.BroadcastTask;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -46,8 +47,8 @@ public class PlayerMoodComponentMixin {
     private boolean decodeProperly(NbtCompound instance, String key, Operation<Boolean> original) {
         if (instance.contains(key, NbtElement.STRING_TYPE)) {
             String maybe = instance.getString(key);
-            if (maybe.equals(UmbraExpressRoles.BroadcastTask.NAME)) {
-                PlayerMoodComponent.Task typeEnum = UmbraExpressRoles.BroadcastTask.taskType;
+            if (maybe.equals(BroadcastTask.NAME)) {
+                PlayerMoodComponent.Task typeEnum = BroadcastTask.taskType;
                 if (typeEnum != null) {
                     this.tasks.put(typeEnum, typeEnum.setFunction.apply(instance));
                 }
@@ -61,13 +62,13 @@ public class PlayerMoodComponentMixin {
     private void returnAnnouncementEarly(CallbackInfoReturnable<PlayerMoodComponent.TrainTask> cir) {
         if (GameWorldComponent.KEY.get(this.player.getWorld()).isRole(this.player, UmbraExpressRoles.CONDUCTOR) && !this.umbra_express$hasDoneAnnouncement) {
             this.umbra_express$hasDoneAnnouncement = true;
-            cir.setReturnValue(new UmbraExpressRoles.BroadcastTask());
+            cir.setReturnValue(new BroadcastTask());
         }
     }
 
     @ModifyExpressionValue(method = "generateTask", at = @At(value = "INVOKE", target = "Ljava/util/Map;containsKey(Ljava/lang/Object;)Z"))
     private boolean neverFindNaturally(boolean original, @Local PlayerMoodComponent.Task task) {
-        return original || Objects.equals(UmbraExpressRoles.BroadcastTask.taskType, task);
+        return original || Objects.equals(BroadcastTask.taskType, task);
     }
 
     @WrapMethod(method = "writeToNbt")
@@ -106,8 +107,8 @@ public class PlayerMoodComponentMixin {
         static {
             List<PlayerMoodComponent.Task> list = new ArrayList<>(Arrays.asList($VALUES));
             int size = list.size();
-			UmbraExpressRoles.BroadcastTask.taskType = umbra_express$invokeInit("umbra_express$taskType", size, nbt -> new UmbraExpressRoles.BroadcastTask());
-            list.add(UmbraExpressRoles.BroadcastTask.taskType);
+			BroadcastTask.taskType = umbra_express$invokeInit("umbra_express$taskType", size, nbt -> new BroadcastTask());
+            list.add(BroadcastTask.taskType);
             $VALUES = list.toArray(new PlayerMoodComponent.Task[size + 1]);
         }
     }
