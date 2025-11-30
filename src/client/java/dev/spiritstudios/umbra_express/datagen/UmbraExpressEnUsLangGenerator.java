@@ -23,6 +23,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
         translationBuilder.add("announcement.goals.conductor", "Stay safe and survive till the end of the ride.");
         translationBuilder.add("announcement.win.conductor", "Passengers Win!");
         translationBuilder.add("task.broadcast", "broadcasting.");
+        translationBuilder.add("subtitles.block.crystal_ball.reveal", "An apparition forms");
 
         UmbraExpressBlocks.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
 		//UmbraExpressItems.REGISTRAR.generateLang(wrapperLookup, translationBuilder);

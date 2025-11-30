@@ -1,0 +1,8 @@
+{
+    "block.crystal_ball.reveal": {
+        "sounds": [
+            "umbra_express:block/crystal_ball/reveal"
+        ],
+        "subtitle": "subtitles.block.crystal_ball.reveal"
+    }
+}

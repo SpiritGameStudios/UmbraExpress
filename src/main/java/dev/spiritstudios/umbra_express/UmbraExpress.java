@@ -6,11 +6,7 @@ import dev.doctor4t.trainmurdermystery.block.NeonTubeBlock;
 import dev.doctor4t.trainmurdermystery.block.OrnamentBlock;
 import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
 import dev.spiritstudios.umbra_express.command.UmbraExpressCommands;
-import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
-import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
-import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
-import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
-import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
+import dev.spiritstudios.umbra_express.init.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -33,6 +29,8 @@ public class UmbraExpress implements ModInitializer {
 		UmbraExpressBlocks.init();
 		UmbraExpressItems.init();
 		UmbraExpressBlockEntities.init();
+		UmbraExpressParticles.init();
+		UmbraExpressSoundEvents.init();
 
 		CommandRegistrationCallback.EVENT.register(UmbraExpressCommands::init);
     }

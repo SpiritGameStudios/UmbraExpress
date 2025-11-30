@@ -5,7 +5,9 @@
   "announcement.title.conductor": "Conductors",
   "announcement.win.conductor": "Passengers Win!",
   "block.umbra_express.broadcast_button": "Broadcast Button",
+  "block.umbra_express.crystal_ball": "Crystal Ball",
   "item.umbra_express.master_key": "Locksmith's Lockpick",
   "item.umbra_express.master_key.tooltip": "Use on any locked door to open it (no cooldown)",
+  "subtitles.block.crystal_ball.reveal": "An apparition forms",
   "task.broadcast": "broadcasting."
 }
