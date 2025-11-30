@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
@@ -27,6 +28,13 @@ public interface UmbraExpressRoles {
 	Map<Role, RoleAnnouncementTexts.RoleAnnouncementText> TEXTS = new HashMap<>();
 	List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
 	Map<Role, Consumer<ServerPlayerEntity>> ITEM_GIVERS = new HashMap<>();
+
+	Function<Long, Integer> ASSASSIN_PASSIVE_MONEY_TICKER = time -> {
+		if (time % GameConstants.getInTicks(0, 15) == 0) {
+			return 5;
+		}
+		return 0;
+	};
 
     Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
 	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x3DE0AF, false);

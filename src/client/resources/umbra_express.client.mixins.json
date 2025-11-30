@@ -7,7 +7,9 @@
 	},
 	"client": [
 		"haunting.ClientPlayerInteractionManagerMixin",
-		"roles.conductor.TimeRendererMixin"
+		"roles.assassin.TMMItemTooltipsMixin",
+		"roles.conductor.TimeRendererMixin",
+		"roles.locksmith.TMMItemTooltipsMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

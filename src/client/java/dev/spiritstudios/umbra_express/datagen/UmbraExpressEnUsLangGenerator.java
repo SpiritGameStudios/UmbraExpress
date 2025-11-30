@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.datagen;
 
 import dev.doctor4t.ratatouille.util.TextUtils;
 import dev.doctor4t.trainmurdermystery.api.Role;
+import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
@@ -40,6 +41,19 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		String masterKeyTranslation = TextUtils.getItemTranslationKey(UmbraExpressItems.MASTER_KEY);
 		translationBuilder.add(masterKeyTranslation, "Locksmith's Lockpick");
 		translationBuilder.add(masterKeyTranslation + ".tooltip", "Use on any locked door to open it (no cooldown)");
+
+		String letterHitList = TextUtils.getItemTranslationKey(TMMItems.LETTER) + ".hitlist";
+		translationBuilder.add(letterHitList + ".premise0", "");
+		translationBuilder.add(letterHitList + ".premise1", "==== ASSASSIN INSTRUCTIONS ==== ");
+		translationBuilder.add(letterHitList + ".premise2", "");
+		// Translations credit - old TMM hitman letter instructions
+		translationBuilder.add(letterHitList + ".premise3", "Thank you for taking this job. Please eliminate the following targets:");
+		translationBuilder.add(letterHitList + ".premise4", "Please do so with the utmost discretion and do not get caught. Good luck.");
+		translationBuilder.add(letterHitList + ".premise5", "");
+		translationBuilder.add(letterHitList + ".premise6", "P.S.: Don't forget to use your instinct [%s] and use the train's exterior to relocate.");
+		translationBuilder.add(letterHitList + ".target", "- %s");
+		// end credit
+		translationBuilder.add(letterHitList + ".absent", "Thank you for eliminating the targets. We have no further requests at this moment.");
 	}
 
 	public static void generateForInnocent(Role role, TranslationBuilder translationBuilder) {

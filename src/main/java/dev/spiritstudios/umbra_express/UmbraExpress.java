@@ -27,7 +27,7 @@ public class UmbraExpress implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static final boolean DEVELOPMENT = FabricLoader.getInstance().isDevelopmentEnvironment();
-	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.CONDUCTOR;
+	public static final Role DEV_FORCED_ROLE = UmbraExpressRoles.ASSASSIN;
 
     @Override
     public void onInitialize() {
@@ -45,9 +45,8 @@ public class UmbraExpress implements ModInitializer {
 			}
 
 			GameWorldComponent game = GameWorldComponent.KEY.get(player.getWorld());
-			return UmbraExpressRoles.BARTENDER.equals(game.getRole(player));
+			return game.isRole(player, UmbraExpressRoles.BARTENDER);
 		});
-
     }
 
 	public static Identifier id(String path) {

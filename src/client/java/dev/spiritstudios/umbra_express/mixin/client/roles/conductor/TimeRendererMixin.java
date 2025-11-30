@@ -28,7 +28,7 @@ public class TimeRendererMixin {
 	private static void renderBroadcastTimerIfConductor(TimeRenderer.TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Local(argsOnly = true) ClientPlayerEntity player, @Local GameWorldComponent game) {
 		original.call(instance, renderer, context, x, y, color, delta);
 
-		if (!UmbraExpressRoles.CONDUCTOR.equals(game.getRole(player))) {
+		if (!game.isRole(player, UmbraExpressRoles.CONDUCTOR)) {
 			umbra_express$VIEW.setTarget(0);
 			return;
 		}

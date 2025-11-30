@@ -1,7 +1,9 @@
-package dev.spiritstudios.umbra_express.mixin.roles.locksmith;
+package dev.spiritstudios.umbra_express.mixin.client.roles.locksmith;
 
 import dev.doctor4t.trainmurdermystery.client.util.TMMItemTooltips;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = TMMItemTooltips.class, remap = false)
 public abstract class TMMItemTooltipsMixin {
 

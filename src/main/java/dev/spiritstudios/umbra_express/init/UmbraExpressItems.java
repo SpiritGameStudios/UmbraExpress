@@ -15,7 +15,7 @@ public interface UmbraExpressItems {
 
 	Item MASTER_KEY = REGISTRAR.create("master_key", new LockpickItem(new Item.Settings().maxCount(1)), TMMItems.EQUIPMENT_GROUP);
 
-    static void init() {
+	static void init() {
         REGISTRAR.registerEntries();
     }
 }

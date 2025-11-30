@@ -7,7 +7,6 @@ import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
-import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
@@ -28,11 +27,6 @@ public class MurderGameModeMixin {
 
 	@Inject(method = "assignRolesAndGetKillerCount", at = @At("RETURN"), remap = true)
 	private static void assignRoles(@NotNull ServerWorld world, @NotNull List<ServerPlayerEntity> players, GameWorldComponent gameComponent, CallbackInfoReturnable<Integer> cir) {
-		if (UmbraExpress.DEVELOPMENT && !players.isEmpty()) {
-			gameComponent.addRole(players.getFirst(), UmbraExpress.DEV_FORCED_ROLE);
-			return;
-		}
-
 		List<Role> disabled = UmbraExpressCommands.getDisabledRoles();
 
 		final int totalPlayers = players.size();

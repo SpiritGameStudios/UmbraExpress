@@ -12,14 +12,17 @@
 		"haunting.GameFunctionsMixin",
 		"haunting.GameWorldComponentMixin",
 		"haunting.ServerPlayerInteractionManagerMixin",
+		"optimization.GameWorldComponentMixin",
 		"roles.MurderGameModeMixin",
+		"roles.assassin.GameFunctionsMixin",
+		"roles.assassin.MurderGameModeMixin",
 		"roles.conductor.ButtonBlockMixin",
 		"roles.conductor.GameFunctionsMixin",
 		"roles.conductor.PlayerMoodComponentMixin",
 		"roles.conductor.PlayerMoodComponentMixin$TaskMixin",
 		"roles.conductor.TMMModelGenAccessor",
-		"roles.locksmith.SmallDoorBlockMixin",
-		"roles.locksmith.TMMItemTooltipsMixin"
+		"roles.locksmith.DoorBlocksMixin",
+		"roles.assassin.GameWorldComponentMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
