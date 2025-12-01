@@ -49,6 +49,7 @@
   "item.trainmurdermystery.letter.hitlist.target": "- %s",
   "item.umbra_express.master_key": "Locksmith's Lockpick",
   "item.umbra_express.master_key.tooltip": "Use on any locked door to open it (no cooldown)",
+  "itemGroup.umbra_express.group": "Umbra Express",
   "task.broadcast": "broadcasting.",
   "umbra_express.midnightconfig.disabledRoles": "Disabled Roles",
   "umbra_express.midnightconfig.forceDevRole": "Force Dev Role"

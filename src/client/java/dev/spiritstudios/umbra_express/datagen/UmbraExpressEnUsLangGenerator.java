@@ -39,6 +39,8 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
         UmbraExpressBlocks.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
 		//UmbraExpressItems.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
 
+		translationBuilder.add("itemGroup.umbra_express.group", "Umbra Express");
+
 		String masterKeyTranslation = TextUtils.getItemTranslationKey(UmbraExpressItems.MASTER_KEY);
 		translationBuilder.add(masterKeyTranslation, "Locksmith's Lockpick");
 		translationBuilder.add(masterKeyTranslation + ".tooltip", "Use on any locked door to open it (no cooldown)");
