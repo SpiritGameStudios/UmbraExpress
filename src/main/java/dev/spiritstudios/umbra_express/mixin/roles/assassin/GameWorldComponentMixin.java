@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Debug(export = true)
+//@Debug(export = true)
 @Mixin(value = GameWorldComponent.class, remap = false)
 public abstract class GameWorldComponentMixin implements HitListWorldComponent {
 
