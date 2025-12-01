@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.cca;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -130,7 +131,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     }
 
 	public int maxBroadcastTicks() {
-		return world.getGameRules().getInt(UmbraExpressGameRules.MAX_BROADCAST_TICKS);
+		return UmbraExpressConfig.maxBroadcastTicks(this.world);
 	}
 
     @Override

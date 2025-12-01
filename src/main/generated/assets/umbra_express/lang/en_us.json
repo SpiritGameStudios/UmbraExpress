@@ -20,6 +20,13 @@
   "announcement.win.conductor": "Passengers Win!",
   "announcement.win.locksmith": "Passengers Win!",
   "block.umbra_express.broadcast_button": "Broadcast Button",
+  "gamerule.category.umbra_express": "Umbra Express",
+  "gamerule.umbra_express:forceDevelopment": "Force Development",
+  "gamerule.umbra_express:forceKillerCount": "Forced Killer Count",
+  "gamerule.umbra_express:maxBroadcastTicks": "Max Broadcast Ticks",
+  "gamerule.umbra_express:minPlayerCount": "Min Player Count",
+  "gamerule.umbra_express:modifyKillerCount": "Modify Killer Count",
+  "gamerule.umbra_express:modifyMinPlayerCount": "Modify Min Player Count",
   "item.trainmurdermystery.letter.hitlist.absent": "Thank you for eliminating the targets. We have no further requests at this moment.",
   "item.trainmurdermystery.letter.hitlist.premise0": "",
   "item.trainmurdermystery.letter.hitlist.premise1": "==== ASSASSIN INSTRUCTIONS ==== ",
@@ -31,5 +38,7 @@
   "item.trainmurdermystery.letter.hitlist.target": "- %s",
   "item.umbra_express.master_key": "Locksmith's Lockpick",
   "item.umbra_express.master_key.tooltip": "Use on any locked door to open it (no cooldown)",
-  "task.broadcast": "broadcasting."
+  "task.broadcast": "broadcasting.",
+  "umbra_express.midnightconfig.disabledRoles": "Disabled Roles",
+  "umbra_express.midnightconfig.forceDevRole": "Force Dev Role"
 }

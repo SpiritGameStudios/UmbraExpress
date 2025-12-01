@@ -4,6 +4,7 @@ import dev.doctor4t.ratatouille.util.TextUtils;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
+import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -54,6 +55,16 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add(letterHitList + ".target", "- %s");
 		// end credit
 		translationBuilder.add(letterHitList + ".absent", "Thank you for eliminating the targets. We have no further requests at this moment.");
+
+		translationBuilder.add("gamerule.category.umbra_express", "Umbra Express");
+		translationBuilder.add(UmbraExpressGameRules.MAX_BROADCAST_TICKS.getTranslationKey(), "Max Broadcast Ticks");
+		translationBuilder.add(UmbraExpressGameRules.FORCE_DEVELOPMENT.getTranslationKey(), "Force Development");
+		translationBuilder.add(UmbraExpressGameRules.MODIFY_MIN_COUNT.getTranslationKey(), "Modify Min Player Count");
+		translationBuilder.add(UmbraExpressGameRules.MIN_PLAYER_COUNT.getTranslationKey(), "Min Player Count");
+		translationBuilder.add(UmbraExpressGameRules.MODIFY_KILLER_COUNT.getTranslationKey(), "Modify Killer Count");
+		translationBuilder.add(UmbraExpressGameRules.FORCE_KILLER_COUNT.getTranslationKey(), "Forced Killer Count");
+		translationBuilder.add("umbra_express.midnightconfig.forceDevRole", "Force Dev Role");
+		translationBuilder.add("umbra_express.midnightconfig.disabledRoles", "Disabled Roles");
 	}
 
 	public static void generateForInnocent(Role role, TranslationBuilder translationBuilder) {

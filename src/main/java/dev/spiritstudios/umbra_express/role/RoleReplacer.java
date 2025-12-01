@@ -10,11 +10,7 @@ import java.util.UUID;
 
 public record RoleReplacer(Role original, Role replacement, PlayerNumbers playerNumbers, ReplacementChecker checker) {
 
-	public void replace(ServerWorld serverWorld, GameWorldComponent gameComponent, List<Role> disabled, int totalPlayers) {
-		if (disabled.contains(this.replacement)) {
-			return;
-		}
-
+	public void replace(ServerWorld serverWorld, GameWorldComponent gameComponent, int totalPlayers) {
 		List<UUID> withRole = gameComponent.getAllWithRole(this.original);
 		if (withRole.isEmpty()) {
 			return;

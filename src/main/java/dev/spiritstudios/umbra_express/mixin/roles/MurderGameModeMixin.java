@@ -8,10 +8,12 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.spiritstudios.umbra_express.init.UmbraExpressCommands;
+import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,11 +29,14 @@ public class MurderGameModeMixin {
 
 	@Inject(method = "assignRolesAndGetKillerCount", at = @At("RETURN"), remap = true)
 	private static void assignRoles(@NotNull ServerWorld world, @NotNull List<ServerPlayerEntity> players, GameWorldComponent gameComponent, CallbackInfoReturnable<Integer> cir) {
-		List<Role> disabled = UmbraExpressCommands.getDisabledRoles();
+		List<Identifier> disabled = UmbraExpressConfig.getDisabledRoles();
 
 		final int totalPlayers = players.size();
 		for (RoleReplacer replacer : UmbraExpressRoles.ROLE_REPLACEMENTS) {
-			replacer.replace(world, gameComponent, disabled, totalPlayers);
+			if (disabled.contains(replacer.replacement().identifier())) {
+				continue;
+			}
+			replacer.replace(world, gameComponent, totalPlayers);
 		}
 	}
 
