@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.spiritstudios.umbra_express.command.DisableRoleCommand;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -14,9 +15,11 @@ import org.jetbrains.annotations.ApiStatus;
 public interface UmbraExpressCommands {
 
 	static void init(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
-		LiteralCommandNode<ServerCommandSource> umbraRoot = literal("umbraexpress").build();
+		LiteralCommandNode<ServerCommandSource> umbraRoot = literal("umbra_express").build();
 
 		dispatcher.getRoot().addChild(umbraRoot);
+
+		DisableRoleCommand.register(umbraRoot);
 	}
 
 	static LiteralArgumentBuilder<ServerCommandSource> literal(String name) {

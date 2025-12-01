@@ -65,6 +65,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add(UmbraExpressGameRules.FORCE_KILLER_COUNT.getTranslationKey(), "Forced Killer Count");
 		translationBuilder.add("umbra_express.midnightconfig.forceDevRole", "Force Dev Role");
 		translationBuilder.add("umbra_express.midnightconfig.disabledRoles", "Disabled Roles");
+
+		translationBuilder.add("commands.umbra_express.roles.list.enabled", "Enabled roles: %s");
+		translationBuilder.add("commands.umbra_express.roles.list.disabled", "Disabled roles: %s");
+		translationBuilder.add("commands.umbra_express.roles.list.all", "All roles: %s");
 	}
 
 	public static void generateForInnocent(Role role, TranslationBuilder translationBuilder) {
