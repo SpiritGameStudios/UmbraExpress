@@ -1,10 +1,11 @@
 package dev.spiritstudios.umbra_express.block.entity;
 
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
+import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressSoundEvents;
-import net.minecraft.SharedConstants;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,9 +33,7 @@ public class CrystalBallBlockEntity extends BlockEntity {
     private static final String APPARITION_TICKS_KEY = "apparition_ticks";
     private static final String COOLDOWN_TICKS_KEY = "cooldown_ticks";
 
-    public static final int MAX_APPARITION_RENDER_TICKS = SharedConstants.TICKS_PER_SECOND * 8;
-    public static final int MAX_COOLDOWN_TICKS = SharedConstants.TICKS_PER_MINUTE * 3;
-
+    public static final int MAX_APPARITION_RENDER_TICKS = GameConstants.getInTicks(0, 8);
     private static final float SOUND_PITCH_DEVIATION = 0.1F;
 
     @Nullable
@@ -92,7 +91,7 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
         this.apparitionTicks = MAX_APPARITION_RENDER_TICKS;
 
-        this.cooldownTicks = gameRunning ? MAX_COOLDOWN_TICKS : MAX_APPARITION_RENDER_TICKS;
+        this.cooldownTicks = gameRunning ? UmbraExpressConfig.crystalBallCooldownTicks(world) : MAX_APPARITION_RENDER_TICKS;
         this.markDirty();
 
         sendApparitionMessage(apparition, mystic, gameRunning);
@@ -103,7 +102,7 @@ public class CrystalBallBlockEntity extends BlockEntity {
         Text playerName = apparition.getName().copy().formatted(Formatting.LIGHT_PURPLE);
         MutableText message = Text.translatable("block.umbra_express.crystal_ball.apparition", playerName).copy();
 
-        if (gameRunning || UmbraExpress.DEVELOPMENT) {
+        if (gameRunning) {
             message.append(ScreenTexts.SPACE);
             message.append(Text.translatable("block.umbra_express.crystal_ball.apparition.in_game_suffix").withColor(TMMRoles.CIVILIAN.color()));
         }

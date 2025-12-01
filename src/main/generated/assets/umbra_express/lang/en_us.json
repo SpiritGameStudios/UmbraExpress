@@ -41,6 +41,7 @@
   "commands.umbra_express.roles.toggle.set.false": "Role %s is now enabled",
   "commands.umbra_express.roles.toggle.set.true": "Role %s is now disabled",
   "gamerule.category.umbra_express": "Umbra Express",
+  "gamerule.umbra_express:crystalBallCooldownTime": "Crystal Ball Cooldown Ticks",
   "gamerule.umbra_express:forceDevelopment": "Force Development",
   "gamerule.umbra_express:forceKillerCount": "Forced Killer Count",
   "gamerule.umbra_express:maxBroadcastTicks": "Max Broadcast Ticks",

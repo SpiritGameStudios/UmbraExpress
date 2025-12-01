@@ -72,6 +72,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add(UmbraExpressGameRules.MIN_PLAYER_COUNT.getTranslationKey(), "Min Player Count");
 		translationBuilder.add(UmbraExpressGameRules.MODIFY_KILLER_COUNT.getTranslationKey(), "Modify Killer Count");
 		translationBuilder.add(UmbraExpressGameRules.FORCE_KILLER_COUNT.getTranslationKey(), "Forced Killer Count");
+		translationBuilder.add(UmbraExpressGameRules.CRYSTAL_BALL_COOLDOWN_TICKS.getTranslationKey(), "Crystal Ball Cooldown Ticks");
 		translationBuilder.add("umbra_express.midnightconfig.forceDevRole", "Force Dev Role");
 		translationBuilder.add("umbra_express.midnightconfig.disabledRoles", "Disabled Roles");
 

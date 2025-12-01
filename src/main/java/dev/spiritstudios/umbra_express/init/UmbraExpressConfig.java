@@ -29,6 +29,10 @@ public class UmbraExpressConfig extends MidnightConfig {
 		return world.getGameRules().getInt(UmbraExpressGameRules.MAX_BROADCAST_TICKS);
 	}
 
+	public static int crystalBallCooldownTicks(World world) {
+		return world.getGameRules().getInt(UmbraExpressGameRules.CRYSTAL_BALL_COOLDOWN_TICKS);
+	}
+
 	public static int getMinPlayerCount(int original, World world) {
 		GameRules gameRules = world.getGameRules();
 		if (!gameRules.getBoolean(UmbraExpressGameRules.MODIFY_MIN_COUNT)) {

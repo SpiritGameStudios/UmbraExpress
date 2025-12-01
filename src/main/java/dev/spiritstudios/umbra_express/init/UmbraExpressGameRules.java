@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.init;
 
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
 import net.fabricmc.fabric.api.gamerule.v1.CustomGameRuleCategory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
@@ -42,6 +43,10 @@ public interface UmbraExpressGameRules {
 	GameRules.Key<GameRules.IntRule> FORCE_KILLER_COUNT = register(
 		"forceKillerCount",
 		GameRuleFactory.createIntRule(1, 0)
+	);
+	GameRules.Key<GameRules.IntRule> CRYSTAL_BALL_COOLDOWN_TICKS = register(
+		"crystalBallCooldownTime",
+		GameRuleFactory.createIntRule(GameConstants.getInTicks(3, 0), CrystalBallBlockEntity.MAX_APPARITION_RENDER_TICKS)
 	);
 
 	static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type) {
