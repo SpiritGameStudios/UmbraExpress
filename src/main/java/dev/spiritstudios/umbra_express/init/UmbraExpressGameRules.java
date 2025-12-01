@@ -45,7 +45,7 @@ public interface UmbraExpressGameRules {
 	);
 
 	static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type) {
-		return GameRuleRegistry.register(UmbraExpress.id(name).toString(), CATEGORY, type);
+		return GameRuleRegistry.register(UmbraExpress.MOD_ID + ":" + name, CATEGORY, type);
 	}
 
 	static void init() {
