@@ -64,4 +64,12 @@ public class UmbraExpressConfig extends MidnightConfig {
 	public static List<Identifier> getDisabledRoles() {
 		return UmbraExpressConfig.disabledRoles.stream().map(Identifier::tryParse).filter(Objects::nonNull).toList();
 	}
+
+	public static void trySaveChanges() {
+		try {
+			MidnightConfig.write(UmbraExpress.MOD_ID);
+		} catch (Throwable throwable) {
+			UmbraExpress.LOGGER.error("An error occurred while saving the config!", throwable);
+		}
+	}
 }

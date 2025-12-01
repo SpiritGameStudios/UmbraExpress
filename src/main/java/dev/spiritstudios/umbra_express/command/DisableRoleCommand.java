@@ -1,82 +1,114 @@
 package dev.spiritstudios.umbra_express.command;
 
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
+import eu.midnightdust.lib.config.MidnightConfig;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.argument;
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.literal;
 
 public interface DisableRoleCommand {
 
-	static void register(LiteralCommandNode<ServerCommandSource> root) {
-		LiteralCommandNode<ServerCommandSource> roles = literal("roles").build();
+	DynamicCommandExceptionType INVALID_ROLE = new DynamicCommandExceptionType((obj) -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.invalid", obj));
+	DynamicCommandExceptionType ALREADY_DISABLED = new DynamicCommandExceptionType((obj) -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.set.alreadydisabled", obj));
+	DynamicCommandExceptionType ALREADY_ENABLED = new DynamicCommandExceptionType((obj) -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.set.alreadyenabled", obj));
 
-		LiteralCommandNode<ServerCommandSource> list = literal("list").build();
+	static void register(LiteralCommandNode<ServerCommandSource> parent) {
+		LiteralCommandNode<ServerCommandSource> toggle = literal("toggle").build();
 
-		LiteralCommandNode<ServerCommandSource> enabled = literal("enabled")
-			.executes(context -> executeList(context, true, false))
+		ArgumentCommandNode<ServerCommandSource, Identifier> roleSelector = argument(
+			"role",
+			IdentifierArgumentType.identifier()
+		).suggests(
+			(context, builder) ->
+				CommandSource.suggestIdentifiers(
+					TMMRoles.ROLES.stream().map(Role::identifier),
+					builder
+				)
+		).executes(DisableRoleCommand::executeGetToggle).build();
+
+		LiteralCommandNode<ServerCommandSource> disable = literal("disable")
+			.executes(context -> executeSetToggle(context, true)).build();
+
+
+		LiteralCommandNode<ServerCommandSource> enable = literal("enable")
+			.executes(context -> executeSetToggle(context, false)).build();
+
+		LiteralCommandNode<ServerCommandSource> clear = literal("clearDisabledRoles")
+			.executes(context -> {
+				UmbraExpressConfig.disabledRoles.clear();
+				UmbraExpressConfig.trySaveChanges();
+
+				context.getSource().sendFeedback(() -> Text.translatable("commands.umbra_express.roles.clearDisabledRoles"), true);
+				return 1;
+			})
 			.build();
 
-		LiteralCommandNode<ServerCommandSource> disabled = literal("disabled")
-			.executes(context -> executeList(context, false, true))
-			.build();
+		parent.addChild(toggle);
+		parent.addChild(clear);
 
-		LiteralCommandNode<ServerCommandSource> all = literal("all")
-			.executes(context -> executeList(context, false, false))
-			.build();
+		toggle.addChild(roleSelector);
 
-		//ArgumentCommandNode<ServerCommandSource, Identifier> role = argument();
-
-		root.addChild(roles);
-
-		roles.addChild(list);
-
-		list.addChild(enabled);
-		list.addChild(disabled);
-		list.addChild(all);
+		roleSelector.addChild(disable);
+		roleSelector.addChild(enable);
 	}
 
-	static int executeList(CommandContext<ServerCommandSource> context, boolean enabled, boolean disabled) {
-		ServerCommandSource source = context.getSource();
-		List<Identifier> output = new ArrayList<>();
-		List<Identifier> disabledRoles = UmbraExpressConfig.getDisabledRoles();
-		for (Role role : TMMRoles.ROLES) {
-			Identifier id = role.identifier();
-			if (enabled) {
-				if (!disabledRoles.contains(id)) {
-					output.add(id);
-				}
-			} else if (disabled) {
-				if (disabledRoles.contains(id)) {
-					output.add(id);
-				}
+	static int executeGetToggle(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		Role role = getRoleArgument(context);
+
+		boolean disabled = UmbraExpressConfig.disabledRoles.contains(role.identifier().toString());
+
+		context.getSource().sendFeedback(() -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.get." + disabled, role.identifier()), false);
+		return 1;
+	}
+
+	static int executeSetToggle(CommandContext<ServerCommandSource> context, boolean disable) throws CommandSyntaxException {
+		Role role = getRoleArgument(context);
+
+		Identifier id = role.identifier();
+
+		boolean disabled = UmbraExpressConfig.disabledRoles.contains(id.toString());
+
+		if (disable == disabled) {
+			if (disable) {
+				throw ALREADY_DISABLED.create(id);
 			} else {
-				output.add(id);
+				throw ALREADY_ENABLED.create(id);
 			}
 		}
 
-		String sub;
-		if (enabled) {
-			sub = "enabled";
-		} else if (disabled) {
-			sub = "disabled";
+		if (disable) {
+			UmbraExpressConfig.disabledRoles.add(id.toString());
 		} else {
-			sub = "all";
+			UmbraExpressConfig.disabledRoles.remove(id.toString());
 		}
 
-		source.sendFeedback(() -> Text.stringifiedTranslatable("commands.umbra_express.roles.list." + sub, Arrays.toString(output.toArray())), false);
+		UmbraExpressConfig.trySaveChanges();
 
+		context.getSource().sendFeedback(() -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.set." + disable, id), true);
 		return 1;
+	}
+
+	static Role getRoleArgument(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		Identifier id = IdentifierArgumentType.getIdentifier(context, "role");
+
+		for (Role role : TMMRoles.ROLES) {
+			if (role.identifier().equals(id)) {
+				return role;
+			}
+		}
+
+		throw INVALID_ROLE.create(id);
 	}
 }
