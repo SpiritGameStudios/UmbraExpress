@@ -11,7 +11,7 @@ public interface UmbraExpressParticles {
 
     ParticleTypeRegistrar REGISTRAR = new ParticleTypeRegistrar(UmbraExpress.MOD_ID);
 
-    SimpleParticleType CRYSTAL_BALL_SPARKLE = (SimpleParticleType) REGISTRAR.create("crystal_ball_sparkle", FabricParticleTypes.simple());
+    SimpleParticleType CRYSTAL_BALL_SPARKLE = (SimpleParticleType) REGISTRAR.create("crystal_ball_sparkle", FabricParticleTypes.simple(true));
 
     static void init() {
         REGISTRAR.registerEntries();

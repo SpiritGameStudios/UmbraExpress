@@ -28,6 +28,7 @@ public interface UmbraExpressRoles {
     Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
 	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x7604E7, false);
 	Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0x7604E7, false);
+	Role MYSTIC = registerInnocent(UmbraExpress.id("mystic"), 0xE783D5, false);
 	Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04);
 
 	static Role registerInnocent(Identifier id, int color, boolean canSeeTime) {
@@ -56,6 +57,7 @@ public interface UmbraExpressRoles {
         registerReplacer(CIVILIAN, CONDUCTOR, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
+		registerReplacer(CIVILIAN, MYSTIC, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ONE, ReplacementChecker.fromRandom(0.5F));
     }
 }

@@ -10,6 +10,7 @@ import dev.spiritstudios.umbra_express.init.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -42,5 +43,14 @@ public class UmbraExpress implements ModInitializer {
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean canBeUsedByGhost(Block block) {
 		return block instanceof ToggleableFacingLightBlock || block instanceof NeonPillarBlock || block instanceof NeonTubeBlock || block instanceof OrnamentBlock;
+	}
+
+	public static String getCooldownTimeString(int cooldownTicks) {
+		int seconds = cooldownTicks / SharedConstants.TICKS_PER_SECOND + 1;
+
+		int minutes = seconds / 60;
+		seconds %= 60;
+
+		return String.format("%02d:%02d", minutes, seconds);
 	}
 }

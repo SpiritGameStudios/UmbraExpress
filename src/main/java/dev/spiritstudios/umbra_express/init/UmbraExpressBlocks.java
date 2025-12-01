@@ -23,7 +23,7 @@ public interface UmbraExpressBlocks {
         .sounds(BlockSoundGroup.AMETHYST_BLOCK)
         .mapColor(MapColor.PALE_PURPLE)
         .nonOpaque()
-        .luminance(state -> 4)
+        .luminance(state -> 7)
         .strength(0.3F)
     ), TMMItems.DECORATION_GROUP);
 

@@ -3,6 +3,7 @@ package dev.spiritstudios.umbra_express;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressParticles;
+import dev.spiritstudios.umbra_express.particle.CrystalBallSparkleParticle;
 import dev.spiritstudios.umbra_express.render.BroadcastButtonBlockEntityRenderer;
 import dev.spiritstudios.umbra_express.render.CrystalBallBlockEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
@@ -17,6 +18,8 @@ public class UmbraExpressClient implements ClientModInitializer {
     public void onInitializeClient() {
 		BlockEntityRendererFactories.register(UmbraExpressBlockEntities.BROADCAST_BUTTON, BroadcastButtonBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(UmbraExpressBlockEntities.CRYSTAL_BALL, CrystalBallBlockEntityRenderer::new);
+
+        ParticleFactoryRegistry.getInstance().register(UmbraExpressParticles.CRYSTAL_BALL_SPARKLE, CrystalBallSparkleParticle.Factory::new);
         BlockRenderLayerMap.INSTANCE.putBlock(UmbraExpressBlocks.CRYSTAL_BALL, RenderLayer.getTranslucent());
-	}
+    }
 }
