@@ -49,6 +49,10 @@ repositories {
 	maven {
 		url = uri("https://maven.maxhenkel.de/repository/public")
 	}
+	maven {
+		name = "MidnightDust"
+		url = uri("https://maven.midnightdust.eu/releases")
+	}
 }
 
 
