@@ -1,30 +1,34 @@
 {
-	"required": true,
-	"package": "dev.spiritstudios.umbra_express.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixinextras": {
-		"minVersion": "0.5.0"
-	},
-	"mixins": [
-		"dev.GameFunctionsMixin",
-		"dev.MurderGameModeMixin",
-		"dev.TMMMixin",
-		"haunting.GameFunctionsMixin",
-		"haunting.GameWorldComponentMixin",
-		"haunting.ServerPlayerInteractionManagerMixin",
-		"roles.MurderGameModeMixin",
-		"roles.conductor.ButtonBlockMixin",
-		"roles.conductor.GameFunctionsMixin",
-		"roles.conductor.PlayerMoodComponentMixin",
-		"roles.conductor.PlayerMoodComponentMixin$TaskMixin",
-		"roles.conductor.TMMModelGenAccessor",
-		"roles.locksmith.SmallDoorBlockMixin",
-		"roles.locksmith.TMMItemTooltipsMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "dev.spiritstudios.umbra_express.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
+  "mixins": [
+    "dev.GameFunctionsMixin",
+    "dev.MurderGameModeMixin",
+    "dev.TMMMixin",
+    "haunting.GameFunctionsMixin",
+    "haunting.GameWorldComponentMixin",
+    "haunting.ServerPlayerInteractionManagerMixin",
+    "optimization.GameWorldComponentMixin",
+    "qol.MountableBlockMixin",
+    "roles.MurderGameModeMixin",
+    "roles.assassin.GameFunctionsMixin",
+    "roles.assassin.GameWorldComponentMixin",
+    "roles.assassin.MurderGameModeMixin",
+    "roles.conductor.ButtonBlockMixin",
+    "roles.conductor.GameFunctionsMixin",
+    "roles.conductor.PlayerMoodComponentMixin",
+    "roles.conductor.PlayerMoodComponentMixin$TaskMixin",
+    "roles.conductor.TMMModelGenAccessor",
+    "roles.locksmith.DoorBlocksMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

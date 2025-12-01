@@ -2,11 +2,12 @@ package dev.spiritstudios.umbra_express.cca;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.UmbraExpress;
-import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
+import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Colors;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -130,11 +131,11 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     }
 
 	public int maxBroadcastTicks() {
-		return world.getGameRules().getInt(UmbraExpressGameRules.MAX_BROADCAST_TICKS);
+		return UmbraExpressConfig.maxBroadcastTicks(this.world);
 	}
 
     @Override
-    public void readFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+    public void readFromNbt(NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         this.broadcasting = tag.contains("broadcasting") && tag.getBoolean("broadcasting");
         this.announcementTicks = tag.contains("announcementTicks") ? tag.getInt("announcementTicks") : 0;
         this.cooldown = tag.contains("cooldown") ? tag.getInt("cooldown") : 0;
@@ -142,7 +143,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     }
 
     @Override
-    public void writeToNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+    public void writeToNbt(NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         tag.putBoolean("broadcasting", this.broadcasting);
         tag.putInt("announcementTicks", this.announcementTicks);
         tag.putInt("cooldown", this.cooldown);

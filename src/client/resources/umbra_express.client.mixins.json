@@ -1,17 +1,22 @@
 {
-	"required": true,
-	"package": "dev.spiritstudios.umbra_express.mixin.client",
-	"compatibilityLevel": "JAVA_21",
-	"mixinextras": {
-		"minVersion": "0.5.0"
-	},
-	"client": [
-		"haunting.ClientPlayerInteractionManagerMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "dev.spiritstudios.umbra_express.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
+  "client": [
+    "haunting.ClientPlayerInteractionManagerMixin",
+    "qol.PlayerMoodComponentMixin",
+    "roles.assassin.TMMItemTooltipsMixin",
+    "roles.bartender.BeveragePlateBlockEntityMixinMixin",
+    "roles.conductor.TimeRendererMixin",
+    "roles.locksmith.TMMItemTooltipsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

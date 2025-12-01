@@ -52,7 +52,7 @@ public class BroadcastButtonBlock extends ElevatorButtonBlock implements BlockEn
         if (!client && player instanceof ServerPlayerEntity serverPlayer) {
             GameWorldComponent game = GameWorldComponent.KEY.get(world);
             if (game.isRunning()) {
-                if (UmbraExpressRoles.CONDUCTOR.equals(game.getRole(player))) {
+                if (game.isRole(serverPlayer, UmbraExpressRoles.CONDUCTOR)) {
                     BroadcastWorldComponent.KEY.get(world).setBroadcasting(true);
                 }
             } else {

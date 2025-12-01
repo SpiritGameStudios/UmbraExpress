@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin({SmallDoorBlock.class, TrainDoorBlock.class})
-public class SmallDoorBlockMixin {
+public class DoorBlocksMixin {
 
 	@WrapOperation(method = "onUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
 	private boolean locksmithHasAMasterKey(ItemStack instance, Item item, Operation<Boolean> original) {

@@ -49,6 +49,14 @@ repositories {
 	maven {
 		url = uri("https://maven.maxhenkel.de/repository/public")
 	}
+	maven {
+		name = "MidnightDust"
+		url = uri("https://maven.midnightdust.eu/releases")
+	}
+	maven {
+		name = "MixinSquared"
+		url = uri("https://maven.bawnorton.com/releases")
+	}
 }
 
 
@@ -79,6 +87,13 @@ dependencies {
 
 	modImplementation(libs.voicechat.api)
 	modImplementation(libs.voicechat)
+
+	include(libs.midnightlib)
+	modImplementation(libs.midnightlib)
+
+	include(libs.mixinsquared)
+	implementation(libs.mixinsquared)
+	annotationProcessor(libs.mixinsquared)
 }
 
 tasks.processResources {

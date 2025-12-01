@@ -8,6 +8,7 @@ import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.PlayerNumbers;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementChecker;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
@@ -24,11 +27,19 @@ public interface UmbraExpressRoles {
 
 	Map<Role, RoleAnnouncementTexts.RoleAnnouncementText> TEXTS = new HashMap<>();
 	List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
+	Map<Role, Consumer<ServerPlayerEntity>> ITEM_GIVERS = new HashMap<>();
+
+	Function<Long, Integer> ASSASSIN_PASSIVE_MONEY_TICKER = time -> {
+		if (time % GameConstants.getInTicks(0, 15) == 0) {
+			return 5;
+		}
+		return 0;
+	};
 
     Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
-	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x7604E7, false);
-	Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0x7604E7, false);
 	Role MYSTIC = registerInnocent(UmbraExpress.id("mystic"), 0xE783D5, false);
+	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x3DE0AF, false);
+	Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0xFFE447, false);
 	Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04);
 
 	static Role registerInnocent(Identifier id, int color, boolean canSeeTime) {
@@ -58,6 +69,8 @@ public interface UmbraExpressRoles {
 		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, MYSTIC, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
-		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ONE, ReplacementChecker.fromRandom(0.5F));
+		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ALL, ReplacementChecker.fromRandom(0.5F));
+
+		ITEM_GIVERS.put(LOCKSMITH, (player) -> player.giveItemStack(UmbraExpressItems.MASTER_KEY.getDefaultStack()));
     }
 }

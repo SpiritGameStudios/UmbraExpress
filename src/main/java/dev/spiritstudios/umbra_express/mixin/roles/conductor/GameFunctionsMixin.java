@@ -27,7 +27,7 @@ public class GameFunctionsMixin {
         GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(serverWorld);
 
         for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
-            if (UmbraExpressRoles.CONDUCTOR.equals(gameWorldComponent.getRole(serverPlayer))) {
+            if (gameWorldComponent.isRole(serverPlayer, UmbraExpressRoles.CONDUCTOR)) {
                 continue;
             }
             ConductorVoicechatPlugin.addReceiver(serverPlayer);

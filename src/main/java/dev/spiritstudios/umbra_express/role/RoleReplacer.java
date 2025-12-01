@@ -10,11 +10,7 @@ import java.util.UUID;
 
 public record RoleReplacer(Role original, Role replacement, PlayerNumbers playerNumbers, ReplacementChecker checker) {
 
-	public void replace(ServerWorld serverWorld, GameWorldComponent gameComponent, List<Role> disabled, int totalPlayers) {
-		if (disabled.contains(this.replacement)) {
-			return;
-		}
-
+	public void replace(ServerWorld serverWorld, GameWorldComponent gameComponent, int totalPlayers) {
 		List<UUID> withRole = gameComponent.getAllWithRole(this.original);
 		if (withRole.isEmpty()) {
 			return;
@@ -28,7 +24,7 @@ public record RoleReplacer(Role original, Role replacement, PlayerNumbers player
 		for (int i = 0; i < numberToAssign; i++) {
 			withRole = gameComponent.getAllWithRole(this.original);
 			if (withRole.isEmpty()) {
-				continue;
+				return;
 			}
 			UUID uuid = Util.getRandom(withRole, serverWorld.getRandom());
 			if (this.checker.shouldAssign(serverWorld, uuid)) {
@@ -39,6 +35,7 @@ public record RoleReplacer(Role original, Role replacement, PlayerNumbers player
 
 	@FunctionalInterface
 	public interface PlayerNumbers {
+		PlayerNumbers ALL = ((total, ofReplacedRole) -> ofReplacedRole);
 		PlayerNumbers ONE = ((total, ofReplacedRole) -> 1);
 
 		int numberToTryAssign(int total, int ofReplacedRole);
