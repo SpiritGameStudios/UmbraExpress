@@ -31,6 +31,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		generateForInnocent(UmbraExpressRoles.CONDUCTOR, translationBuilder);
 		generateForInnocent(UmbraExpressRoles.BARTENDER, translationBuilder);
 		generateForInnocent(UmbraExpressRoles.LOCKSMITH, translationBuilder);
+		generateForInnocent(UmbraExpressRoles.MYSTIC, translationBuilder);
 
 		generateForKiller(UmbraExpressRoles.ASSASSIN, translationBuilder);
 

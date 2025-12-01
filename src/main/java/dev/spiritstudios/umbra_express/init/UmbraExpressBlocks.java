@@ -24,7 +24,7 @@ public interface UmbraExpressBlocks {
         .nonOpaque()
         .luminance(state -> 7)
         .strength(0.3F)
-    ), TMMItems.DECORATION_GROUP);
+    ), UmbraExpressItems.ITEM_GROUP);
 
     static void init() {
         REGISTRAR.registerEntries();
