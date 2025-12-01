@@ -22,6 +22,10 @@ public class GameFunctionsMixin {
 	@WrapOperation(method = "killPlayer(Lnet/minecraft/entity/player/PlayerEntity;ZLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Identifier;)V", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerShopComponent;addToBalance(I)V", remap = false), remap = true)
 	private static void killTarget(PlayerShopComponent instance, int amount, Operation<Void> original, PlayerEntity victim, boolean spawnBody, PlayerEntity killer, Identifier deathReason) {
 		GameWorldComponent game = GameWorldComponent.KEY.get(killer.getWorld());
+		if (!game.isRunning()) {
+			original.call(instance, amount);
+			return;
+		}
 		if (!game.isRole(killer, UmbraExpressRoles.ASSASSIN)) {
 			original.call(instance, amount);
 			return;
@@ -40,7 +44,10 @@ public class GameFunctionsMixin {
 	@WrapMethod(method = "killPlayer(Lnet/minecraft/entity/player/PlayerEntity;ZLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Identifier;)V" , remap = true)
 	private static void rerollTarget(PlayerEntity victim, boolean spawnBody, PlayerEntity killer, Identifier deathReason, Operation<Void> original) {
 		original.call(victim, spawnBody, killer, deathReason);
-		((HitListWorldComponent) GameWorldComponent.KEY.get(victim.getWorld())).umbra_express$rerollTarget();
+		GameWorldComponent game = GameWorldComponent.KEY.get(victim.getWorld());
+		if (game.isRunning()) {
+			((HitListWorldComponent) game).umbra_express$rerollTarget();
+		}
 	}
 
 	@WrapMethod(method = "finalizeGame")

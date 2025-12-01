@@ -46,6 +46,9 @@ public abstract class GameWorldComponentMixin implements HitListWorldComponent {
 	@Shadow
 	protected abstract ArrayList<UUID> uuidListFromNbt(NbtCompound nbtCompound, String listName);
 
+	@Shadow
+	public abstract boolean isRunning();
+
 	@Unique
 	private final List<UUID> umbra_express$killedTargets = new ArrayList<>();
 
