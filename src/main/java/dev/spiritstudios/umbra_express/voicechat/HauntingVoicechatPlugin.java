@@ -74,6 +74,7 @@ public class HauntingVoicechatPlugin implements VoicechatPlugin {
 		}
 
 		MicrophonePacket microphonePacket = event.getPacket();
+		//noinspection NonStrictComparisonCanBeEquality
 		if (microphonePacket.getOpusEncodedData().length <= 0 || microphonePacket.isWhispering()) {
 			return;
 		}

@@ -86,7 +86,8 @@ public class ConductorVoicechatPlugin implements VoicechatPlugin {
         }
 
         MicrophonePacket microphonePacket = event.getPacket();
-        if (microphonePacket.getOpusEncodedData().length <= 0 || microphonePacket.isWhispering()) {
+		//noinspection NonStrictComparisonCanBeEquality
+		if (microphonePacket.getOpusEncodedData().length <= 0 || microphonePacket.isWhispering()) {
             return;
         }
 
