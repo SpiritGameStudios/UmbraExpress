@@ -2,7 +2,6 @@ package dev.spiritstudios.umbra_express.init;
 
 import dev.doctor4t.ratatouille.util.registrar.ItemRegistrar;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
-import dev.doctor4t.trainmurdermystery.item.LockpickItem;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import net.minecraft.item.Item;
 import org.jetbrains.annotations.ApiStatus;
