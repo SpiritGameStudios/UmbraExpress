@@ -10,5 +10,6 @@ public class UmbraExpressDataGenerator implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(UmbraExpressEnUsLangGenerator::new);
         pack.addProvider(UmbraExpressModelGenerator::new);
+		UmbraExpressTagGenerators.addAll(pack);
 	}
 }
