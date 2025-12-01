@@ -15,6 +15,7 @@ modmenu = "11.0.3"
 midnightlib = "1.9.1+1.21.1-fabric"
 voicechat_api = "2.6.0"
 voicechat = "fabric-1.21.1-2.6.6"
+mixinsquared = "0.3.7-beta.1"
 
 [plugins]
 fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }
@@ -41,3 +42,5 @@ midnightlib = { group = "eu.midnightdust", name = "midnightlib", version.ref = "
 
 voicechat_api = { group = "de.maxhenkel.voicechat", name = "voicechat-api", version.ref = "voicechat_api" }
 voicechat = { group = "maven.modrinth", name = "simple-voice-chat", version.ref = "voicechat" }
+
+mixinsquared = { group = "com.github.bawnorton.mixinsquared", name = "mixinsquared-fabric", version.ref = "mixinsquared" }

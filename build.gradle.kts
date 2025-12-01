@@ -53,6 +53,10 @@ repositories {
 		name = "MidnightDust"
 		url = uri("https://maven.midnightdust.eu/releases")
 	}
+	maven {
+		name = "MixinSquared"
+		url = uri("https://maven.bawnorton.com/releases")
+	}
 }
 
 
@@ -86,6 +90,10 @@ dependencies {
 
 	include(libs.midnightlib)
 	modImplementation(libs.midnightlib)
+
+	include(libs.mixinsquared)
+	implementation(libs.mixinsquared)
+	annotationProcessor(libs.mixinsquared)
 }
 
 tasks.processResources {
