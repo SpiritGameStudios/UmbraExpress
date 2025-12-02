@@ -65,7 +65,6 @@
         },
         "cardinal-components": [
             "umbra_express:broadcast",
-            "umbra_express:apparition_viewer",
             "umbra_express:crystal_ball"
         ]
     }
