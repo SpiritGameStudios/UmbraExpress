@@ -76,6 +76,7 @@ public class CrystalBallBlock extends BlockWithEntity {
             return ActionResult.PASS;
 
 		CrystalBallWorldComponent component = CrystalBallWorldComponent.KEY.get(world);
+
         if (component.isOnCooldown()) {
             blockEntity.sendCooldownMessage(mystic, component);
             return ActionResult.CONSUME;
