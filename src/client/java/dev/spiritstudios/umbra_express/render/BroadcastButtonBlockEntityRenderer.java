@@ -39,7 +39,7 @@ public class BroadcastButtonBlockEntityRenderer implements BlockEntityRenderer<B
         if (world != null) {
             BroadcastWorldComponent broadcast = BroadcastWorldComponent.KEY.get(world);
             int color = broadcast.getRenderColor();
-			String text = UmbraExpress.getCooldownTimeString(broadcast.getTicksForRendering());
+			String text = UmbraExpress.getCooldownTimeString(broadcast.getTicksForRendering(), false);
 
 			float x = (float)(-this.textRenderer.getWidth(text) / 2);
 			float y = -(4 * lineHeight / 2);

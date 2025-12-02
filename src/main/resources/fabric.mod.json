@@ -53,7 +53,8 @@
 			}
 		},
 		"cardinal-components": [
-			"umbra_express:broadcast"
+			"umbra_express:broadcast",
+			"umbra_express:crystal_ball"
 		]
 	}
 }

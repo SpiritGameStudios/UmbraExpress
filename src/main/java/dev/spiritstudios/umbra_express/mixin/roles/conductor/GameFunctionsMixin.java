@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
+import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +24,7 @@ public class GameFunctionsMixin {
 	@Inject(method= "initializeGame", at = @At("RETURN"), remap = true)
 	private static void initConductor(ServerWorld serverWorld, CallbackInfo ci) {
         ConductorVoicechatPlugin.reset();
-        BroadcastWorldComponent.KEY.get(serverWorld).reset();
+		CooldownWorldComponent.resetAll(serverWorld);
         GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(serverWorld);
 
         for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
@@ -38,7 +39,7 @@ public class GameFunctionsMixin {
     private static void resetBroadcast(ServerWorld world, Operation<Void> original) {
         original.call(world);
         ConductorVoicechatPlugin.reset();
-        BroadcastWorldComponent.KEY.get(world).reset();
+		CooldownWorldComponent.resetAll(world);
     }
 
     @Inject(method = "killPlayer(Lnet/minecraft/entity/player/PlayerEntity;ZLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Identifier;)V", at = @At("RETURN"))

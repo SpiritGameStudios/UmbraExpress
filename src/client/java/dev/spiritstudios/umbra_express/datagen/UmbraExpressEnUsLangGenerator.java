@@ -54,7 +54,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 
 		String letterHitList = TextUtils.getItemTranslationKey(TMMItems.LETTER) + ".hitlist";
 		translationBuilder.add(letterHitList + ".premise0", "");
-		translationBuilder.add(letterHitList + ".premise1", "==== ASSASSIN INSTRUCTIONS ==== ");
+		translationBuilder.add(letterHitList + ".premise1", "==== ASSASSIN INSTRUCTIONS ====");
 		translationBuilder.add(letterHitList + ".premise2", "");
 		// Translations credit - old TMM hitman letter instructions
 		translationBuilder.add(letterHitList + ".premise3", "Thank you for taking this job. Please eliminate the following targets:");

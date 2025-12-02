@@ -68,7 +68,7 @@ public interface UmbraExpressRoles {
         registerReplacer(CIVILIAN, CONDUCTOR, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
-		registerReplacer(CIVILIAN, MYSTIC, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
+		registerReplacer(CIVILIAN, MYSTIC, (total, ofReplacedRole) -> total >= 8 ? 1 : 0, ReplacementChecker.ALWAYS);
 		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ALL, ReplacementChecker.fromRandom(0.5F));
 
 		ITEM_GIVERS.put(LOCKSMITH, (player) -> player.giveItemStack(UmbraExpressItems.MASTER_KEY.getDefaultStack()));
