@@ -34,7 +34,7 @@
 	  "dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin"
 	],
 	"cardinal-components": [
-	  "dev.spiritstudios.umbra_express.init.UmbraExpressWorldComponents"
+        "dev.spiritstudios.umbra_express.init.UmbraExpressComponents"
 	]
   },
   "mixins": [
@@ -51,21 +51,22 @@
     "fabric-api": "*",
 	"trainmurdermystery": "*"
   },
-  "breaks": {
-	"tmm_conductor": "*",
-	"tmm_haunting": "*"
-  },
-  "custom": {
-	"modmenu": {
-	  "links": {
-		"modmenu.discord": "https://discord.gg/TTmx7d2axf",
-		"modmenu.github_releases": "https://github.com/SpiritGameStudios/UmbraExpress/releases",
-		"modmenu.modrinth": "https://modrinth.com/mod/umbra_express"
-	  }
-	},
-	"cardinal-components": [
-	  "umbra_express:broadcast",
-	  "umbra_express:crystal_ball"
-	]
-  }
+    "breaks": {
+        "tmm_conductor": "*",
+        "tmm_haunting": "*"
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.discord": "https://discord.gg/TTmx7d2axf",
+                "modmenu.github_releases": "https://github.com/SpiritGameStudios/UmbraExpress/releases",
+                "modmenu.modrinth": "https://modrinth.com/mod/umbra_express"
+            }
+        },
+        "cardinal-components": [
+            "umbra_express:broadcast",
+            "umbra_express:apparition_viewer",
+            "umbra_express:crystal_ball"
+        ]
+    }
 }

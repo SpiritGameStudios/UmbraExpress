@@ -1,11 +1,11 @@
 package dev.spiritstudios.umbra_express.render;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
+import com.mojang.authlib.GameProfile;
 import dev.spiritstudios.umbra_express.block.CrystalBallBlock;
 import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
-import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
+import dev.spiritstudios.umbra_express.cca.ApparitionViewerComponent;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -47,24 +47,31 @@ public class CrystalBallBlockEntityRenderer implements BlockEntityRenderer<Cryst
 
     @Override
     public void render(CrystalBallBlockEntity blockEntity, float tickProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (!blockEntity.isRevealingApparition() || blockEntity.apparition == null)
-            return;
-
-        GameWorldComponent game = TMMClient.gameComponent;
-
-        if (game != null && game.isRunning() && !game.getRole(MinecraftClient.getInstance().player).equals(UmbraExpressRoles.MYSTIC))
+        if (!shouldRender(blockEntity))
             return;
 
         matrices.push();
         transformMatrices(blockEntity, tickProgress, matrices);
 
-        RenderLayer renderLayer = RenderLayer.getEntityTranslucent(this.playerSkinProvider.getSkinTextures(blockEntity.apparition.getGameProfile()).texture());
+        assert blockEntity.apparition != null; // already checked in shouldRender()
+        GameProfile profile = blockEntity.apparition.getGameProfile();
+
+        RenderLayer renderLayer = RenderLayer.getEntityTranslucent(this.playerSkinProvider.getSkinTextures(profile).texture());
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
 
         SkullEntityModel model = new SkullEntityModel(this.entityModelLoader.getModelPart(EntityModelLayers.PLAYER_HEAD));
         renderModel(blockEntity, tickProgress, matrices, vertexConsumer, light, model);
 
         matrices.pop();
+    }
+
+    private static boolean shouldRender(CrystalBallBlockEntity blockEntity) {
+        if (!blockEntity.isRevealingApparition() || blockEntity.apparition == null)
+            return false;
+
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+
+        return player != null && ApparitionViewerComponent.KEY.get(player).canView();
     }
 
     private static void transformMatrices(CrystalBallBlockEntity blockEntity, float tickProgress, MatrixStack matrices) {
