@@ -6,6 +6,7 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
+import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
 import dev.spiritstudios.umbra_express.cca.ApparitionViewerComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressParticles;
@@ -74,8 +75,9 @@ public class CrystalBallBlock extends BlockWithEntity {
         if (!ApparitionViewerComponent.KEY.get(mystic).canView())
             return ActionResult.PASS;
 
-        if (blockEntity.isCoolingDown()) {
-            blockEntity.sendCooldownMessage(mystic);
+		CrystalBallWorldComponent component = CrystalBallWorldComponent.KEY.get(world);
+        if (component.isOnCooldown()) {
+            blockEntity.sendCooldownMessage(mystic, component);
             return ActionResult.CONSUME;
         }
 

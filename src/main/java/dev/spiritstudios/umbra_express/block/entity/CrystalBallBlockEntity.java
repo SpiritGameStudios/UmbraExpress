@@ -3,6 +3,7 @@ package dev.spiritstudios.umbra_express.block.entity;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressSoundEvents;
@@ -31,7 +32,6 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
     private static final String APPARITION_KEY = "apparition";
     private static final String APPARITION_TICKS_KEY = "apparition_ticks";
-    private static final String COOLDOWN_TICKS_KEY = "cooldown_ticks";
 
     public static final int MAX_APPARITION_RENDER_TICKS = GameConstants.getInTicks(0, 8);
     private static final float SOUND_PITCH_DEVIATION = 0.1F;
@@ -42,7 +42,6 @@ public class CrystalBallBlockEntity extends BlockEntity {
     public UUID apparitionUUID;
 
     public int apparitionTicks;
-    public int cooldownTicks;
 
     public CrystalBallBlockEntity(BlockPos pos, BlockState state) {
         super(UmbraExpressBlockEntities.CRYSTAL_BALL, pos, state);
@@ -54,7 +53,6 @@ public class CrystalBallBlockEntity extends BlockEntity {
             nbt.putUuid(APPARITION_KEY, this.apparitionUUID);
 
         nbt.putInt(APPARITION_TICKS_KEY, this.apparitionTicks);
-        nbt.putInt(COOLDOWN_TICKS_KEY, this.cooldownTicks);
     }
 
     @Override
@@ -69,16 +67,7 @@ public class CrystalBallBlockEntity extends BlockEntity {
             this.markDirty();
         }
 
-        if (this.isCoolingDown()) {
-            this.cooldownTicks--;
-            this.markDirty();
-        }
-
         this.apparition = this.apparitionUUID == null ? null : world.getPlayerByUuid(this.apparitionUUID);
-    }
-
-    public boolean isCoolingDown() {
-        return this.cooldownTicks > 0;
     }
 
     public boolean isRevealingApparition() {
@@ -91,7 +80,11 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
         this.apparitionTicks = MAX_APPARITION_RENDER_TICKS;
 
-        this.cooldownTicks = gameRunning ? UmbraExpressConfig.crystalBallCooldownTicks(world) : MAX_APPARITION_RENDER_TICKS;
+        CrystalBallWorldComponent.KEY.get(world)
+			.setCooldownTicks(
+				gameRunning ? UmbraExpressConfig.crystalBallCooldownTicks(world) : MAX_APPARITION_RENDER_TICKS
+			);
+
         this.markDirty();
 
         sendApparitionMessage(apparition, mystic, gameRunning);
@@ -100,7 +93,7 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
     public static void sendApparitionMessage(PlayerEntity apparition, PlayerEntity mystic, boolean gameRunning) {
         Text playerName = apparition.getName().copy().formatted(Formatting.LIGHT_PURPLE);
-        MutableText message = Text.translatable("block.umbra_express.crystal_ball.apparition", playerName).copy();
+        MutableText message = Text.stringifiedTranslatable("block.umbra_express.crystal_ball.apparition", playerName);
 
         if (gameRunning) {
             message.append(ScreenTexts.SPACE);
@@ -110,8 +103,8 @@ public class CrystalBallBlockEntity extends BlockEntity {
         mystic.sendMessage(message, true);
     }
 
-    public void sendCooldownMessage(PlayerEntity mystic) {
-        String timeString = UmbraExpress.getCooldownTimeString(this.cooldownTicks);
+    public void sendCooldownMessage(PlayerEntity mystic, CrystalBallWorldComponent component) {
+        String timeString = UmbraExpress.getCooldownTimeString(component.getTicksForRendering(), true);
         mystic.sendMessage(Text.translatable("block.umbra_express.crystal_ball.cooldown", timeString), true);
     }
 
@@ -119,5 +112,4 @@ public class CrystalBallBlockEntity extends BlockEntity {
         float soundPitch = MathHelper.nextBetween(random, 1.0F - SOUND_PITCH_DEVIATION, 1.0F + SOUND_PITCH_DEVIATION);
         world.playSoundAtBlockCenter(pos, UmbraExpressSoundEvents.CRYSTAL_BALL_REVEAL, SoundCategory.BLOCKS, 2.0F, soundPitch, true);
     }
-
 }

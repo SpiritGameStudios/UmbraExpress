@@ -10,12 +10,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
-import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
 import java.util.UUID;
 
-public class BroadcastWorldComponent implements ServerTickingComponent, AutoSyncedComponent {
+public class BroadcastWorldComponent extends CooldownWorldComponent {
 
     public static final ComponentKey<BroadcastWorldComponent> KEY = ComponentRegistry.getOrCreate(UmbraExpress.id("broadcast"), BroadcastWorldComponent.class);
 
@@ -23,15 +21,10 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
 
     protected boolean broadcasting = false;
     protected int announcementTicks;
-    protected int cooldown = 0;
     protected UUID announcerUuid = null;
 
-    protected final World world;
-
-    protected boolean dirty = false;
-
     public BroadcastWorldComponent(World world) {
-        this.world = world;
+        super(world);
 		this.announcementTicks = maxBroadcastTicks();
     }
 
@@ -60,14 +53,13 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
             this.markDirty();
         }
 
-        if (this.dirty) {
-            KEY.sync(this.world);
-        }
-    }
+		this.syncIfDirty();
+	}
 
-    public void markDirty() {
-        this.dirty = true;
-    }
+	@Override
+	protected void sync() {
+		KEY.sync(this.world);
+	}
 
     public int getRenderColor() {
         if (this.isOnCooldown()) {
@@ -79,10 +71,7 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
         return Colors.WHITE;
     }
 
-    public boolean isOnCooldown() {
-        return this.cooldown > 0;
-    }
-
+	@Override
     public int getTicksForRendering() {
         return this.isOnCooldown() ? this.cooldown : this.announcementTicks;
     }
@@ -106,12 +95,12 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
         this.markDirty();
     }
 
+	@Override
     public void reset() {
         this.broadcasting = false;
         this.announcementTicks = maxBroadcastTicks();
-        this.cooldown = 0;
         this.announcerUuid = null;
-        this.markDirty();
+        super.reset();
     }
 
     public static int getCooldownMultiplier(World world) {
@@ -138,17 +127,17 @@ public class BroadcastWorldComponent implements ServerTickingComponent, AutoSync
     public void readFromNbt(NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         this.broadcasting = tag.contains("broadcasting") && tag.getBoolean("broadcasting");
         this.announcementTicks = tag.contains("announcementTicks") ? tag.getInt("announcementTicks") : 0;
-        this.cooldown = tag.contains("cooldown") ? tag.getInt("cooldown") : 0;
         this.announcerUuid = tag.containsUuid("announcerUuid") ? tag.getUuid("announcerUuid") : null;
+		super.readFromNbt(tag, registryLookup);
     }
 
     @Override
     public void writeToNbt(NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         tag.putBoolean("broadcasting", this.broadcasting);
         tag.putInt("announcementTicks", this.announcementTicks);
-        tag.putInt("cooldown", this.cooldown);
         if (this.announcerUuid != null) {
             tag.putUuid("announcerUuid", this.announcerUuid);
         }
+		super.writeToNbt(tag, registryLookup);
     }
 }

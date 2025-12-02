@@ -11,7 +11,8 @@
     "roles.assassin.TMMItemTooltipsMixin",
     "roles.bartender.BeveragePlateBlockEntityMixinMixin",
     "roles.conductor.TimeRendererMixin",
-    "roles.locksmith.TMMItemTooltipsMixin"
+    "roles.locksmith.TMMItemTooltipsMixin",
+    "roles.mystic.TimeRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

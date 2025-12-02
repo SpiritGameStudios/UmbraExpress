@@ -70,8 +70,12 @@ public class UmbraExpress implements ModInitializer {
 		return block instanceof ToggleableFacingLightBlock || block instanceof NeonPillarBlock || block instanceof NeonTubeBlock || block instanceof OrnamentBlock;
 	}
 
-	public static String getCooldownTimeString(int cooldownTicks) {
-		int seconds = cooldownTicks / SharedConstants.TICKS_PER_SECOND + 1;
+	public static String getCooldownTimeString(int cooldownTicks, boolean roundUp) {
+		int seconds = cooldownTicks / SharedConstants.TICKS_PER_SECOND;
+
+		if (roundUp) {
+			seconds++;
+		}
 
 		int minutes = seconds / 60;
 		seconds %= 60;

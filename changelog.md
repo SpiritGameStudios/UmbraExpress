@@ -1,2 +1,2 @@
-Umbra Express 1.0.1+1.21.1
-- Fix crash on start when attemping to register GameRules
+Umbra Express 1.0.2+1.21.1
+- Add the Mystic role
