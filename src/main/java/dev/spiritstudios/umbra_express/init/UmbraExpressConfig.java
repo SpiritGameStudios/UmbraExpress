@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static dev.spiritstudios.umbra_express.init.UmbraExpressGameRules.*;
+
 // Powered by Midnightlib
 public class UmbraExpressConfig extends MidnightConfig {
 
@@ -26,11 +28,11 @@ public class UmbraExpressConfig extends MidnightConfig {
 	}
 
 	public static int maxBroadcastTicks(World world) {
-		return world.getGameRules().getInt(UmbraExpressGameRules.MAX_BROADCAST_TICKS);
+		return world.getGameRules().getInt(MAX_BROADCAST_TICKS);
 	}
 
 	public static int crystalBallCooldownTicks(World world) {
-		return world.getGameRules().getInt(UmbraExpressGameRules.CRYSTAL_BALL_COOLDOWN_TICKS);
+		return world.getGameRules().getInt(CRYSTAL_BALL_COOLDOWN_TICKS);
 	}
 
 	public static int getMinPlayerCount(int original, World world) {

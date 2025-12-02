@@ -6,9 +6,9 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
+import dev.spiritstudios.umbra_express.cca.ApparitionViewerComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressParticles;
-import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -70,9 +70,8 @@ public class CrystalBallBlock extends BlockWithEntity {
             return ActionResult.PASS;
 
         GameWorldComponent game = GameWorldComponent.KEY.get(world);
-        boolean gameRunning = game.isRunning();
 
-        if (gameRunning && !game.getRole(mystic).equals(UmbraExpressRoles.MYSTIC))
+        if (!ApparitionViewerComponent.KEY.get(mystic).canView())
             return ActionResult.PASS;
 
         if (blockEntity.isCoolingDown()) {
@@ -81,7 +80,7 @@ public class CrystalBallBlock extends BlockWithEntity {
         }
 
         Random random = world.getRandom();
-        chooseNewApparitionPlayer(game, world, mystic, random).ifPresent(apparition -> blockEntity.onReveal(world, pos, random, apparition, mystic, gameRunning));
+        chooseNewApparitionPlayer(game, world, mystic, random).ifPresent(apparition -> blockEntity.onReveal(world, pos, random, apparition, mystic, game.isRunning()));
 
         return ActionResult.success(world.isClient());
     }

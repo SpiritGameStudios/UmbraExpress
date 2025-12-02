@@ -27,7 +27,7 @@
 	  "dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin"
 	],
 	"cardinal-components": [
-	  "dev.spiritstudios.umbra_express.init.UmbraExpressWorldComponents"
+        "dev.spiritstudios.umbra_express.init.UmbraExpressComponents"
 	]
   },
   "mixins": [
@@ -53,7 +53,8 @@
 			}
 		},
 		"cardinal-components": [
-			"umbra_express:broadcast"
+			"umbra_express:broadcast",
+            "umbra_express:apparition_viewer"
 		]
 	}
 }
