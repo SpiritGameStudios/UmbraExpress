@@ -7,7 +7,6 @@ import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
 import dev.doctor4t.trainmurdermystery.cca.AreasWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
-import dev.spiritstudios.umbra_express.cca.ApparitionViewerComponent;
 import dev.spiritstudios.umbra_express.init.*;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
@@ -47,8 +46,6 @@ public class UmbraExpress implements ModInitializer {
 
 			GameWorldComponent game = GameWorldComponent.KEY.get(serverWorld);
 			GameWorldComponent.GameStatus gameStatus = game.getGameStatus();
-
-			ApparitionViewerComponent.KEY.get(player).setCanView(game, serverWorld.getGameRules().getBoolean(UmbraExpressGameRules.SHOW_APPARITION_IN_LOBBY));
 
 			if (gameStatus != GameWorldComponent.GameStatus.ACTIVE && gameStatus != GameWorldComponent.GameStatus.STARTING)
 				return;

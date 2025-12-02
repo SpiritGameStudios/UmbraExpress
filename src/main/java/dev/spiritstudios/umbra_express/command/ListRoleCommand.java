@@ -8,6 +8,7 @@ import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.literal;
 
+@ApiStatus.NonExtendable
 public interface ListRoleCommand {
 
 	static void register(LiteralCommandNode<ServerCommandSource> parent) {

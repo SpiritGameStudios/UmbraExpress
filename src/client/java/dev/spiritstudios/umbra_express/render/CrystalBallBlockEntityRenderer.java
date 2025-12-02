@@ -3,7 +3,7 @@ package dev.spiritstudios.umbra_express.render;
 import com.mojang.authlib.GameProfile;
 import dev.spiritstudios.umbra_express.block.CrystalBallBlock;
 import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
-import dev.spiritstudios.umbra_express.cca.ApparitionViewerComponent;
+import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
@@ -71,7 +71,7 @@ public class CrystalBallBlockEntityRenderer implements BlockEntityRenderer<Cryst
 
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
-        return player != null && ApparitionViewerComponent.KEY.get(player).canView();
+        return player != null && CrystalBallWorldComponent.KEY.get(player.getWorld()).canView(player);
     }
 
     private static void transformMatrices(CrystalBallBlockEntity blockEntity, float tickProgress, MatrixStack matrices) {

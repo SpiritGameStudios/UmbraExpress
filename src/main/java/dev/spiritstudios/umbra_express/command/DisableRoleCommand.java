@@ -13,10 +13,12 @@ import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.argument;
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.literal;
 
+@ApiStatus.NonExtendable
 public interface DisableRoleCommand {
 
 	DynamicCommandExceptionType INVALID_ROLE = new DynamicCommandExceptionType((obj) -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.invalid", obj));

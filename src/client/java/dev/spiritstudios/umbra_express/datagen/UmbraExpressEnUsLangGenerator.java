@@ -88,6 +88,11 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add("commands.umbra_express.roles.toggle.set.alreadyenabled", "Role %s is already enabled!");
 		translationBuilder.add("commands.umbra_express.roles.toggle.set.true", "Role %s is now disabled");
 		translationBuilder.add("commands.umbra_express.roles.toggle.set.false", "Role %s is now enabled");
+
+		translationBuilder.add("commands.umbra_express.lobby_apparition.get.true", "View Apparition in Lobby is currently set to true");
+		translationBuilder.add("commands.umbra_express.lobby_apparition.get.false", "View Apparition in Lobby is currently set to false");
+		translationBuilder.add("commands.umbra_express.lobby_apparition.set.true", "View Apparition in Lobby is now set to true");
+		translationBuilder.add("commands.umbra_express.lobby_apparition.set.false", "View Apparition in Lobby is now set to false");
 	}
 
 	public static void generateForInnocent(Role role, TranslationBuilder translationBuilder) {
