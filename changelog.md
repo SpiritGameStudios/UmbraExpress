@@ -1,2 +1,2 @@
-Umbra Express 1.0.3+1.21.1
-- Add a condition to render Apparitions in lobbies
+Umbra Express 1.0.4+1.21.1
+- Fix crash relating to obtaining CrystalBallWorldComponent
