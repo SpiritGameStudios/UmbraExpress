@@ -1,6 +1,5 @@
 package dev.spiritstudios.umbra_express.block.entity;
 
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
@@ -12,9 +11,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -34,6 +31,8 @@ public class CrystalBallBlockEntity extends BlockEntity {
     private static final String APPARITION_TICKS_KEY = "apparition_ticks";
 
     public static final int MAX_APPARITION_RENDER_TICKS = GameConstants.getInTicks(0, 8);
+    public static final int MIN_COOLDOWN_TICKS = GameConstants.getInTicks(0, 10);
+
     private static final float SOUND_PITCH_DEVIATION = 0.1F;
 
     @Nullable
@@ -82,25 +81,18 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
         CrystalBallWorldComponent.KEY.get(world)
 			.setCooldownTicks(
-				gameRunning ? UmbraExpressConfig.crystalBallCooldownTicks(world) : MAX_APPARITION_RENDER_TICKS
+				gameRunning ? UmbraExpressConfig.crystalBallCooldownTicks(world) : MIN_COOLDOWN_TICKS
 			);
 
         this.markDirty();
 
-        sendApparitionMessage(apparition, mystic, gameRunning);
+        sendApparitionMessage(apparition, mystic);
         playSound(world, pos, random);
     }
 
-    public static void sendApparitionMessage(PlayerEntity apparition, PlayerEntity mystic, boolean gameRunning) {
+    public static void sendApparitionMessage(PlayerEntity apparition, PlayerEntity mystic) {
         Text playerName = apparition.getName().copy().formatted(Formatting.LIGHT_PURPLE);
-        MutableText message = Text.stringifiedTranslatable("block.umbra_express.crystal_ball.apparition", playerName);
-
-        if (gameRunning) {
-            message.append(ScreenTexts.SPACE);
-            message.append(Text.translatable("block.umbra_express.crystal_ball.apparition.in_game_suffix").withColor(TMMRoles.CIVILIAN.color()));
-        }
-
-        mystic.sendMessage(message, true);
+        mystic.sendMessage(Text.translatable("block.umbra_express.crystal_ball.apparition", playerName), true);
     }
 
     public void sendCooldownMessage(PlayerEntity mystic, CrystalBallWorldComponent component) {
