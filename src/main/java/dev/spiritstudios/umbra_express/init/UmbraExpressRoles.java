@@ -37,6 +37,7 @@ public interface UmbraExpressRoles {
 	};
 
     Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
+	Role MYSTIC = registerInnocent(UmbraExpress.id("mystic"), 0xE783D5, false);
 	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x3DE0AF, false);
 	Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0xFFE447, false);
 	Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04);
@@ -67,6 +68,7 @@ public interface UmbraExpressRoles {
         registerReplacer(CIVILIAN, CONDUCTOR, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
+		registerReplacer(CIVILIAN, MYSTIC, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
 		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ALL, ReplacementChecker.fromRandom(0.5F));
 
 		ITEM_GIVERS.put(LOCKSMITH, (player) -> player.giveItemStack(UmbraExpressItems.MASTER_KEY.getDefaultStack()));

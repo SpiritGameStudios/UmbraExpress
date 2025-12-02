@@ -16,6 +16,7 @@ public class UmbraExpressModelGenerator extends TMMModelGen {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         ((TMMModelGenAccessor) this).umbra_express$invokeRegisterButton(blockStateModelGenerator, UmbraExpressBlocks.BROADCAST_BUTTON);
+        blockStateModelGenerator.registerSimpleState(UmbraExpressBlocks.CRYSTAL_BALL);
     }
 
     @Override

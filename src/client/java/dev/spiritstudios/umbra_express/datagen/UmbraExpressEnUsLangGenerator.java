@@ -31,10 +31,17 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		generateForInnocent(UmbraExpressRoles.CONDUCTOR, translationBuilder);
 		generateForInnocent(UmbraExpressRoles.BARTENDER, translationBuilder);
 		generateForInnocent(UmbraExpressRoles.LOCKSMITH, translationBuilder);
+		generateForInnocent(UmbraExpressRoles.MYSTIC, translationBuilder);
 
 		generateForKiller(UmbraExpressRoles.ASSASSIN, translationBuilder);
 
 		translationBuilder.add("task.broadcast", "broadcasting.");
+
+        // crystal ball
+        translationBuilder.add("subtitles.block.crystal_ball.reveal", "An apparition forms");
+        translationBuilder.add("block.umbra_express.crystal_ball.apparition", "You see the face of %s.");
+        translationBuilder.add("block.umbra_express.crystal_ball.apparition.in_game_suffix", "You think they may be innocent...");
+        translationBuilder.add("block.umbra_express.crystal_ball.cooldown", "You must wait %s before casting another apparition.");
 
         UmbraExpressBlocks.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
 		//UmbraExpressItems.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
@@ -65,6 +72,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add(UmbraExpressGameRules.MIN_PLAYER_COUNT.getTranslationKey(), "Min Player Count");
 		translationBuilder.add(UmbraExpressGameRules.MODIFY_KILLER_COUNT.getTranslationKey(), "Modify Killer Count");
 		translationBuilder.add(UmbraExpressGameRules.FORCE_KILLER_COUNT.getTranslationKey(), "Forced Killer Count");
+		translationBuilder.add(UmbraExpressGameRules.CRYSTAL_BALL_COOLDOWN_TICKS.getTranslationKey(), "Crystal Ball Cooldown Ticks");
 		translationBuilder.add("umbra_express.midnightconfig.forceDevRole", "Force Dev Role");
 		translationBuilder.add("umbra_express.midnightconfig.disabledRoles", "Disabled Roles");
 
