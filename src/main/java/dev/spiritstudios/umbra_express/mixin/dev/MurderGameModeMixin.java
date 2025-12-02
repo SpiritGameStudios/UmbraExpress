@@ -17,6 +17,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Debug(export = true)
+//@Debug(export = true)
 @Mixin(value = MurderGameMode.class, remap = false, priority = 500)
 public class MurderGameModeMixin {
 
@@ -34,11 +35,14 @@ public class MurderGameModeMixin {
 	private static void forceDevRole(@NotNull ServerWorld serverWorld, @NotNull List<ServerPlayerEntity> players, GameWorldComponent gameComponent, CallbackInfoReturnable<Integer> cir) {
 		if (UmbraExpressConfig.development(serverWorld) && !players.isEmpty()) {
 			GameProfile host = serverWorld.getServer().getHostProfile(); // allows carpet
+
+			PlayerEntity player;
 			if (host == null) {
-				return;
+				player = Util.getRandom(players, serverWorld.getRandom());
+			} else {
+				player = serverWorld.getPlayerByUuid(host.getId());
 			}
 
-			PlayerEntity player = serverWorld.getPlayerByUuid(host.getId());
 			if (player == null) {
 				return;
 			}
