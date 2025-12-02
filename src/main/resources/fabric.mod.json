@@ -3,8 +3,15 @@
   "id": "umbra_express",
   "version": "${version}",
   "name": "Umbra Express",
-  "description": "",
-  "authors": [],
+  "description": "Spirit Studios addon for the Harpy Express",
+  "authors": [
+	"SkyNotTheLimit",
+	"CallMeEcho",
+	"axialeaa"
+  ],
+  "contributors": [
+	"Gachalover (ideas)"
+  ],
   "contact": {
     "repo": "https://github.com/SpiritGameStudios/UmbraExpress",
     "issues": "https://github.com/SpiritGameStudios/UmbraExpress/issues"
@@ -31,7 +38,7 @@
 	]
   },
   "mixins": [
-	  "umbra_express.mixins.json",
+	"umbra_express.mixins.json",
     {
       "config": "umbra_express.client.mixins.json",
       "environment": "client"
@@ -44,17 +51,21 @@
     "fabric-api": "*",
 	"trainmurdermystery": "*"
   },
-	"custom": {
-		"modmenu": {
-			"links": {
-				"modmenu.discord": "https://discord.gg/TTmx7d2axf",
-				"modmenu.github_releases": "https://github.com/SpiritGameStudios/UmbraExpress/releases",
-				"modmenu.modrinth": "https://modrinth.com/mod/umbra_express"
-			}
-		},
-		"cardinal-components": [
-			"umbra_express:broadcast",
-			"umbra_express:crystal_ball"
-		]
-	}
+  "breaks": {
+	"tmm_conductor": "*",
+	"tmm_haunting": "*"
+  },
+  "custom": {
+	"modmenu": {
+	  "links": {
+		"modmenu.discord": "https://discord.gg/TTmx7d2axf",
+		"modmenu.github_releases": "https://github.com/SpiritGameStudios/UmbraExpress/releases",
+		"modmenu.modrinth": "https://modrinth.com/mod/umbra_express"
+	  }
+	},
+	"cardinal-components": [
+	  "umbra_express:broadcast",
+	  "umbra_express:crystal_ball"
+	]
+  }
 }
