@@ -30,7 +30,7 @@ public interface UmbraExpressRoles {
 	Map<Role, Consumer<ServerPlayerEntity>> ITEM_GIVERS = new HashMap<>();
 
 	Function<Long, Integer> ASSASSIN_PASSIVE_MONEY_TICKER = time -> {
-		if (time % GameConstants.getInTicks(0, 15) == 0) {
+		if (time % GameConstants.getInTicks(0, 20) == 0) {
 			return 5;
 		}
 		return 0;
