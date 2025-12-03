@@ -56,6 +56,9 @@ public class UmbraExpress implements ModInitializer {
 			AreasWorldComponent.PosWithOrientation spectatorSpawnPos = AreasWorldComponent.KEY.get(serverWorld).getSpectatorSpawnPos();
 			player.teleport(serverWorld, spectatorSpawnPos.pos.getX(), spectatorSpawnPos.pos.getY(), spectatorSpawnPos.pos.getZ(), spectatorSpawnPos.yaw, spectatorSpawnPos.pitch);
 		});
+
+		UmbraExpressEvents.registerGameLifecycle();
+		UmbraExpressEvents.registerPlayer();
     }
 
 	public static Identifier id(String path) {

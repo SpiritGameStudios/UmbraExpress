@@ -16,10 +16,7 @@ import java.util.function.Function;
 public class MurderGameModeMixin {
 
 	@ModifyExpressionValue(method = "tickServerGameLoop", at = @At(value = "FIELD", target = "Ldev/doctor4t/trainmurdermystery/game/GameConstants;PASSIVE_MONEY_TICKER:Ljava/util/function/Function;", remap = false, opcode = Opcodes.GETSTATIC), remap = true)
-	private static Function<Long, Integer> getAssassinPassiveTicker(Function<Long, Integer> original, @Local ServerPlayerEntity player, @Local(argsOnly = true)GameWorldComponent game) {
-		if (game.isRole(player, UmbraExpressRoles.ASSASSIN)) {
-			return UmbraExpressRoles.ASSASSIN_PASSIVE_MONEY_TICKER;
-		}
-		return original;
+	private Function<Long, Integer> getAssassinPassiveTicker(Function<Long, Integer> original, @Local ServerPlayerEntity player, @Local(argsOnly = true) GameWorldComponent game) {
+		return UmbraExpressRoles.PASSIVE_MONEY_TICKERS.getOrDefault(game.getRole(player), original);
 	}
 }

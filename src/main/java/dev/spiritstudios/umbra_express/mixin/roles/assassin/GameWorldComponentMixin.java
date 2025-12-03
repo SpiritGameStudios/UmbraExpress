@@ -2,7 +2,6 @@ package dev.spiritstudios.umbra_express.mixin.roles.assassin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
@@ -14,16 +13,13 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 //@Debug(export = true)
@@ -45,9 +41,6 @@ public abstract class GameWorldComponentMixin implements HitListWorldComponent {
 
 	@Shadow
 	protected abstract ArrayList<UUID> uuidListFromNbt(NbtCompound nbtCompound, String listName);
-
-	@Shadow
-	public abstract boolean isRunning();
 
 	@Unique
 	private final List<UUID> umbra_express$killedTargets = new ArrayList<>();
@@ -123,16 +116,5 @@ public abstract class GameWorldComponentMixin implements HitListWorldComponent {
 		if (!this.umbra_express$killedTargets.isEmpty()) {
 			nbt.put("umbra_express_killedTargets", nbtFromUuidList(this.umbra_express$killedTargets));
 		}
-	}
-
-	@WrapOperation(method = "serverTick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/game/GameFunctions;isPlayerAliveAndSurvival(Lnet/minecraft/entity/player/PlayerEntity;)Z", ordinal = 2), remap = true)
-	private boolean rerollIfTargetIsNoLongerValid(PlayerEntity player, Operation<Boolean> original) {
-		boolean playing = original.call(player);
-		if (!playing) {
-			if (Objects.equals(player.getUuid(), this.umbra_express$assassinationTarget)) {
-				this.umbra_express$rerollTarget();
-			}
-		}
-		return playing;
 	}
 }

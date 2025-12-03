@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
@@ -36,16 +35,6 @@ public class MurderGameModeMixin {
 				continue;
 			}
 			replacer.replace(world, gameComponent, totalPlayers);
-		}
-	}
-
-	@Inject(method = "initializeGame", at = @At("RETURN"))
-	private void giveItems(ServerWorld serverWorld, GameWorldComponent gameWorldComponent, List<ServerPlayerEntity> players, CallbackInfo ci) {
-		for (ServerPlayerEntity serverPlayerEntity : players) {
-			Role role = gameWorldComponent.getRole(serverPlayerEntity);
-			if (UmbraExpressRoles.ITEM_GIVERS.containsKey(role)) {
-				UmbraExpressRoles.ITEM_GIVERS.get(role).accept(serverPlayerEntity);
-			}
 		}
 	}
 
