@@ -43,7 +43,7 @@ public class TimeRendererMixin {
 	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/client/gui/TimeRenderer$TimeNumberRenderer;render(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;IIIF)V"), remap = true)
 	private static void changeMysticCooldownColor(TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Share("isMystic") LocalBooleanRef localBooleanRef) {
 		if (localBooleanRef.get()) {
-			color = ColorHelper.Argb.lerp(0.5F, color, ColorHelper.Argb.fullAlpha(UmbraExpressRoles.MYSTIC.color()));
+			color = ColorHelper.Argb.lerp(0.8F, color, ColorHelper.Argb.fullAlpha(UmbraExpressRoles.MYSTIC.color()));
 		}
 
 		original.call(instance, renderer, context, x, y, color, delta);
