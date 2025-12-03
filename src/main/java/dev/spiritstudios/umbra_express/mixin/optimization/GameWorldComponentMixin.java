@@ -7,10 +7,11 @@ import net.minecraft.world.World;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = GameWorldComponent.class, remap = false)
+@Mixin(value = GameWorldComponent.class, remap = false, priority = 1000000)
 public class GameWorldComponentMixin {
 
 	@Shadow
@@ -23,8 +24,12 @@ public class GameWorldComponentMixin {
 	@Unique
 	private boolean umbra_express$dirty = false;
 
-	@WrapMethod(method = "sync")
-	private void markDirty(Operation<Void> original) {
+	/**
+	 * @author SkyNotTheLimit
+	 * @reason avoid silent fails
+	 */
+	@Overwrite
+	public void sync() {
 		this.umbra_express$dirty = true;
 	}
 
