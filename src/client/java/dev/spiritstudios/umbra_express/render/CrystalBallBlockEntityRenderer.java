@@ -60,7 +60,7 @@ public class CrystalBallBlockEntityRenderer implements BlockEntityRenderer<Cryst
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
 
         SkullEntityModel model = new SkullEntityModel(this.entityModelLoader.getModelPart(EntityModelLayers.PLAYER_HEAD));
-        renderModel(blockEntity, tickProgress, matrices, vertexConsumer, light, model);
+        renderModel(blockEntity, tickProgress, matrices, vertexConsumer, LightmapTextureManager.MAX_BLOCK_LIGHT_COORDINATE, model);
 
         matrices.pop();
     }

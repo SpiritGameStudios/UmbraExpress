@@ -49,7 +49,7 @@ public interface UmbraExpressGameRules {
 		"crystalBallCooldownTime",
 		GameRuleFactory.createIntRule(
 			GameConstants.getInTicks(3, 0),
-			CrystalBallBlockEntity.MAX_APPARITION_RENDER_TICKS
+			CrystalBallBlockEntity.MIN_COOLDOWN_TICKS
 		)
 	);
 
