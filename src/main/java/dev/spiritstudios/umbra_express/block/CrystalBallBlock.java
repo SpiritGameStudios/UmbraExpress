@@ -66,6 +66,8 @@ public class CrystalBallBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity mystic, BlockHitResult hit) {
+		if (world.isClient()) return ActionResult.PASS;
+
         if (!(world.getBlockEntity(pos) instanceof CrystalBallBlockEntity blockEntity))
             return ActionResult.PASS;
 
