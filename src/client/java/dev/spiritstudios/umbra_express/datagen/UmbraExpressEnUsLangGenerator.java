@@ -39,7 +39,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 
         // crystal ball
         translationBuilder.add("subtitles.block.crystal_ball.reveal", "An apparition forms");
-        translationBuilder.add("block.umbra_express.crystal_ball.apparition", "You see the face of %s staring back.");
+        translationBuilder.add("block.umbra_express.crystal_ball.apparition", "You see the face of %s.");
         translationBuilder.add("block.umbra_express.crystal_ball.cooldown", "You must wait %s before casting another apparition.");
 
         UmbraExpressBlocks.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
