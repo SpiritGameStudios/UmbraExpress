@@ -33,6 +33,9 @@ public class UmbraExpressEvents {
 
     public static void registerPlayer() {
         TMMPlayerEvents.INITIALIZING.register((serverWorld, serverPlayer, role, playing, game) -> {
+			if (!safeRoleEquals(role, UmbraExpressRoles.CONDUCTOR))
+				ConductorVoicechatPlugin.addReceiver(serverPlayer);
+
             if (!playing) {
                 TrainVoicePlugin.addPlayer(serverPlayer.getUuid()); // haunting
                 return;
@@ -40,9 +43,6 @@ public class UmbraExpressEvents {
 
             if (safeRoleEquals(role, UmbraExpressRoles.LOCKSMITH))
                 giveItem(serverPlayer, UmbraExpressItems.MASTER_KEY);
-
-            if (!safeRoleEquals(role, UmbraExpressRoles.CONDUCTOR))
-                ConductorVoicechatPlugin.addReceiver(serverPlayer);
         });
 
         TMMPlayerEvents.TICK.register((serverWorld, serverPlayer, role, playing, game) -> {

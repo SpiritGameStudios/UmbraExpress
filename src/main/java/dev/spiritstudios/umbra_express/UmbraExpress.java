@@ -8,6 +8,7 @@ import dev.doctor4t.trainmurdermystery.cca.AreasWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.init.*;
+import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -52,6 +53,7 @@ public class UmbraExpress implements ModInitializer {
 
 			player.changeGameMode(GameMode.SPECTATOR);
 			TrainVoicePlugin.addPlayer(player.getUuid());
+			ConductorVoicechatPlugin.addReceiver(player);
 
 			AreasWorldComponent.PosWithOrientation spectatorSpawnPos = AreasWorldComponent.KEY.get(serverWorld).getSpectatorSpawnPos();
 			player.teleport(serverWorld, spectatorSpawnPos.pos.getX(), spectatorSpawnPos.pos.getY(), spectatorSpawnPos.pos.getZ(), spectatorSpawnPos.yaw, spectatorSpawnPos.pitch);
