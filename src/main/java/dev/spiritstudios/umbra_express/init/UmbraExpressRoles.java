@@ -6,9 +6,8 @@ import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
-import dev.spiritstudios.umbra_express.role.RoleReplacer.PlayerNumbers;
-import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementChecker;
-import net.minecraft.server.network.ServerPlayerEntity;
+import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementQuotient;
+import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementPredicate;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
@@ -27,27 +25,23 @@ public interface UmbraExpressRoles {
 
 	Map<Role, RoleAnnouncementTexts.RoleAnnouncementText> TEXTS = new HashMap<>();
 	List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
-	Map<Role, Consumer<ServerPlayerEntity>> ITEM_GIVERS = new HashMap<>();
-
-	Function<Long, Integer> ASSASSIN_PASSIVE_MONEY_TICKER = time -> {
-		if (time % GameConstants.getInTicks(0, 20) == 0) {
-			return 5;
-		}
-		return 0;
-	};
+	Map<Role, Function<Long, Integer>> PASSIVE_MONEY_TICKERS = new HashMap<>();
 
     Role CONDUCTOR = registerInnocent(UmbraExpress.id("conductor"), 0x7604E7, true);
 	Role MYSTIC = registerInnocent(UmbraExpress.id("mystic"), 0xE783D5, false);
 	Role BARTENDER = registerInnocent(UmbraExpress.id("bartender"), 0x3DE0AF, false);
 	Role LOCKSMITH = registerInnocent(UmbraExpress.id("locksmith"), 0xFFE447, false);
-	Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04);
+	Role ASSASSIN = registerKiller(UmbraExpress.id("assassin"), 0x520b04, GameConstants.getInTicks(0, 20), 5);
 
 	static Role registerInnocent(Identifier id, int color, boolean canSeeTime) {
 		return registerRole(new Role(id, color, true, false, Role.MoodType.REAL, GameConstants.getInTicks(0, 10), canSeeTime));
 	}
 
-	static Role registerKiller(Identifier id, int color) {
-		return registerRole(new Role(id, color, false, true, Role.MoodType.FAKE, -1, true));
+	static Role registerKiller(Identifier id, int color, int passiveMoneyTimeTicks, int passiveMoneyAmountPerTick) {
+		Role role = new Role(id, color, false, true, Role.MoodType.FAKE, -1, true);
+		PASSIVE_MONEY_TICKERS.put(role, time -> time % passiveMoneyTimeTicks == 0 ? passiveMoneyAmountPerTick : 0);
+
+		return registerRole(role);
 	}
 
 	static Role registerRole(Role role) {
@@ -60,17 +54,15 @@ public interface UmbraExpressRoles {
 		return RoleAnnouncementTexts.registerRoleAnnouncementText(new RoleAnnouncementTexts.RoleAnnouncementText(name, color));
 	}
 
-	static void registerReplacer(Role original, Role replacement, PlayerNumbers playerNumbers, ReplacementChecker replacementChecker) {
-		ROLE_REPLACEMENTS.add(new RoleReplacer(original, replacement, playerNumbers, replacementChecker));
+	static void registerReplacer(Role original, Role replacement, ReplacementQuotient replacementQuotient, ReplacementPredicate replacementPredicate) {
+		ROLE_REPLACEMENTS.add(new RoleReplacer(original, replacement, replacementQuotient, replacementPredicate));
 	}
 
     static void init() {
-        registerReplacer(CIVILIAN, CONDUCTOR, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
-		registerReplacer(CIVILIAN, BARTENDER, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
-		registerReplacer(CIVILIAN, LOCKSMITH, PlayerNumbers.ONE, ReplacementChecker.ALWAYS);
-		registerReplacer(CIVILIAN, MYSTIC, (total, ofReplacedRole) -> total >= 8 ? 1 : 0, ReplacementChecker.ALWAYS);
-		registerReplacer(KILLER, ASSASSIN, PlayerNumbers.ALL, ReplacementChecker.fromRandom(0.5F));
-
-		ITEM_GIVERS.put(LOCKSMITH, (player) -> player.giveItemStack(UmbraExpressItems.MASTER_KEY.getDefaultStack()));
+        registerReplacer(CIVILIAN, CONDUCTOR, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
+		registerReplacer(CIVILIAN, BARTENDER, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
+		registerReplacer(CIVILIAN, LOCKSMITH, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
+		registerReplacer(CIVILIAN, MYSTIC, ReplacementQuotient.ONE_OF, ReplacementPredicate.minPlayers(8));
+		registerReplacer(KILLER, ASSASSIN, ReplacementQuotient.ALL_OF, ReplacementPredicate.fromRandom(0.5F));
     }
 }
