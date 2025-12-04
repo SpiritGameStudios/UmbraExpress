@@ -5,94 +5,101 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 
-@SuppressWarnings({"CodeBlock2Expr", "unused"})
-public class TMMGameLifecycleEvents {
+@ApiStatus.NonExtendable
+public interface TMMGameLifecycleEvents {
 
-    public static final Event<Start> START = EventFactory.createArrayBacked(Start.class, callbacks -> {
-        return (serverWorld, game) -> {
-            for (Start callback : callbacks)
-                callback.onStart(serverWorld, game);
-        };
-    });
+    Event<Start> START = EventFactory.createArrayBacked(Start.class,
+		callbacks -> (serverWorld, game) -> {
+			for (Start callback : callbacks) {
+				callback.onStart(serverWorld, game);
+			}
+		}
+	);
 
-    public static final Event<Initializing> INITIALIZING = EventFactory.createArrayBacked(Initializing.class, callbacks -> {
-        return (serverWorld, game, readyPlayerList) -> {
-            for (Initializing callback : callbacks)
-                callback.onInitializing(serverWorld, game, readyPlayerList);
-        };
-    });
+    Event<Initializing> INITIALIZING = EventFactory.createArrayBacked(Initializing.class,
+		callbacks -> (serverWorld, game, readyPlayerList) -> {
+			for (Initializing callback : callbacks) {
+				callback.onInitializing(serverWorld, game, readyPlayerList);
+			}
+		}
+	);
 
-    public static final Event<Initialized> INITIALIZED = EventFactory.createArrayBacked(Initialized.class, callbacks -> {
-        return (serverWorld, game) -> {
-            for (Initialized callback : callbacks)
-                callback.onInitialized(serverWorld, game);
-        };
-    });
+    Event<Initialized> INITIALIZED = EventFactory.createArrayBacked(Initialized.class,
+		callbacks -> (serverWorld, game) -> {
+			for (Initialized callback : callbacks) {
+				callback.onInitialized(serverWorld, game);
+			}
+		}
+	);
 
-    public static final Event<Tick> TICK = EventFactory.createArrayBacked(Tick.class, callbacks -> {
-        return (serverWorld, game) -> {
-            for (Tick callback : callbacks)
-                callback.onTick(serverWorld, game);
-        };
-    });
+    Event<Tick> TICK = EventFactory.createArrayBacked(Tick.class,
+		callbacks -> (serverWorld, game) -> {
+			for (Tick callback : callbacks) {
+				callback.onTick(serverWorld, game);
+			}
+		}
+	);
 
-    public static final Event<Finalizing> FINALIZING = EventFactory.createArrayBacked(Finalizing.class, callbacks -> {
-        return (serverWorld, game) -> {
-            for (Finalizing callback : callbacks)
-                callback.onFinalizing(serverWorld, game);
-        };
-    });
+    Event<Finalizing> FINALIZING = EventFactory.createArrayBacked(Finalizing.class,
+		callbacks -> (serverWorld, game) -> {
+			for (Finalizing callback : callbacks) {
+				callback.onFinalizing(serverWorld, game);
+			}
+		}
+	);
 
-    public static final Event<Finalized> FINALIZED = EventFactory.createArrayBacked(Finalized.class, callbacks -> {
-        return (serverWorld, game) -> {
-            for (Finalized callback : callbacks)
-                callback.onFinalized(serverWorld, game);
-        };
-    });
+    Event<Finalized> FINALIZED = EventFactory.createArrayBacked(Finalized.class,
+		callbacks -> (serverWorld, game) -> {
+			for (Finalized callback : callbacks) {
+				callback.onFinalized(serverWorld, game);
+			}
+		}
+	);
 
-    public static final Event<Stop> STOP = EventFactory.createArrayBacked(Stop.class, callbacks -> {
-        return (serverWorld, game) -> {
-            for (Stop callback : callbacks)
-                callback.onStop(serverWorld, game);
-        };
-    });
+    Event<Stop> STOP = EventFactory.createArrayBacked(Stop.class,
+		callbacks -> (serverWorld, game) -> {
+			for (Stop callback : callbacks) {
+				callback.onStop(serverWorld, game);
+			}
+		}
+	);
 
     @FunctionalInterface
-    public interface Start {
+    interface Start {
         void onStart(ServerWorld serverWorld, GameWorldComponent game);
     }
 
     @FunctionalInterface
-    public interface Initializing {
+    interface Initializing {
         void onInitializing(ServerWorld serverWorld, GameWorldComponent game, List<ServerPlayerEntity> readyPlayerList);
     }
 
     @FunctionalInterface
-    public interface Initialized {
+    interface Initialized {
         void onInitialized(ServerWorld serverWorld, GameWorldComponent game);
     }
 
     @FunctionalInterface
-    public interface Finalizing {
+    interface Finalizing {
         void onFinalizing(ServerWorld serverWorld, GameWorldComponent game);
     }
 
     @FunctionalInterface
-    public interface Finalized {
+    interface Finalized {
         void onFinalized(ServerWorld serverWorld, GameWorldComponent game);
     }
 
     @FunctionalInterface
-    public interface Tick {
+    interface Tick {
         void onTick(ServerWorld serverWorld, GameWorldComponent game);
     }
 
     @FunctionalInterface
-    public interface Stop {
+    interface Stop {
         void onStop(ServerWorld serverWorld, GameWorldComponent game);
     }
-
 }

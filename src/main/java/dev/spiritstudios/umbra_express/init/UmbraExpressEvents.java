@@ -12,12 +12,14 @@ import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
 import net.minecraft.item.Item;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Objects;
 
-public class UmbraExpressEvents {
+@ApiStatus.NonExtendable
+public interface UmbraExpressEvents {
 
-    public static void registerGameLifecycle() {
+    static void registerGameLifecycle() {
         TMMGameLifecycleEvents.INITIALIZING.register((serverWorld, game, readyPlayerList) -> {
             HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
             resetWorld(serverWorld, hitlist);
@@ -29,7 +31,7 @@ public class UmbraExpressEvents {
         TMMGameLifecycleEvents.FINALIZED.register((serverWorld, game) -> HauntingVoicechatPlugin.reset());
     }
 
-    public static void registerPlayer() {
+    static void registerPlayer() {
         TMMPlayerEvents.INITIALIZING.register((serverWorld, serverPlayer, role, playing, game) -> {
 			if (!safeRoleEquals(role, UmbraExpressRoles.CONDUCTOR))
 				ConductorVoicechatPlugin.addReceiver(serverPlayer);
@@ -66,18 +68,17 @@ public class UmbraExpressEvents {
         });
     }
 
-    private static void resetWorld(ServerWorld serverWorld, HitListWorldComponent hitList) {
+    static void resetWorld(ServerWorld serverWorld, HitListWorldComponent hitList) {
         ConductorVoicechatPlugin.reset();
         CooldownWorldComponent.resetAll(serverWorld);
         hitList.umbra_express$reset();
     }
 
-    private static boolean safeRoleEquals(Role a, Role b) {
+    static boolean safeRoleEquals(Role a, Role b) {
         return Objects.equals(a, b);
     }
 
-    private static void giveItem(ServerPlayerEntity serverPlayer, Item item) {
+    static void giveItem(ServerPlayerEntity serverPlayer, Item item) {
         serverPlayer.giveItemStack(item.getDefaultStack());
     }
-
 }
