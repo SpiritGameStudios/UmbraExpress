@@ -1,4 +1,4 @@
-package dev.spiritstudios.umbra_express;
+package dev.spiritstudios.umbra_express.init;
 
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
@@ -7,8 +7,6 @@ import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
 import dev.spiritstudios.umbra_express.event.TMMGameLifecycleEvents;
 import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
-import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
-import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
 import net.minecraft.item.Item;
