@@ -29,15 +29,15 @@ public class TMMPlayerEvents {
     });
 
     public static final Event<Died> DIED = EventFactory.createArrayBacked(Died.class, callbacks -> {
-        return (world, player, killer, deathReason, game) -> {
+        return (world, player, playerRole, killer, killerRole, deathReason, game) -> {
             for (Died callback : callbacks)
-                callback.onDied(world, player, killer, deathReason, game);
+                callback.onDied(world, player, playerRole, killer, killerRole, deathReason, game);
         };
     });
 
     @FunctionalInterface
     public interface Died {
-        void onDied(World world, PlayerEntity player, @Nullable PlayerEntity killer, Identifier deathReason, GameWorldComponent game);
+        void onDied(World world, PlayerEntity player, Role playerRole, @Nullable PlayerEntity killer, @Nullable Role killerRole, Identifier deathReason, GameWorldComponent game);
     }
 
     @FunctionalInterface

@@ -22,18 +22,19 @@ public record RoleReplacer(Role original, Role replacement, ReplacementQuotient 
 			return;
 		}
 
-		withRole = gameComponent.getAllWithRole(this.original);
-		if (withRole.isEmpty()) {
-			return;
-		}
-
 		for (int i = 0; i < numberToAssign; i++) {
-			UUID uuid = Util.getRandom(withRole, serverWorld.getRandom());
-			ServerPlayerEntity serverPlayer = (ServerPlayerEntity) serverWorld.getPlayerByUuid(uuid);
-			if (this.replacementPredicate.shouldAssign(totalPlayers, serverWorld, serverPlayer)) {
-				gameComponent.addRole(uuid, this.replacement);
+			withRole = gameComponent.getAllWithRole(this.original);
+			if (withRole.isEmpty()) {
+				return;
 			}
-		}
+			UUID uuid = Util.getRandom(withRole, serverWorld.getRandom());
+
+            if (serverWorld.getPlayerByUuid(uuid) instanceof ServerPlayerEntity serverPlayer) {
+                if (this.replacementPredicate.shouldAssign(totalPlayers, serverWorld, serverPlayer)) {
+                    gameComponent.addRole(uuid, this.replacement);
+                }
+            }
+        }
 	}
 
 	@FunctionalInterface
@@ -67,7 +68,7 @@ public record RoleReplacer(Role original, Role replacement, ReplacementQuotient 
 		 * @return the checker
 		 */
 		static ReplacementPredicate minPlayers(int players) {
-			return (totalPlayers, serverWorld, serverPlayer) -> totalPlayers > players;
+			return (totalPlayers, serverWorld, serverPlayer) -> totalPlayers >= players;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package dev.spiritstudios.umbra_express;
 
+import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
@@ -10,29 +11,23 @@ import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
+import net.minecraft.item.Item;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.Objects;
 
-@SuppressWarnings("CastToIncompatibleInterface")
 public class UmbraExpressEvents {
 
     public static void registerGameLifecycle() {
         TMMGameLifecycleEvents.INITIALIZING.register((serverWorld, game, readyPlayerList) -> {
-            ConductorVoicechatPlugin.reset();
-            CooldownWorldComponent.resetAll(serverWorld);
-
-            HitListWorldComponent hitlist = (HitListWorldComponent) game;
-            hitlist.umbra_express$reset();
+            HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
+            resetWorld(serverWorld, hitlist);
             hitlist.umbra_express$rerollTarget();
         });
 
-        TMMGameLifecycleEvents.FINALIZING.register((serverWorld, game) -> {
-            ConductorVoicechatPlugin.reset();
-            CooldownWorldComponent.resetAll(serverWorld);
-
-            ((HitListWorldComponent) game).umbra_express$reset();
-        });
-
+        // is it necessary to split these??
+        TMMGameLifecycleEvents.FINALIZING.register((serverWorld, game) -> resetWorld(serverWorld, HitListWorldComponent.cast(game)));
         TMMGameLifecycleEvents.FINALIZED.register((serverWorld, game) -> HauntingVoicechatPlugin.reset());
     }
 
@@ -43,35 +38,48 @@ public class UmbraExpressEvents {
                 return;
             }
 
-            if (role.equals(UmbraExpressRoles.LOCKSMITH))
-                serverPlayer.giveItemStack(UmbraExpressItems.MASTER_KEY.getDefaultStack());
-            else if (role.equals(UmbraExpressRoles.CONDUCTOR))
+            if (safeRoleEquals(role, UmbraExpressRoles.LOCKSMITH))
+                giveItem(serverPlayer, UmbraExpressItems.MASTER_KEY);
+
+            if (!safeRoleEquals(role, UmbraExpressRoles.CONDUCTOR))
                 ConductorVoicechatPlugin.addReceiver(serverPlayer);
         });
 
         TMMPlayerEvents.TICK.register((serverWorld, serverPlayer, role, playing, game) -> {
-            if (playing)
-                return;
+            if (!playing) {
+                HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
 
-            HitListWorldComponent hitlist = (HitListWorldComponent) game;
-
-            if (Objects.equals(serverPlayer.getUuid(), hitlist.umbra_express$getTarget()))
-                hitlist.umbra_express$rerollTarget();
+                if (Objects.equals(serverPlayer.getUuid(), hitlist.umbra_express$getTarget()))
+                    hitlist.umbra_express$rerollTarget();
+            }
         });
 
-        TMMPlayerEvents.DIED.register((world, player, killer, deathReason, game) -> {
-            if (game.getRole(player).equals(UmbraExpressRoles.CONDUCTOR))
+        TMMPlayerEvents.DIED.register((world, player, playerRole, killer, killerRole, deathReason, game) -> {
+            if (safeRoleEquals(playerRole, UmbraExpressRoles.CONDUCTOR))
                 BroadcastWorldComponent.KEY.get(world).setBroadcasting(false);
 
-            if (killer == null || !game.getRole(killer).equals(UmbraExpressRoles.ASSASSIN) || !game.isRunning())
-                return;
+            if (killer != null && safeRoleEquals(killerRole, UmbraExpressRoles.ASSASSIN) && game.isRunning()) {
+                HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
+                hitlist.umbra_express$rerollTarget();
 
-            HitListWorldComponent hitlist = (HitListWorldComponent) game;
-            hitlist.umbra_express$rerollTarget();
-
-            if (Objects.equals(player.getUuid(), hitlist.umbra_express$getTarget()))
-                hitlist.umbra_express$addKilledTarget();
+                if (Objects.equals(player.getUuid(), hitlist.umbra_express$getTarget()))
+                    hitlist.umbra_express$addKilledTarget();
+            }
         });
+    }
+
+    private static void resetWorld(ServerWorld serverWorld, HitListWorldComponent hitList) {
+        ConductorVoicechatPlugin.reset();
+        CooldownWorldComponent.resetAll(serverWorld);
+        hitList.umbra_express$reset();
+    }
+
+    private static boolean safeRoleEquals(Role a, Role b) {
+        return Objects.equals(a, b);
+    }
+
+    private static void giveItem(ServerPlayerEntity serverPlayer, Item item) {
+        serverPlayer.giveItemStack(item.getDefaultStack());
     }
 
 }

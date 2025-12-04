@@ -56,7 +56,7 @@ public abstract class TMMItemTooltipsMixin {
 			return;
 		}
 
-		HitListWorldComponent hitList = (HitListWorldComponent) TMMClient.gameComponent;
+		HitListWorldComponent hitList = HitListWorldComponent.cast(TMMClient.gameComponent);
 
 		String hitlistTranslationKey = TextUtils.getItemTranslationKey(TMMItems.LETTER) + ".hitlist";
 
