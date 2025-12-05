@@ -70,8 +70,8 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        if (nbt.contains(APPARITION_KEY))
-            this.apparitionUUID = nbt.getUuid(APPARITION_KEY);
+		this.apparitionUUID = nbt.contains(APPARITION_KEY) ? nbt.getUuid(APPARITION_KEY) : null;
+		this.apparitionTicks = nbt.contains(APPARITION_TICKS_KEY) ? nbt.getInt(APPARITION_TICKS_KEY) : 0;
     }
 
     public void tick(World world) {

@@ -66,7 +66,7 @@ public class CrystalBallBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity mystic, BlockHitResult hit) {
-        if (world.isClient() || !(world.getBlockEntity(pos) instanceof CrystalBallBlockEntity blockEntity))
+        if (!(world.getBlockEntity(pos) instanceof CrystalBallBlockEntity blockEntity))
             return ActionResult.PASS;
 
         GameWorldComponent game = GameWorldComponent.KEY.get(world);
@@ -80,13 +80,16 @@ public class CrystalBallBlock extends BlockWithEntity {
             return ActionResult.CONSUME;
         }
 
-        Random random = world.getRandom();
-        chooseNewApparitionPlayer(game, world, mystic, random)
-			.ifPresent(apparition ->
-				blockEntity.onReveal(world, pos, random, apparition, mystic, game.isRunning())
-			);
+		boolean client = world.isClient();
+		if (!client) {
+			Random random = world.getRandom();
+			chooseNewApparitionPlayer(game, world, mystic, random)
+				.ifPresent(apparition ->
+					blockEntity.onReveal(world, pos, random, apparition, mystic, game.isRunning())
+				);
+		}
 
-        return ActionResult.SUCCESS;
+        return ActionResult.success(client);
     }
 
     private static Optional<? extends PlayerEntity> chooseNewApparitionPlayer(GameWorldComponent game, World world, PlayerEntity mystic, Random random) {
