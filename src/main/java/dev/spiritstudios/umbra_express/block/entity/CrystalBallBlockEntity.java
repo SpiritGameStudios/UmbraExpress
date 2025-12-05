@@ -1,5 +1,6 @@
 package dev.spiritstudios.umbra_express.block.entity;
 
+import dev.doctor4t.trainmurdermystery.block_entity.SyncingBlockEntity;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
@@ -7,13 +8,10 @@ import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressSoundEvents;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -29,7 +27,7 @@ import java.util.UUID;
 /**
  * @author axialeaa
  */
-public class CrystalBallBlockEntity extends BlockEntity {
+public class CrystalBallBlockEntity extends SyncingBlockEntity {
 
     private static final String APPARITION_KEY = "apparition";
     private static final String APPARITION_TICKS_KEY = "apparition_ticks";
@@ -48,17 +46,6 @@ public class CrystalBallBlockEntity extends BlockEntity {
 
     public CrystalBallBlockEntity(BlockPos pos, BlockState state) {
         super(UmbraExpressBlockEntities.CRYSTAL_BALL, pos, state);
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-    @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-        return this.createComponentlessNbt(registryLookup);
     }
 
     @Override
@@ -88,10 +75,9 @@ public class CrystalBallBlockEntity extends BlockEntity {
         return this.apparitionTicks > 0;
     }
 
-    public void onReveal(World world, BlockPos pos, Random random, PlayerEntity apparition, PlayerEntity mystic, boolean gameRunning) {
-        this.apparition = apparition;
+    public void onReveal(ServerWorld world, BlockPos pos, Random random, ServerPlayerEntity apparition, ServerPlayerEntity mystic, boolean gameRunning) {
+        // this.apparition = apparition;
         this.apparitionUUID = apparition.getUuid();
-
         this.apparitionTicks = MAX_APPARITION_RENDER_TICKS;
 
         CrystalBallWorldComponent.KEY.get(world)
@@ -99,28 +85,24 @@ public class CrystalBallBlockEntity extends BlockEntity {
 				gameRunning ? UmbraExpressConfig.crystalBallCooldownTicks(world) : MIN_COOLDOWN_TICKS
 			);
 
-        this.markDirty();
-
-		if (world instanceof ServerWorld serverWorld) {
-			serverWorld.getChunkManager().markForUpdate(pos);
-		}
+        this.sync();
 
         sendApparitionMessage(apparition, mystic);
         playSound(world, pos, random);
     }
 
-    public static void sendApparitionMessage(PlayerEntity apparition, PlayerEntity mystic) {
+    public static void sendApparitionMessage(ServerPlayerEntity apparition, ServerPlayerEntity mystic) {
         Text playerName = apparition.getName().copy().formatted(Formatting.LIGHT_PURPLE);
         mystic.sendMessage(Text.translatable("block.umbra_express.crystal_ball.apparition", playerName), true);
     }
 
-    public void sendCooldownMessage(PlayerEntity mystic, CrystalBallWorldComponent component) {
+    public void sendCooldownMessage(ServerPlayerEntity mystic, CrystalBallWorldComponent component) {
         String timeString = UmbraExpress.getCooldownTimeString(component.getTicksForRendering(), true);
         mystic.sendMessage(Text.translatable("block.umbra_express.crystal_ball.cooldown", timeString), true);
     }
 
-    private static void playSound(World world, BlockPos pos, Random random) {
+    private static void playSound(ServerWorld world, BlockPos pos, Random random) {
         float soundPitch = MathHelper.nextBetween(random, 1.0F - SOUND_PITCH_DEVIATION, 1.0F + SOUND_PITCH_DEVIATION);
-        world.playSoundAtBlockCenter(pos, UmbraExpressSoundEvents.CRYSTAL_BALL_REVEAL, SoundCategory.BLOCKS, 2.0F, soundPitch, true);
+        world.playSound(null, pos, UmbraExpressSoundEvents.CRYSTAL_BALL_REVEAL, SoundCategory.BLOCKS, 2.0F, soundPitch);
     }
 }

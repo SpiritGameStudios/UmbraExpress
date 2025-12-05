@@ -71,4 +71,5 @@ public record RoleReplacer(Role original, Role replacement, ReplacementQuotient 
 			return (totalPlayers, serverWorld, serverPlayer) -> totalPlayers >= players;
 		}
 	}
+
 }

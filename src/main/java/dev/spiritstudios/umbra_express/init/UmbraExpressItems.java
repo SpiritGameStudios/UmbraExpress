@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.init;
 
 import dev.doctor4t.ratatouille.util.registrar.ItemRegistrar;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.item.AntidoteItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -21,6 +22,7 @@ public interface UmbraExpressItems {
 	RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, UmbraExpress.id("item_group"));
 
 	Item MASTER_KEY = REGISTRAR.create("master_key", new Item(new Item.Settings().maxCount(1)), ITEM_GROUP);
+	Item ANTIDOTE = REGISTRAR.create("antidote", new AntidoteItem(new Item.Settings().maxCount(1)), ITEM_GROUP);
 
 	static void init() {
         REGISTRAR.registerEntries();

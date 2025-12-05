@@ -8,18 +8,17 @@ import com.mojang.authlib.GameProfile;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
+import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -54,11 +53,11 @@ public class MurderGameModeMixin {
 
 			gameComponent.addRole(player, devRole);
 
-			boolean devKiller = devRole.canUseKiller();
-			if (devKiller) {
-				PlayerShopComponent.KEY.get(player).setBalance(GameConstants.MONEY_START);
+			if (UmbraExpressRoles.MONEY_MAKERS.containsKey(devRole)) {
+				PlayerShopComponent.KEY.get(player).setBalance(UmbraExpressRoles.MONEY_MAKERS.get(devRole).startingAmount());
 			}
-			cir.setReturnValue(cir.getReturnValueI() + (devKiller ? 1 : 0));
+
+			cir.setReturnValue(cir.getReturnValueI() + (devRole.canUseKiller() ? 1 : 0));
 		}
 	}
 
@@ -74,12 +73,9 @@ public class MurderGameModeMixin {
 	@Expression("winStatus != NONE")
 	@ModifyExpressionValue(method = "tickServerGameLoop", at = @At("MIXINEXTRAS:EXPRESSION"), remap = true)
 	private boolean endlessDev(boolean original, ServerWorld serverWorld, GameWorldComponent game) {
-        if (UmbraExpressConfig.development(serverWorld)) {
-			if (UmbraExpress.DEVELOPMENT && FabricLoader.getInstance().isModLoaded("carpet")) {
-				return original;
-			}
-			return false;
+        if (!UmbraExpressConfig.development(serverWorld)) {
+            return original;
         }
-		return original;
-	}
+        return UmbraExpress.DEVELOPMENT && FabricLoader.getInstance().isModLoaded("carpet") && original;
+    }
 }

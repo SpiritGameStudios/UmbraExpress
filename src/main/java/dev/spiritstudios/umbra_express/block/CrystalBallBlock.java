@@ -15,6 +15,8 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
@@ -40,7 +42,7 @@ public class CrystalBallBlock extends BlockWithEntity {
     private static final MapCodec<CrystalBallBlock> CODEC = createCodec(CrystalBallBlock::new);
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
 
-    private static final VoxelShape BASE_SHAPE = Block.createCuboidShape(2, 0, 2, 14, 3, 14);
+    private static final VoxelShape BASE_SHAPE = Block.createCuboidShape(4, 0, 4, 12, 3, 12);
     private static final VoxelShape BALL_SHAPE = Block.createCuboidShape(3, 3, 3, 13, 13, 13);
 
     public CrystalBallBlock(Settings settings) {
@@ -65,46 +67,45 @@ public class CrystalBallBlock extends BlockWithEntity {
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity mystic, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!(world.getBlockEntity(pos) instanceof CrystalBallBlockEntity blockEntity))
             return ActionResult.PASS;
 
         GameWorldComponent game = GameWorldComponent.KEY.get(world);
 		CrystalBallWorldComponent component = CrystalBallWorldComponent.KEY.get(world);
 
-		if (!component.canView(game, mystic))
+		if (!component.canView(game, player))
 			return ActionResult.PASS;
 
-		boolean client = world.isClient();
+        if (!(world instanceof ServerWorld serverWorld && player instanceof ServerPlayerEntity serverPlayer))
+            return ActionResult.CONSUME;
 
 		if (component.isOnCooldown()) {
-			if (client) blockEntity.sendCooldownMessage(mystic, component);
+            blockEntity.sendCooldownMessage(serverPlayer, component);
             return ActionResult.CONSUME;
         }
 
-		if (!client) {
-			Random random = world.getRandom();
-			chooseNewApparitionPlayer(game, world, mystic, random)
-				.ifPresent(apparition ->
-					blockEntity.onReveal(world, pos, random, apparition, mystic, game.isRunning())
-				);
-		}
+        Random random = world.getRandom();
+        chooseNewApparitionPlayer(game, serverWorld, serverPlayer, random)
+            .ifPresent(apparition ->
+                blockEntity.onReveal(serverWorld, pos, random, apparition, serverPlayer, game.isRunning())
+            );
 
-        return ActionResult.success(client);
+        return ActionResult.SUCCESS;
     }
 
-    private static Optional<? extends PlayerEntity> chooseNewApparitionPlayer(GameWorldComponent game, World world, PlayerEntity mystic, Random random) {
-        Stream<? extends PlayerEntity> playerStream = world.getPlayers().stream();
+    private static Optional<ServerPlayerEntity> chooseNewApparitionPlayer(GameWorldComponent game, ServerWorld serverWorld, ServerPlayerEntity mystic, Random random) {
+        Stream<ServerPlayerEntity> playerStream = serverWorld.getPlayers().stream();
 
         if (game.isRunning())
-            playerStream = playerStream.filter(player -> isPlayerRevealable(world, player, mystic, game));
+            playerStream = playerStream.filter(player -> isPlayerRevealable(serverWorld, player, mystic, game));
 
-        List<? extends PlayerEntity> players = playerStream.toList();
+        List<ServerPlayerEntity> players = playerStream.toList();
 
         return Util.getRandomOrEmpty(players, random);
     }
 
-    private static boolean isPlayerRevealable(World world, PlayerEntity player, PlayerEntity mystic, GameWorldComponent game) {
+    private static boolean isPlayerRevealable(ServerWorld world, ServerPlayerEntity player, ServerPlayerEntity mystic, GameWorldComponent game) {
         if (player.equals(mystic) || GameFunctions.isPlayerEliminated(player))
             return false;
 

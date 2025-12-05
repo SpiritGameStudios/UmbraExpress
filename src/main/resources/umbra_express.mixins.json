@@ -18,12 +18,18 @@
         "qol.MountableBlockMixin",
         "roles.MurderGameModeMixin",
         "roles.assassin.GameWorldComponentMixin",
-        "roles.assassin.MurderGameModeMixin",
+        "roles.bartender.BeveragePlateBlockEntityMixin",
+        "roles.bartender.FoodPlatterBlockMixin",
         "roles.conductor.ButtonBlockMixin",
         "roles.conductor.PlayerMoodComponentMixin",
         "roles.conductor.PlayerMoodComponentMixin$TaskMixin",
         "roles.conductor.TMMModelGenAccessor",
-        "roles.locksmith.DoorBlocksMixin"
+        "roles.locksmith.DoorBlocksMixin",
+        "shop.GameFunctionsMixin",
+        "shop.MurderGameModeMixin",
+        "shop.PlayerShopComponentMixin",
+        "shop.ScoreboardRoleSelectorComponentMixin",
+        "shop.ShopEntryMixin"
     ],
     "injectors": {
         "defaultRequire": 1

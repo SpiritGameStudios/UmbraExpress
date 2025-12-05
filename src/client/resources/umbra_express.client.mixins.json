@@ -12,7 +12,9 @@
     "roles.bartender.BeveragePlateBlockEntityMixinMixin",
     "roles.conductor.TimeRendererMixin",
     "roles.locksmith.TMMItemTooltipsMixin",
-    "roles.mystic.TimeRendererMixin"
+    "roles.mystic.TimeRendererMixin",
+    "roles.shop.LimitedInventoryScreenMixin",
+    "roles.shop.StoreRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

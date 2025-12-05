@@ -1,6 +1,7 @@
 package dev.spiritstudios.umbra_express.init;
 
 import dev.doctor4t.trainmurdermystery.api.Role;
+import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
@@ -43,6 +44,9 @@ public interface UmbraExpressEvents {
 
             if (safeRoleEquals(role, UmbraExpressRoles.LOCKSMITH))
                 giveItem(serverPlayer, UmbraExpressItems.MASTER_KEY);
+
+            if (UmbraExpressRoles.MONEY_MAKERS.containsKey(role))
+                PlayerShopComponent.KEY.get(serverPlayer).setBalance(UmbraExpressRoles.MONEY_MAKERS.get(role).startingAmount());
         });
 
         TMMPlayerEvents.TICK.register((serverWorld, serverPlayer, role, playing, game) -> {

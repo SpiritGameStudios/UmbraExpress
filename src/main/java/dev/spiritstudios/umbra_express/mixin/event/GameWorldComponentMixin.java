@@ -20,7 +20,7 @@ public class GameWorldComponentMixin {
         TMMGameLifecycleEvents.TICK.invoker().onTick(serverWorld, (GameWorldComponent) (Object) this);
     }
 
-    @Inject(method = "serverTick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/game/GameFunctions;isPlayerAliveAndSurvival(Lnet/minecraft/entity/player/PlayerEntity;)Z", ordinal = 2))
+    @Inject(method = "serverTick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/game/GameFunctions;isPlayerAliveAndSurvival(Lnet/minecraft/entity/player/PlayerEntity;)Z", ordinal = 2), remap = false)
     private void onPlayerTick(CallbackInfo ci, @Local ServerWorld serverWorld, @Local ServerPlayerEntity player) {
         GameWorldComponent game = GameWorldComponent.KEY.get(serverWorld);
         TMMPlayerEvents.TICK.invoker().onTick(serverWorld, player, game.getRole(player), GameFunctions.isPlayerAliveAndSurvival(player), game);
