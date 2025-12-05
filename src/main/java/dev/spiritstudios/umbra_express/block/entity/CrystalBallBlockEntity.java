@@ -14,6 +14,7 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -99,6 +100,10 @@ public class CrystalBallBlockEntity extends BlockEntity {
 			);
 
         this.markDirty();
+
+		if (world instanceof ServerWorld serverWorld) {
+			serverWorld.getChunkManager().markForUpdate(pos);
+		}
 
         sendApparitionMessage(apparition, mystic);
         playSound(world, pos, random);
