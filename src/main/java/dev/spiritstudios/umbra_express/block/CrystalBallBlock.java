@@ -75,12 +75,13 @@ public class CrystalBallBlock extends BlockWithEntity {
 		if (!component.canView(game, mystic))
 			return ActionResult.PASS;
 
-        if (component.isOnCooldown()) {
-            blockEntity.sendCooldownMessage(mystic, component);
+		boolean client = world.isClient();
+
+		if (component.isOnCooldown()) {
+			if (client) blockEntity.sendCooldownMessage(mystic, component);
             return ActionResult.CONSUME;
         }
 
-		boolean client = world.isClient();
 		if (!client) {
 			Random random = world.getRandom();
 			chooseNewApparitionPlayer(game, world, mystic, random)
