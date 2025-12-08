@@ -1,5 +1,6 @@
 package dev.spiritstudios.umbra_express.command;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.doctor4t.trainmurdermystery.api.Role;
@@ -71,6 +72,6 @@ public interface ListRoleCommand {
 
 		source.sendFeedback(() -> Text.stringifiedTranslatable("commands.umbra_express.roles.list." + sub, Arrays.toString(output.toArray())), false);
 
-		return 1;
+		return Command.SINGLE_SUCCESS;
 	}
 }

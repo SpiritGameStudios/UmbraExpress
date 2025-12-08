@@ -8,6 +8,7 @@ import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
 import dev.spiritstudios.umbra_express.event.TMMGameLifecycleEvents;
 import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
+import dev.spiritstudios.umbra_express.role.MoneyManager;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
 import net.minecraft.item.Item;
@@ -45,8 +46,8 @@ public interface UmbraExpressEvents {
             if (safeRoleEquals(role, UmbraExpressRoles.LOCKSMITH))
                 giveItem(serverPlayer, UmbraExpressItems.MASTER_KEY);
 
-            if (UmbraExpressRoles.MONEY_MAKERS.containsKey(role))
-                PlayerShopComponent.KEY.get(serverPlayer).setBalance(UmbraExpressRoles.MONEY_MAKERS.get(role).startingAmount());
+            if (MoneyManager.ROLE_MAP.containsKey(role))
+                PlayerShopComponent.KEY.get(serverPlayer).setBalance(MoneyManager.ROLE_MAP.get(role).startingAmount());
         });
 
         TMMPlayerEvents.TICK.register((serverWorld, serverPlayer, role, playing, game) -> {

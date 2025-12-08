@@ -31,7 +31,7 @@ public class ConductorVoicechatPlugin implements VoicechatPlugin {
     public static final UUID BROADCAST_UUID = UUID.randomUUID();
     @Nullable
     public static StaticAudioChannel announcementChannel;
-    public static Set<ServerPlayerEntity> receivers = new HashSet<>();
+    public static final Set<ServerPlayerEntity> receivers = new HashSet<>();
     public static UUID announcerUUID;
 
     public static void addReceiver(ServerPlayerEntity player) {

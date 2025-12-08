@@ -25,7 +25,7 @@ public class HauntingVoicechatPlugin implements VoicechatPlugin {
 	public static final UUID HAUNT_UUID = UUID.randomUUID();
 	@Nullable
 	public static StaticAudioChannel hauntChannel;
-	public static Set<ServerPlayerEntity> killers = new HashSet<>();
+	public static final Set<ServerPlayerEntity> killers = new HashSet<>();
 
 	public static void initHauntForKiller(ServerPlayerEntity player) {
 		if (TrainVoicePlugin.isVoiceChatMissing()) {

@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class GameWorldComponentMixin {
 
     @Inject(method = "serverTick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;tickServerGameLoop(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;)V"), remap = false)
-    private void onTick(CallbackInfo ci, @Local ServerWorld serverWorld) {
+    private void onTick(CallbackInfo ci, @Local(name = "serverWorld") ServerWorld serverWorld) {
         TMMGameLifecycleEvents.TICK.invoker().onTick(serverWorld, (GameWorldComponent) (Object) this);
     }
 
     @Inject(method = "serverTick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/game/GameFunctions;isPlayerAliveAndSurvival(Lnet/minecraft/entity/player/PlayerEntity;)Z", ordinal = 2), remap = false)
-    private void onPlayerTick(CallbackInfo ci, @Local ServerWorld serverWorld, @Local ServerPlayerEntity player) {
+    private void onPlayerTick(CallbackInfo ci, @Local(name = "serverWorld") ServerWorld serverWorld, @Local(name = "player") ServerPlayerEntity player) {
         GameWorldComponent game = GameWorldComponent.KEY.get(serverWorld);
         TMMPlayerEvents.TICK.invoker().onTick(serverWorld, player, game.getRole(player), GameFunctions.isPlayerAliveAndSurvival(player), game);
     }

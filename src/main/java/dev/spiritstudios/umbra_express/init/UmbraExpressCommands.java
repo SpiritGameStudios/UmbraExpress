@@ -8,15 +8,13 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.spiritstudios.umbra_express.command.DisableRoleCommand;
 import dev.spiritstudios.umbra_express.command.ListRoleCommand;
 import dev.spiritstudios.umbra_express.command.LobbyApparitionCommand;
-import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.NonExtendable
 public interface UmbraExpressCommands {
 
-	static void init(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
+	static void init(CommandDispatcher<ServerCommandSource> dispatcher) {
 		LiteralCommandNode<ServerCommandSource> umbraRoot = literal("umbraexpress").build();
 
 		LiteralCommandNode<ServerCommandSource> roles = literal("roles").build();

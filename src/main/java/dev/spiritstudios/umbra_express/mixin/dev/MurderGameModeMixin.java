@@ -12,7 +12,7 @@ import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
-import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
+import dev.spiritstudios.umbra_express.role.MoneyManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -53,8 +53,8 @@ public class MurderGameModeMixin {
 
 			gameComponent.addRole(player, devRole);
 
-			if (UmbraExpressRoles.MONEY_MAKERS.containsKey(devRole)) {
-				PlayerShopComponent.KEY.get(player).setBalance(UmbraExpressRoles.MONEY_MAKERS.get(devRole).startingAmount());
+			if (MoneyManager.ROLE_MAP.containsKey(devRole)) {
+				PlayerShopComponent.KEY.get(player).setBalance(MoneyManager.ROLE_MAP.get(devRole).startingAmount());
 			}
 
 			cir.setReturnValue(cir.getReturnValueI() + (devRole.canUseKiller() ? 1 : 0));
@@ -64,7 +64,7 @@ public class MurderGameModeMixin {
 	@Definition(id = "floor", method = "Ljava/lang/Math;floor(D)D")
 	@Expression("(int) floor(?)")
 	@ModifyExpressionValue(method = "assignRolesAndGetKillerCount", at = @At("MIXINEXTRAS:EXPRESSION"), remap = true)
-	private static int modifyKillerCount(int original, @Local(argsOnly = true) ServerWorld serverWorld) {
+	private static int modifyKillerCount(int original, @Local(argsOnly = true, name = "arg0") ServerWorld serverWorld) {
 		return UmbraExpressConfig.getKillerCount(original, serverWorld);
 	}
 

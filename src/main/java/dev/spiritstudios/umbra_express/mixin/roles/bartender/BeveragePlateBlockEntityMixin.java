@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = BeveragePlateBlockEntity.class, remap = false)
 public abstract class BeveragePlateBlockEntityMixin implements BartenderPlate {
 
-    @Shadow protected abstract void sync();
+    @Shadow(remap = false) protected abstract void sync();
 
     @Unique private static final String BARTENDER_KEY = "bartender";
 
@@ -28,6 +28,10 @@ public abstract class BeveragePlateBlockEntityMixin implements BartenderPlate {
     @Override
     public void umbra_express$setIsBartender(boolean bartender) {
         this.bartender = bartender;
+    }
+
+    @Override
+    public void umbra_express$invokeSync() {
         this.sync();
     }
 

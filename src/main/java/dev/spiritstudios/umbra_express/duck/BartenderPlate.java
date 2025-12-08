@@ -12,6 +12,10 @@ public interface BartenderPlate {
         throw new UnsupportedOperationException("Duck interface");
     }
 
+    default void umbra_express$invokeSync() {
+        throw new UnsupportedOperationException("Duck interface");
+    }
+
     /**
      * avoids having to suppress the warning for every cast
      * @param blockEntity the block entity instance to cast

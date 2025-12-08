@@ -23,12 +23,12 @@ import java.util.List;
 public class GameFunctionsMixin {
 
     @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;setGameStatus(Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent$GameStatus;)V"), remap = false)
-    private static void onStart(ServerWorld world, GameMode gameMode, int time, CallbackInfo ci, @Local GameWorldComponent game) {
+    private static void onStart(ServerWorld world, GameMode gameMode, int time, CallbackInfo ci, @Local(name = "game") GameWorldComponent game) {
         TMMGameLifecycleEvents.START.invoker().onStart(world, game);
     }
 
     @Inject(method = "initializeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;initializeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;Ljava/util/List;)V"), remap = false)
-    private static void onInitializing(ServerWorld serverWorld, CallbackInfo ci, @Local GameWorldComponent gameWorldComponent, @Local List<ServerPlayerEntity> readyPlayerList) {
+    private static void onInitializing(ServerWorld serverWorld, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent, @Local(name = "readyPlayerList") List<ServerPlayerEntity> readyPlayerList) {
         TMMGameLifecycleEvents.INITIALIZING.invoker().onInitializing(serverWorld, gameWorldComponent, readyPlayerList);
         TMMPlayerEvents.Initializing invoker = TMMPlayerEvents.INITIALIZING.invoker();
 
@@ -41,27 +41,27 @@ public class GameFunctionsMixin {
     }
 
     @Inject(method = "initializeGame", at = @At("RETURN"), remap = false)
-    private static void onInitialized(ServerWorld serverWorld, CallbackInfo ci, @Local GameWorldComponent gameWorldComponent) {
+    private static void onInitialized(ServerWorld serverWorld, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
         TMMGameLifecycleEvents.INITIALIZED.invoker().onInitialized(serverWorld, gameWorldComponent);
     }
 
     @Inject(method = "finalizeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;finalizeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;)V", remap = false))
-    private static void onFinalizing(ServerWorld world, CallbackInfo ci, @Local GameWorldComponent gameWorldComponent) {
+    private static void onFinalizing(ServerWorld world, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
         TMMGameLifecycleEvents.FINALIZING.invoker().onFinalizing(world, gameWorldComponent);
     }
 
     @Inject(method = "finalizeGame", at = @At("RETURN"), remap = false)
-    private static void onFinalized(ServerWorld world, CallbackInfo ci, @Local GameWorldComponent gameWorldComponent) {
+    private static void onFinalized(ServerWorld world, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
         TMMGameLifecycleEvents.FINALIZED.invoker().onFinalized(world, gameWorldComponent);
     }
 
     @Inject(method = "stopGame", at = @At("RETURN"), remap = false)
-    private static void onStop(ServerWorld world, CallbackInfo ci, @Local GameWorldComponent component) {
+    private static void onStop(ServerWorld world, CallbackInfo ci, @Local(name = "component") GameWorldComponent component) {
         TMMGameLifecycleEvents.STOP.invoker().onStop(world, component);
     }
 
     @Inject(method = "killPlayer(Lnet/minecraft/entity/player/PlayerEntity;ZLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Identifier;)V", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;isInnocent(Lnet/minecraft/entity/player/PlayerEntity;)Z"), remap = false)
-    private static void onPlayerDied(PlayerEntity victim, boolean spawnBody, @Nullable PlayerEntity killer, Identifier deathReason, CallbackInfo ci, @Local GameWorldComponent gameWorldComponent) {
+    private static void onPlayerDied(PlayerEntity victim, boolean spawnBody, @Nullable PlayerEntity killer, Identifier deathReason, CallbackInfo ci, @Local(name = "gameWorldComponent") GameWorldComponent gameWorldComponent) {
         TMMPlayerEvents.DIED.invoker().onDied(victim.getWorld(), victim, gameWorldComponent.getRole(victim), killer, gameWorldComponent.getRole(killer), deathReason, gameWorldComponent);
     }
 }

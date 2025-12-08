@@ -28,10 +28,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-		generateForInnocent(UmbraExpressRoles.CONDUCTOR, translationBuilder);
-		generateForInnocent(UmbraExpressRoles.BARTENDER, translationBuilder);
+		generateForInnocentWithCustomGoal(UmbraExpressRoles.CONDUCTOR, "Announce important news in the train cab.", translationBuilder);
+		generateForInnocentWithCustomGoal(UmbraExpressRoles.BARTENDER, "Purchase alleviating concoctions to help your fellow passengers.", translationBuilder);
 		generateForInnocent(UmbraExpressRoles.LOCKSMITH, translationBuilder);
-		generateForInnocent(UmbraExpressRoles.MYSTIC, translationBuilder);
+		generateForInnocentWithCustomGoal(UmbraExpressRoles.MYSTIC, "Find a crystal ball and cast divine, arcane apparitions.", translationBuilder);
 
 		generateForKiller(UmbraExpressRoles.ASSASSIN, translationBuilder);
 
@@ -40,7 +40,6 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
         // crystal ball
         translationBuilder.add("subtitles.block.crystal_ball.reveal", "An apparition forms");
         translationBuilder.add("block.umbra_express.crystal_ball.apparition", "You see the face of %s.");
-        translationBuilder.add("block.umbra_express.crystal_ball.cooldown", "You must wait %s before casting another apparition.");
 
         UmbraExpressBlocks.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
 		//UmbraExpressItems.REGISTRAR.generateLang(wrapperLookup, translationBuilder);
@@ -50,6 +49,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		String masterKeyTranslation = TextUtils.getItemTranslationKey(UmbraExpressItems.MASTER_KEY);
 		translationBuilder.add(masterKeyTranslation, "Locksmith's Lockpick");
 		translationBuilder.add(masterKeyTranslation + ".tooltip", "Use on any locked door to open it (no cooldown)");
+
+		String antidoteTranslation = TextUtils.getItemTranslationKey(UmbraExpressItems.ANTIDOTE);
+		translationBuilder.add(antidoteTranslation, "Antidote");
+		translationBuilder.add(antidoteTranslation + ".tooltip", "Use on a poisoned passenger to cure them.");
 
 		String letterHitList = TextUtils.getItemTranslationKey(TMMItems.LETTER) + ".hitlist";
 		translationBuilder.add(letterHitList + ".premise0", "");
@@ -92,6 +95,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add("commands.umbra_express.lobby_apparition.get.false", "View Apparition in Lobby is currently set to false");
 		translationBuilder.add("commands.umbra_express.lobby_apparition.set.true", "View Apparition in Lobby is now set to true");
 		translationBuilder.add("commands.umbra_express.lobby_apparition.set.false", "View Apparition in Lobby is now set to false");
+	}
+
+	public static void generateForInnocentWithCustomGoal(Role role, String goal, TranslationBuilder translationBuilder) {
+		generate(role.identifier().getPath(), translationBuilder, goal, goal, PASSENGERS_WIN);
 	}
 
 	public static void generateForInnocent(Role role, TranslationBuilder translationBuilder) {

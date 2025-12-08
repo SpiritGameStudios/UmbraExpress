@@ -39,7 +39,7 @@ public class MurderGameModeMixin {
 	}
 
 	@WrapOperation(method = "initializeGame", at = @At(value = "INVOKE", target = "Ljava/util/ArrayList;indexOf(Ljava/lang/Object;)I"), remap = true)
-	private int customAnnouncementTexts(ArrayList<RoleAnnouncementTexts.RoleAnnouncementText> instance, Object o, Operation<Integer> original, @Local ServerPlayerEntity serverPlayerEntity, @Local(argsOnly = true) GameWorldComponent gameWorldComponent) {
+	private int customAnnouncementTexts(ArrayList<RoleAnnouncementTexts.RoleAnnouncementText> instance, Object o, Operation<Integer> original, @Local(name = "player") ServerPlayerEntity serverPlayerEntity, @Local(argsOnly = true, name = "arg2") GameWorldComponent gameWorldComponent) {
 		Role role = gameWorldComponent.getRole(serverPlayerEntity);
         return original.call(instance, UmbraExpressRoles.TEXTS.containsKey(role) ? UmbraExpressRoles.TEXTS.get(role) : o);
     }

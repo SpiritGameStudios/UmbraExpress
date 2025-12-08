@@ -1,5 +1,6 @@
 package dev.spiritstudios.umbra_express.command;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
@@ -52,7 +53,7 @@ public interface DisableRoleCommand {
 				UmbraExpressConfig.trySaveChanges();
 
 				context.getSource().sendFeedback(() -> Text.translatable("commands.umbra_express.roles.clearDisabledRoles"), true);
-				return 1;
+				return Command.SINGLE_SUCCESS;
 			})
 			.build();
 
@@ -71,7 +72,7 @@ public interface DisableRoleCommand {
 		boolean disabled = UmbraExpressConfig.disabledRoles.contains(role.identifier().toString());
 
 		context.getSource().sendFeedback(() -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.get." + disabled, role.identifier()), false);
-		return 1;
+		return Command.SINGLE_SUCCESS;
 	}
 
 	static int executeSetToggle(CommandContext<ServerCommandSource> context, boolean disable) throws CommandSyntaxException {
@@ -98,7 +99,7 @@ public interface DisableRoleCommand {
 		UmbraExpressConfig.trySaveChanges();
 
 		context.getSource().sendFeedback(() -> Text.stringifiedTranslatable("commands.umbra_express.roles.toggle.set." + disable, id), true);
-		return 1;
+		return Command.SINGLE_SUCCESS;
 	}
 
 	static Role getRoleArgument(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {

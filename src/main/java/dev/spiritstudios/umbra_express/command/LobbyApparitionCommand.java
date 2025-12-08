@@ -1,5 +1,6 @@
 package dev.spiritstudios.umbra_express.command;
 
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
@@ -19,7 +20,7 @@ public interface LobbyApparitionCommand {
 			.executes(context -> {
 				boolean view = CrystalBallWorldComponent.KEY.get(context.getSource().getWorld()).canViewInLobby();
 				context.getSource().sendFeedback(() -> Text.translatable("commands.umbra_express.lobby_apparition.get." + view), false);
-				return 1;
+				return Command.SINGLE_SUCCESS;
 			})
 			.build();
 
@@ -39,6 +40,6 @@ public interface LobbyApparitionCommand {
 		boolean value = BoolArgumentType.getBool(context, "value");
 		CrystalBallWorldComponent.KEY.get(context.getSource().getWorld()).setCanView(value);
 		context.getSource().sendFeedback(() -> Text.translatable("commands.umbra_express.lobby_apparition.set." + value), false);
-		return 1;
+		return Command.SINGLE_SUCCESS;
 	}
 }

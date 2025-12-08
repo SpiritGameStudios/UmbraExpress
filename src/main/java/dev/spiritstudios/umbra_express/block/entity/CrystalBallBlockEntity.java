@@ -2,18 +2,19 @@ package dev.spiritstudios.umbra_express.block.entity;
 
 import dev.doctor4t.trainmurdermystery.block_entity.SyncingBlockEntity;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressSoundEvents;
+import dev.spiritstudios.umbra_express.network.PlaySoundInUIS2CPayload;
+import dev.spiritstudios.umbra_express.network.WiggleCrystalBallCooldownHudS2CPayload;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -75,7 +76,7 @@ public class CrystalBallBlockEntity extends SyncingBlockEntity {
         return this.apparitionTicks > 0;
     }
 
-    public void onReveal(ServerWorld world, BlockPos pos, Random random, ServerPlayerEntity apparition, ServerPlayerEntity mystic, boolean gameRunning) {
+    public void onReveal(ServerWorld world, Random random, ServerPlayerEntity apparition, ServerPlayerEntity mystic, boolean gameRunning) {
         // this.apparition = apparition;
         this.apparitionUUID = apparition.getUuid();
         this.apparitionTicks = MAX_APPARITION_RENDER_TICKS;
@@ -88,7 +89,7 @@ public class CrystalBallBlockEntity extends SyncingBlockEntity {
         this.sync();
 
         sendApparitionMessage(apparition, mystic);
-        playSound(world, pos, random);
+        playSound(mystic, random);
     }
 
     public static void sendApparitionMessage(ServerPlayerEntity apparition, ServerPlayerEntity mystic) {
@@ -96,13 +97,15 @@ public class CrystalBallBlockEntity extends SyncingBlockEntity {
         mystic.sendMessage(Text.translatable("block.umbra_express.crystal_ball.apparition", playerName), true);
     }
 
-    public void sendCooldownMessage(ServerPlayerEntity mystic, CrystalBallWorldComponent component) {
-        String timeString = UmbraExpress.getCooldownTimeString(component.getTicksForRendering(), true);
-        mystic.sendMessage(Text.translatable("block.umbra_express.crystal_ball.cooldown", timeString), true);
+    public void onClickDuringCooldown(ServerPlayerEntity mystic) {
+        ServerPlayNetworking.send(mystic, new WiggleCrystalBallCooldownHudS2CPayload());
     }
 
-    private static void playSound(ServerWorld world, BlockPos pos, Random random) {
+    private static void playSound(ServerPlayerEntity mystic, Random random) {
         float soundPitch = MathHelper.nextBetween(random, 1.0F - SOUND_PITCH_DEVIATION, 1.0F + SOUND_PITCH_DEVIATION);
-        world.playSound(null, pos, UmbraExpressSoundEvents.CRYSTAL_BALL_REVEAL, SoundCategory.BLOCKS, 2.0F, soundPitch);
+        PlaySoundInUIS2CPayload payload = new PlaySoundInUIS2CPayload(UmbraExpressSoundEvents.CRYSTAL_BALL_REVEAL, soundPitch, 1.0F);
+
+        ServerPlayNetworking.send(mystic, payload);
     }
+
 }

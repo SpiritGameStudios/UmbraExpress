@@ -1,15 +1,23 @@
 package dev.spiritstudios.umbra_express.role;
 
+import dev.doctor4t.trainmurdermystery.api.Role;
+import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import net.minecraft.SharedConstants;
+import net.minecraft.util.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
-public record MoneyMaker(PassiveTicker passiveTicker, int amountGainedPerKill, int startingAmount, List<ShopEntry> shop) {
+public record MoneyManager(PassiveTicker passiveTicker, int amountGainedPerKill, int startingAmount, List<ShopEntry> shop) {
 
-    public static final MoneyMaker KILLER_DEFAULT = new MoneyMaker(PassiveTicker.KILLER_DEFAULT, GameConstants.MONEY_PER_KILL, GameConstants.MONEY_START, GameConstants.SHOP_ENTRIES);
+    public static final MoneyManager KILLER_DEFAULT = new MoneyManager(PassiveTicker.KILLER_DEFAULT, GameConstants.MONEY_PER_KILL, GameConstants.MONEY_START, GameConstants.SHOP_ENTRIES);
+    public static final Map<Role, MoneyManager> ROLE_MAP = Util.make(new HashMap<>(), map -> map.put(TMMRoles.KILLER, KILLER_DEFAULT));
 
     public Builder toBuilder() {
         return builder()
@@ -21,6 +29,20 @@ public record MoneyMaker(PassiveTicker passiveTicker, int amountGainedPerKill, i
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public static MoneyManager register(Role role, MoneyManager moneyManager) {
+        return ROLE_MAP.put(role, moneyManager);
+    }
+
+    /**
+     * Call this method from onInitialize() to apply changes to an existing money manager, e.g. to add items to the base killer's shop.
+     * @param role The role whose money manager is being changed.
+     * @param operation The function applied onto a {@link Builder} instance of the role's money manager.
+     */
+    @SuppressWarnings("unused")
+    public static MoneyManager compute(Role role, UnaryOperator<Builder> operation) {
+        return ROLE_MAP.computeIfPresent(role, (role1, moneyManager) -> operation.apply(moneyManager.toBuilder()).build());
     }
 
     @SuppressWarnings("unused")
@@ -60,8 +82,12 @@ public record MoneyMaker(PassiveTicker passiveTicker, int amountGainedPerKill, i
             return this;
         }
 
-        public MoneyMaker build() {
-            return new MoneyMaker(this.passiveTicker, this.amountGainedPerKill, this.startingAmount, this.shop);
+        public MoneyManager build() {
+            return new MoneyManager(this.passiveTicker, this.amountGainedPerKill, this.startingAmount, this.shop);
+        }
+
+        public MoneyManager buildAndRegister(Role role) {
+            return register(role, this.build());
         }
 
     }
@@ -71,7 +97,7 @@ public record MoneyMaker(PassiveTicker passiveTicker, int amountGainedPerKill, i
         PassiveTicker KILLER_DEFAULT = of(10, 5);
 
         static PassiveTicker of(int tickTimeSecs, int amountGainedPerTick) {
-            return time -> time % (tickTimeSecs * 20L) == 0 ? amountGainedPerTick : 0;
+            return time -> time % ((long) tickTimeSecs * SharedConstants.TICKS_PER_SECOND) == 0 ? amountGainedPerTick : 0;
         }
 
     }

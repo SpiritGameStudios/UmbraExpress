@@ -52,9 +52,13 @@ public interface UmbraExpressGameRules {
 			CrystalBallBlockEntity.MIN_COOLDOWN_TICKS
 		)
 	);
+	GameRules.Key<GameRules.BooleanRule> INTERACTIVE_BARTENDING = register(
+		"interactiveBartending",
+		GameRuleFactory.createBooleanRule(false)
+	);
 
 	static <T extends GameRules.Rule<T>> GameRules.Key<T> register(String name, GameRules.Type<T> type) {
-		return GameRuleRegistry.register(UmbraExpress.MOD_ID + ":" + name, CATEGORY, type);
+		return GameRuleRegistry.register(UmbraExpress.MOD_ID + ':' + name, CATEGORY, type);
 	}
 
 	static void init() {

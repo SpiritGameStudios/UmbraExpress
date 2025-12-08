@@ -1,6 +1,7 @@
 package dev.spiritstudios.umbra_express.datagen;
 
 import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
+import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -27,7 +28,9 @@ public class UmbraExpressTagGenerators {
 
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-			getOrCreateTagBuilder(TMMItemTags.PSYCHOSIS_ITEMS).addOptional(Identifier.of("tmm-construct", "thetiscope"));
+			getOrCreateTagBuilder(TMMItemTags.PSYCHOSIS_ITEMS)
+				.add(UmbraExpressItems.ANTIDOTE)
+				.addOptional(Identifier.of("tmm-construct", "thetiscope"));
 		}
 	}
 }

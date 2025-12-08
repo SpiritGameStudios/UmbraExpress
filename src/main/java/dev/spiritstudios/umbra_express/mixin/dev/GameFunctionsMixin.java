@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class GameFunctionsMixin {
 
     @ModifyExpressionValue(method = "startGame", at = @At(value = "FIELD", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;minPlayerCount:I", opcode = Opcodes.GETFIELD), remap = true)
-    private static int setToZeroIfDevelopment(int original, @Local(argsOnly = true)ServerWorld serverWorld) {
+    private static int setToZeroIfDevelopment(int original, @Local(argsOnly = true, name = "arg0")ServerWorld serverWorld) {
         if (UmbraExpressConfig.development(serverWorld)) {
             return 0;
         }

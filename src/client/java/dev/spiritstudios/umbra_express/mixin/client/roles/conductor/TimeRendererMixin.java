@@ -25,7 +25,7 @@ public class TimeRendererMixin {
 	private static final TimeNumberRenderer umbra_express$VIEW = new TimeNumberRenderer();
 
 	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/client/gui/TimeRenderer$TimeNumberRenderer;render(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;IIIF)V"), remap = true)
-	private static void renderBroadcastTimerIfConductor(TimeRenderer.TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Local(argsOnly = true) ClientPlayerEntity player, @Local GameWorldComponent game) {
+	private static void renderBroadcastTimerIfConductor(TimeRenderer.TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Local(argsOnly = true, name = "arg1") ClientPlayerEntity player, @Local(name = "gameWorldComponent") GameWorldComponent game) {
 		original.call(instance, renderer, context, x, y, color, delta);
 
 		if (!game.isRole(player, UmbraExpressRoles.CONDUCTOR)) {

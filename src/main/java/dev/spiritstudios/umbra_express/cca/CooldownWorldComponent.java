@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.cca;
 
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -70,7 +71,7 @@ public abstract class CooldownWorldComponent implements ServerTickingComponent, 
 		tag.putInt("cooldown", this.cooldown);
 	}
 
-	public static void resetAll(World world) {
+	public static void resetAll(ServerWorld world) {
 		BroadcastWorldComponent.KEY.get(world).reset();
 		CrystalBallWorldComponent.KEY.get(world).reset();
 	}

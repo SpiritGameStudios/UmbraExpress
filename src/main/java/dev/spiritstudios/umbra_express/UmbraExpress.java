@@ -8,14 +8,18 @@ import dev.doctor4t.trainmurdermystery.cca.AreasWorldComponent;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.init.*;
+import dev.spiritstudios.umbra_express.network.PlaySoundInUIS2CPayload;
+import dev.spiritstudios.umbra_express.network.WiggleCrystalBallCooldownHudS2CPayload;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.GameMode;
@@ -40,7 +44,7 @@ public class UmbraExpress implements ModInitializer {
 		UmbraExpressParticles.init();
 		UmbraExpressSoundEvents.init();
 
-		CommandRegistrationCallback.EVENT.register(UmbraExpressCommands::init);
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> UmbraExpressCommands.init(dispatcher));
 
 		ServerPlayerEvents.JOIN.register(player -> {
 			ServerWorld serverWorld = player.getServerWorld();
@@ -59,12 +63,19 @@ public class UmbraExpress implements ModInitializer {
 			player.teleport(serverWorld, spectatorSpawnPos.pos.getX(), spectatorSpawnPos.pos.getY(), spectatorSpawnPos.pos.getZ(), spectatorSpawnPos.yaw, spectatorSpawnPos.pitch);
 		});
 
+		PayloadTypeRegistry.playS2C().register(PlaySoundInUIS2CPayload.PAYLOAD_ID, PlaySoundInUIS2CPayload.PACKET_CODEC);
+		PayloadTypeRegistry.playS2C().register(WiggleCrystalBallCooldownHudS2CPayload.PAYLOAD_ID, WiggleCrystalBallCooldownHudS2CPayload.PACKET_CODEC);
+
 		UmbraExpressEvents.registerGameLifecycle();
 		UmbraExpressEvents.registerPlayer();
     }
 
 	public static Identifier id(String path) {
 		return Identifier.of(MOD_ID, path);
+	}
+
+	public static <T extends CustomPayload> CustomPayload.Id<T> payloadId(String path) {
+		return new CustomPayload.Id<>(id(path));
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")

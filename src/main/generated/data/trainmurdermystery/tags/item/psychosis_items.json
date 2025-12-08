@@ -1,5 +1,6 @@
 {
   "values": [
+    "umbra_express:antidote",
     {
       "id": "tmm-construct:thetiscope",
       "required": false

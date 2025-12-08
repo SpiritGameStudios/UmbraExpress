@@ -81,14 +81,14 @@ public class CrystalBallBlock extends BlockWithEntity {
             return ActionResult.CONSUME;
 
 		if (component.isOnCooldown()) {
-            blockEntity.sendCooldownMessage(serverPlayer, component);
-            return ActionResult.CONSUME;
+            blockEntity.onClickDuringCooldown(serverPlayer);
+            return ActionResult.SUCCESS;
         }
 
         Random random = world.getRandom();
         chooseNewApparitionPlayer(game, serverWorld, serverPlayer, random)
             .ifPresent(apparition ->
-                blockEntity.onReveal(serverWorld, pos, random, apparition, serverPlayer, game.isRunning())
+                blockEntity.onReveal(serverWorld, random, apparition, serverPlayer, game.isRunning())
             );
 
         return ActionResult.SUCCESS;

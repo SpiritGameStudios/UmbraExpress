@@ -9,8 +9,9 @@ import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
 import dev.doctor4t.trainmurdermystery.util.ShopEntry;
-import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
+import dev.spiritstudios.umbra_express.role.MoneyManager;
 import net.minecraft.entity.player.PlayerEntity;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -23,16 +24,16 @@ public class LimitedInventoryScreenMixin {
     private boolean canUseStoreGui(GameWorldComponent instance, PlayerEntity player, Operation<Boolean> original, @Share("shop") LocalRef<List<ShopEntry>> localRef) {
         Role role = instance.getRole(player);
 
-        if (!UmbraExpressRoles.MONEY_MAKERS.containsKey(role))
+        if (!MoneyManager.ROLE_MAP.containsKey(role))
             return false;
 
-        List<ShopEntry> shop = UmbraExpressRoles.MONEY_MAKERS.get(role).shop();
+        List<ShopEntry> shop = MoneyManager.ROLE_MAP.get(role).shop();
         localRef.set(shop);
 
         return !shop.isEmpty();
     }
 
-    @ModifyExpressionValue(method = "init", at = @At(value = "FIELD", target = "Ldev/doctor4t/trainmurdermystery/game/GameConstants;SHOP_ENTRIES:Ljava/util/List;"), remap = false)
+    @ModifyExpressionValue(method = "init", at = @At(value = "FIELD", target = "Ldev/doctor4t/trainmurdermystery/game/GameConstants;SHOP_ENTRIES:Ljava/util/List;", remap = false, opcode = Opcodes.GETSTATIC), remap = false)
     private List<ShopEntry> getShop(List<ShopEntry> original, @Share("shop") LocalRef<List<ShopEntry>> localRef) {
         return localRef.get();
     }

@@ -2,6 +2,7 @@ package dev.spiritstudios.umbra_express.cca;
 
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -33,12 +34,18 @@ public class CrystalBallWorldComponent extends CooldownWorldComponent {
 		this.markDirty();
 	}
 
+	@Override
+	public void reset() {
+		this.cooldown = UmbraExpressConfig.crystalBallCooldownTicks(this.world);
+		this.markDirty();
+	}
+
 	public boolean canView(PlayerEntity viewer) {
 		return this.canView(GameWorldComponent.KEY.get(this.world), viewer);
 	}
 
 	public boolean canView(GameWorldComponent game, PlayerEntity viewer) {
-		return game.isRunning() ? game.getRole(viewer).equals(UmbraExpressRoles.MYSTIC) : this.canViewInLobby;
+		return game.isRunning() ? game.isRole(viewer, UmbraExpressRoles.MYSTIC) : this.canViewInLobby;
 	}
 
 	public boolean canViewInLobby() {
