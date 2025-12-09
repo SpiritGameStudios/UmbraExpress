@@ -3,15 +3,18 @@ package dev.spiritstudios.umbra_express.init;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
+import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
+import dev.spiritstudios.umbra_express.event.DefaultShopEntryEvents;
 import dev.spiritstudios.umbra_express.event.TMMGameLifecycleEvents;
 import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
 import dev.spiritstudios.umbra_express.role.MoneyManager;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
 import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.ApiStatus;
@@ -72,6 +75,19 @@ public interface UmbraExpressEvents {
             }
         });
     }
+
+	static void registerShop() {
+		DefaultShopEntryEvents.MODIFY_PRICE.register((shopEntry, currentPrice) -> {
+			ItemStack stack = shopEntry.stack();
+			if (stack.isOf(TMMItems.POISON_VIAL)) {
+				return (int) (currentPrice * 0.6);
+			}
+			if (stack.isOf(TMMItems.SCORPION)) {
+				return (int) (currentPrice * 0.8);
+			}
+			return currentPrice;
+		});
+	}
 
     static void resetWorld(ServerWorld serverWorld, HitListWorldComponent hitList) {
         ConductorVoicechatPlugin.reset();

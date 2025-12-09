@@ -68,6 +68,7 @@ public class UmbraExpress implements ModInitializer {
 
 		UmbraExpressEvents.registerGameLifecycle();
 		UmbraExpressEvents.registerPlayer();
+		UmbraExpressEvents.registerShop();
     }
 
 	public static Identifier id(String path) {
