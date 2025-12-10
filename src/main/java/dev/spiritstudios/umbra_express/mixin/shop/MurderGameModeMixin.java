@@ -39,5 +39,4 @@ public class MurderGameModeMixin {
     private Object getMoney(Object original, ServerWorld serverWorld, GameWorldComponent gameWorldComponent, @Share("moneyManager") LocalRef<MoneyManager> localRef) {
         return localRef.get().passiveTicker().apply(serverWorld.getTime() + this.lastInitializedTicks);
     }
-
 }

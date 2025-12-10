@@ -3,9 +3,11 @@ package dev.spiritstudios.umbra_express.init;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
 import dev.spiritstudios.umbra_express.role.CustomShopEntry;
 import dev.spiritstudios.umbra_express.role.MoneyManager;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
@@ -109,7 +111,13 @@ public interface UmbraExpressRoles {
 
 		MoneyManager.KILLER_DEFAULT.toBuilder()
 			.passiveTicker(20, 5)
-			.amountGainedPerKill(200)
+			.amountGainedPerKill(target -> {
+				HitListWorldComponent hitlist = HitListWorldComponent.cast(GameWorldComponent.KEY.get(target.getWorld()));
+				if (Objects.equals(target.getUuid(), hitlist.umbra_express$getTarget())) {
+					return GameConstants.MONEY_PER_KILL * 2;
+				}
+				return GameConstants.MONEY_PER_KILL;
+			})
 			.buildAndRegister(ASSASSIN);
     }
 }
