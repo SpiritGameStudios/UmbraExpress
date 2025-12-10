@@ -68,10 +68,11 @@ public interface UmbraExpressEvents {
 
             if (killer != null && safeRoleEquals(killerRole, UmbraExpressRoles.ASSASSIN) && game.isRunning()) {
                 HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
-                hitlist.umbra_express$rerollTarget();
 
-                if (Objects.equals(player.getUuid(), hitlist.umbra_express$getTarget()))
-                    hitlist.umbra_express$addKilledTarget();
+				if (Objects.equals(player.getUuid(), hitlist.umbra_express$getTarget()))
+					hitlist.umbra_express$addKilledTarget();
+
+                hitlist.umbra_express$rerollTarget();
             }
         });
     }
