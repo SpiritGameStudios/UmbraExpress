@@ -42,20 +42,21 @@ public class FoodPlatterBlockMixin {
         if (!game.isRole(player, UmbraExpressRoles.BARTENDER) || !blockEntity.isDrink())
             return;
 
+        ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
+
+        if (!(stackInHand.getItem() instanceof CocktailItem))
+            return;
+
         BartenderPlate duck = BartenderPlate.cast(blockEntity);
 
-        if (blockEntity.getStoredItems().isEmpty() || duck.umbra_express$isBartender()) {
-            ItemStack stackInHand = player.getStackInHand(Hand.MAIN_HAND);
+        if (blockEntity.getStoredItems().isEmpty())
+            duck.umbra_express$setIsBartender(true); // sync not needed as the check below will always satisfy if this is called. addItem syncs
 
-            if (stackInHand.getItem() instanceof CocktailItem) {
-                blockEntity.addItem(stackInHand);
-                stackInHand.decrementUnlessCreative(1, player);
+        if (duck.umbra_express$isBartender()) {
+            blockEntity.addItem(stackInHand);
+            stackInHand.decrementUnlessCreative(1, player);
 
-                duck.umbra_express$setIsBartender(true);
-                duck.umbra_express$invokeSync();
-
-                cir.setReturnValue(ActionResult.SUCCESS);
-            }
+            cir.setReturnValue(ActionResult.SUCCESS);
         }
     }
 
