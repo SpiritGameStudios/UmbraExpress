@@ -62,6 +62,14 @@ public class GameFunctionsMixin {
 
     @Inject(method = "killPlayer(Lnet/minecraft/entity/player/PlayerEntity;ZLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Identifier;)V", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;isInnocent(Lnet/minecraft/entity/player/PlayerEntity;)Z"), remap = false)
     private static void onPlayerDied(PlayerEntity victim, boolean spawnBody, @Nullable PlayerEntity killer, Identifier deathReason, CallbackInfo ci, @Local(name = "gameWorldComponent") GameWorldComponent gameWorldComponent) {
-        TMMPlayerEvents.DIED.invoker().onDied(victim.getWorld(), victim, gameWorldComponent.getRole(victim), killer, gameWorldComponent.getRole(killer), deathReason, gameWorldComponent);
+        TMMPlayerEvents.DIED.invoker().onDied(
+			victim.getWorld(),
+			victim,
+			gameWorldComponent.getRole(victim),
+			killer,
+			killer == null ? null : gameWorldComponent.getRole(killer),
+			deathReason,
+			gameWorldComponent
+		);
     }
 }
