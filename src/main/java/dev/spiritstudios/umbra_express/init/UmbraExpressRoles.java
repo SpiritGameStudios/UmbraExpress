@@ -1,5 +1,6 @@
 package dev.spiritstudios.umbra_express.init;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.api.TMMRoles;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
@@ -55,6 +57,37 @@ public interface UmbraExpressRoles {
 
 	static void registerReplacer(Role original, Role replacement, ReplacementQuotient replacementQuotient, ReplacementPredicate replacementPredicate) {
 		ROLE_REPLACEMENTS.add(new RoleReplacer(original, replacement, replacementQuotient, replacementPredicate));
+	}
+
+	static boolean equals(RoleAnnouncementTexts.RoleAnnouncementText one, RoleAnnouncementTexts.RoleAnnouncementText two) {
+		if (one == null || two == null) {
+			return false;
+		}
+		return one.equals(two) ||
+			one.colour == two.colour &&
+			Objects.equals(one.roleText, two.roleText) &&
+				Objects.equals(one.titleText, two.titleText) &&
+				Objects.equals(one.welcomeText, two.welcomeText) &&
+				Objects.equals(one.winText, two.winText);
+	}
+
+	static boolean fixWinCondition(Object left, Object right, Operation<Boolean> original) {
+		if (original.call(left, right)) {
+			return true;
+		}
+
+		if (!(left instanceof RoleAnnouncementTexts.RoleAnnouncementText text) || !(right instanceof RoleAnnouncementTexts.RoleAnnouncementText killer)) {
+			return false;
+		}
+
+		Role role = null;
+		for (Map.Entry<Role, RoleAnnouncementTexts.RoleAnnouncementText> entry : UmbraExpressRoles.TEXTS.entrySet()) {
+			if (UmbraExpressRoles.equals(entry.getValue(), text)) {
+				role = entry.getKey();
+				break;
+			}
+		}
+		return role != null && role.canUseKiller();
 	}
 
     static void init() {
