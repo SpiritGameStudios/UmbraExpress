@@ -1,4 +1,4 @@
-package dev.spiritstudios.umbra_express.mixin.event;
+package dev.spiritstudios.umbra_express.mixin.event.shop;
 
 import dev.doctor4t.trainmurdermystery.util.ShopEntry;
 import org.spongepowered.asm.mixin.Mixin;

@@ -79,7 +79,7 @@ public interface UmbraExpressEvents {
 	static void registerShop() {
 		DefaultShopEntryEvents.MODIFY_PRICE.register((shopEntry, currentPrice) -> {
 			ItemStack stack = shopEntry.stack();
-			if (stack.isOf(TMMItems.POISON_VIAL)) {
+			if (stack.isOf(TMMItems.POISON_VIAL) || stack.isOf(TMMItems.BODY_BAG)) {
 				return (int) (currentPrice * 0.6);
 			}
 			if (stack.isOf(TMMItems.SCORPION)) {

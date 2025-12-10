@@ -18,6 +18,7 @@ import static dev.spiritstudios.umbra_express.init.UmbraExpressGameRules.*;
 // Powered by Midnightlib
 public class UmbraExpressConfig extends MidnightConfig {
 
+	// TODO: implement proper role forcing
 	@Entry
 	public static String forceDevRole = UmbraExpressRoles.ASSASSIN.identifier().toString();
 	@Entry
