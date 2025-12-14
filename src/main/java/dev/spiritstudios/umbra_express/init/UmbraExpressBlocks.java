@@ -19,7 +19,7 @@ public interface UmbraExpressBlocks {
 
     Block BROADCAST_BUTTON = REGISTRAR.createWithItem("broadcast_button", new BroadcastButtonBlock(AbstractBlock.Settings.copy(TMMBlocks.ELEVATOR_BUTTON)), UmbraExpressItems.ITEM_GROUP);
     Block CRYSTAL_BALL = REGISTRAR.createWithItem("crystal_ball", new CrystalBallBlock(AbstractBlock.Settings.create()
-        .sounds(BlockSoundGroup.AMETHYST_BLOCK)
+        .sounds(BlockSoundGroup.AMETHYST_CLUSTER)
         .mapColor(MapColor.PALE_PURPLE)
         .nonOpaque()
         .luminance(state -> 7)

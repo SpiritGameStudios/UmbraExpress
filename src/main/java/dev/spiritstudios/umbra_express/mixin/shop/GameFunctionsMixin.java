@@ -19,7 +19,7 @@ public class GameFunctionsMixin {
         GameWorldComponent game = GameWorldComponent.KEY.get(killer.getWorld());
         Role role = game.getRole(killer);
 
-        return MoneyManager.ROLE_MAP.containsKey(role) ? MoneyManager.ROLE_MAP.get(role).amountGainedPerKill() : 0;
+        return MoneyManager.ROLE_MAP.containsKey(role) ? MoneyManager.ROLE_MAP.get(role).amountGainedPerKill().apply(killer) : 0;
     }
 
 }
