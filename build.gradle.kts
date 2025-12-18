@@ -129,6 +129,7 @@ modrinth {
 	uploadFile.set(tasks.remapJar)
 	gameVersions.addAll(libs.versions.minecraft.get())
 	loaders.addAll("fabric", "quilt")
+	changelog.set(rootProject.file("changelog.md").readText())
 	syncBodyFrom.set(rootProject.file("README.md").readText())
 	dependencies {
 		required.version("fabric-api", libs.versions.fabric.api.get())
