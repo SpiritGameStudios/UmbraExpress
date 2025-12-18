@@ -1,5 +1,0 @@
-- Move `maxBroadcastTicks` and `crystalBallCooldownTime` out of gamerules and into the `/umbraexpress` command tree
-  - For access on the client side
-- Make crystal balls render the cooldown timer in the world for a short time after clicking
-  - Would pair them up nicely with broadcast buttons
-  - Would justify removing the janky message that currently appears
