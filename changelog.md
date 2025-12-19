@@ -1,15 +1,18 @@
 Umbra Express 1.1.0+1.21.1
 - Mystic
-  - Slightly alter apparition message suffix
+  - Replace activation message with timer wiggle
   - Only reveal apparition on server and then sync to client
   - Fix timer colors
   - Crystal Ball now immediately activates cooldown on game start
+  - Apparition sound now only plays on client
+  - Crystal Ball now uses amethyst cluster sound group instead of amethyst block
+  - Altered Crystal Ball model and texture
 - Bartender
   - Add interactive bartending
   - Add Antidote
     - Add Antidote to psychosis items
   - Bartender now passively gains money
-    - Add MoneyMaker abstraction
+    - Add MoneyManager abstraction
 - Assassin
   - Fix crash when dying to no one
 - Events
