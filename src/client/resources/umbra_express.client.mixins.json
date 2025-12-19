@@ -9,6 +9,7 @@
         "TMMItemTooltipsAccessor",
         "haunting.ClientPlayerInteractionManagerMixin",
         "qol.PlayerMoodComponentMixin",
+        "qol.TMMClientMixin",
         "roles.assassin.TMMItemTooltipsMixin",
         "roles.bartender.BeveragePlateBlockEntityMixinMixin",
         "roles.conductor.TimeRendererMixin",

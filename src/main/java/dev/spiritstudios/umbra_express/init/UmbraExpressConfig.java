@@ -22,6 +22,8 @@ public class UmbraExpressConfig extends MidnightConfig {
 	@Entry
 	public static String forceDevRole = UmbraExpressRoles.ASSASSIN.identifier().toString();
 	@Entry
+	public static boolean accurateInstinctHighlights = true;
+	@Entry
 	public static List<String> disabledRoles = new ArrayList<>();
 
 	public static boolean development(World world) {
