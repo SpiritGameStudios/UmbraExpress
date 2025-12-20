@@ -2,7 +2,6 @@ package dev.spiritstudios.umbra_express.mixin.event;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.trainmurdermystery.api.GameMode;
-import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.spiritstudios.umbra_express.event.TMMGameLifecycleEvents;
@@ -32,9 +31,9 @@ public class GameFunctionsMixin {
         TMMGameLifecycleEvents.INITIALIZING.invoker().onInitializing(serverWorld, gameWorldComponent, readyPlayerList);
     }
 
-    @Inject(method = "initializeGame", at = @At("RETURN"), remap = false)
-    private static void onInitialized(ServerWorld serverWorld, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
-        TMMGameLifecycleEvents.INITIALIZED.invoker().onInitialized(serverWorld, gameWorldComponent);
+    @Inject(method = "baseInitialize", at = @At("RETURN"), remap = false)
+    private static void onInitialized(ServerWorld serverWorld, GameWorldComponent gameComponent, List<ServerPlayerEntity> players, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
+        TMMGameLifecycleEvents.BASE_INITIALIZED.invoker().onBaseInitialized(serverWorld, gameWorldComponent);
     }
 
     @Inject(method = "finalizeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;finalizeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;)V", remap = false))

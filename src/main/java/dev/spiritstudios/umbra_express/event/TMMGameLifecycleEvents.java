@@ -28,10 +28,10 @@ public interface TMMGameLifecycleEvents {
 		}
 	);
 
-    Event<Initialized> INITIALIZED = EventFactory.createArrayBacked(Initialized.class,
+    Event<BaseInitialized> BASE_INITIALIZED = EventFactory.createArrayBacked(BaseInitialized.class,
 		callbacks -> (serverWorld, game) -> {
-			for (Initialized callback : callbacks) {
-				callback.onInitialized(serverWorld, game);
+			for (BaseInitialized callback : callbacks) {
+				callback.onBaseInitialized(serverWorld, game);
 			}
 		}
 	);
@@ -79,8 +79,8 @@ public interface TMMGameLifecycleEvents {
     }
 
     @FunctionalInterface
-    interface Initialized {
-        void onInitialized(ServerWorld serverWorld, GameWorldComponent game);
+    interface BaseInitialized {
+        void onBaseInitialized(ServerWorld serverWorld, GameWorldComponent game);
     }
 
     @FunctionalInterface

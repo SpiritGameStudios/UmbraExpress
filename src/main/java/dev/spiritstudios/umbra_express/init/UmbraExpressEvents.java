@@ -25,7 +25,7 @@ import java.util.Objects;
 public interface UmbraExpressEvents {
 
     static void registerGameLifecycle() {
-        TMMGameLifecycleEvents.INITIALIZED.register((serverWorld, game) -> {
+        TMMGameLifecycleEvents.BASE_INITIALIZED.register((serverWorld, game) -> {
             HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
             resetWorld(serverWorld, hitlist);
             hitlist.umbra_express$rerollTarget();
