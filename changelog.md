@@ -1,2 +1,2 @@
-Umbra Express 1.1.5+1.21.1
-- Fix 1.1.4 requiring Wathe after the revert
+Umbra Express 1.1.6+1.21.1
+- Fix conductor broadcast not being sent to all players
