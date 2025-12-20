@@ -7,6 +7,7 @@ import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,10 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(MurderGameMode.class)
+@Debug(export = true)
+@Mixin(value = MurderGameMode.class ,remap = false, priority = 2000) // priority higher than roles mixin
 public class MurderGameModeMixin {
-	@Inject(method = "assignRolesAndGetKillerCount", at = @At("RETURN"))
-	private static void give(@NotNull ServerWorld serverWorld, @NotNull List<ServerPlayerEntity> readyPlayerList, GameWorldComponent game, CallbackInfoReturnable<Integer> cir) {
+	@Inject(method = "assignRolesAndGetKillerCount", at = @At("RETURN"), remap = true)
+	private static void giveStuff(@NotNull ServerWorld serverWorld, @NotNull List<ServerPlayerEntity> readyPlayerList, GameWorldComponent game, CallbackInfoReturnable<Integer> cir) {
 		TMMPlayerEvents.Initializing invoker = TMMPlayerEvents.INITIALIZING.invoker();
 
 		for (ServerPlayerEntity serverPlayerEntity : serverWorld.getPlayers()) {
