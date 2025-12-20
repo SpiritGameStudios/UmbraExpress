@@ -1,46 +1,47 @@
 {
-    "required": true,
-    "package": "dev.spiritstudios.umbra_express.mixin",
-    "compatibilityLevel": "JAVA_21",
-    "mixinextras": {
-        "minVersion": "0.5.0"
-    },
-    "mixins": [
-        "component.poison.ComponentChangesPacketCodecMixin",
-        "dev.GameFunctionsMixin",
-        "dev.MurderGameModeMixin",
+	"required": true,
+	"package": "dev.spiritstudios.umbra_express.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixinextras": {
+		"minVersion": "0.5.0"
+	},
+	"mixins": [
+		"component.poison.ComponentChangesPacketCodecMixin",
+		"dev.GameFunctionsMixin",
+		"dev.MurderGameModeMixin",
 		"dev.WatheMixin",
-        "event.GameFunctionsMixin",
-        "event.GameWorldComponentMixin",
-        "event.shop.RegistriesMixin",
-        "event.shop.ShopEntryAccessor",
-        "event.shop.ShopEntryMixin",
-        "haunting.GameWorldComponentMixin",
-        "haunting.ServerPlayerInteractionManagerMixin",
-        "optimization.GameFunctionsMixin",
-        "optimization.GameWorldComponentMixin",
-        "qol.MountableBlockMixin",
-        "roles.GameRoundEndComponentMixin",
-        "roles.MurderGameModeMixin",
-        "roles.RoleAnnouncementTextMixin",
-        "roles.assassin.GameWorldComponentMixin",
-        "roles.bartender.BeveragePlateBlockEntityMixin",
-        "roles.bartender.FoodPlatterBlockMixin",
-        "roles.conductor.ButtonBlockMixin",
-        "roles.conductor.PlayerMoodComponentMixin",
-        "roles.conductor.PlayerMoodComponentMixin$TaskMixin",
+		"event.GameFunctionsMixin",
+		"event.GameWorldComponentMixin",
+		"event.MurderGameModeMixin",
+		"event.shop.RegistriesMixin",
+		"event.shop.ShopEntryAccessor",
+		"event.shop.ShopEntryMixin",
+		"haunting.GameWorldComponentMixin",
+		"haunting.ServerPlayerInteractionManagerMixin",
+		"optimization.GameFunctionsMixin",
+		"optimization.GameWorldComponentMixin",
+		"qol.MountableBlockMixin",
+		"roles.GameRoundEndComponentMixin",
+		"roles.MurderGameModeMixin",
+		"roles.RoleAnnouncementTextMixin",
+		"roles.assassin.GameWorldComponentMixin",
+		"roles.bartender.BeveragePlateBlockEntityMixin",
+		"roles.bartender.FoodPlatterBlockMixin",
+		"roles.conductor.ButtonBlockMixin",
+		"roles.conductor.PlayerMoodComponentMixin",
+		"roles.conductor.PlayerMoodComponentMixin$TaskMixin",
 		"roles.conductor.WatheModelGenAccessor",
-        "roles.locksmith.DoorBlocksMixin",
-        "shop.GameFunctionsMixin",
-        "shop.MurderGameModeMixin",
-        "shop.PlayerShopComponentMixin",
-        "shop.ScoreboardRoleSelectorComponentMixin",
-        "shop.ShopEntryMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "overwrites": {
-        "requireAnnotations": true
-    }
+		"roles.locksmith.DoorBlocksMixin",
+		"shop.GameFunctionsMixin",
+		"shop.MurderGameModeMixin",
+		"shop.PlayerShopComponentMixin",
+		"shop.ScoreboardRoleSelectorComponentMixin",
+		"shop.ShopEntryMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
 }

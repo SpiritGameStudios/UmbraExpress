@@ -31,14 +31,6 @@ public class GameFunctionsMixin {
     @Inject(method = "initializeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/api/GameMode;initializeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/wathe/cca/GameWorldComponent;Ljava/util/List;)V"), remap = false)
     private static void onInitializing(ServerWorld serverWorld, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent, @Local(name = "readyPlayerList") List<ServerPlayerEntity> readyPlayerList) {
         TMMGameLifecycleEvents.INITIALIZING.invoker().onInitializing(serverWorld, gameWorldComponent, readyPlayerList);
-        TMMPlayerEvents.Initializing invoker = TMMPlayerEvents.INITIALIZING.invoker();
-
-        for (ServerPlayerEntity serverPlayerEntity : serverWorld.getPlayers()) {
-            Role role = gameWorldComponent.getRole(serverPlayerEntity);
-            boolean playing = readyPlayerList.contains(serverPlayerEntity);
-
-            invoker.onInitializing(serverWorld, serverPlayerEntity, role, playing, gameWorldComponent);
-        }
     }
 
     @Inject(method = "initializeGame", at = @At("RETURN"), remap = false)

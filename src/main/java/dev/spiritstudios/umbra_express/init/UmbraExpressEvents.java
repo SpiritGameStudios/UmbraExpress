@@ -97,7 +97,7 @@ public interface UmbraExpressEvents {
     }
 
     static boolean safeRoleEquals(Role a, Role b) {
-        return Objects.equals(a, b);
+        return a != null && Objects.equals(a, b);
     }
 
     static void giveItem(ServerPlayerEntity serverPlayer, Item item) {
