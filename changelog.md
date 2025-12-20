@@ -1,2 +1,2 @@
-Umbra Express 1.1.2+1.21.1
-- Fix MoneyManager#amountGainedPerKill being applied to the wrong player
+Umbra Express 1.1.3+1.21.1
+- Update Wathe to 1.3
