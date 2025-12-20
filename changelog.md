@@ -1,27 +1,2 @@
-Umbra Express 1.1.0+1.21.1
-- Mystic
-  - Replace activation message with timer wiggle
-  - Only reveal apparition on server and then sync to client
-  - Fix timer colors
-  - Crystal Ball now immediately activates cooldown on game start
-  - Apparition sound now only plays on client
-  - Crystal Ball now uses amethyst cluster sound group instead of amethyst block
-  - Altered Crystal Ball model and texture
-- Bartender
-  - Add interactive bartending
-  - Add Antidote
-    - Add Antidote to psychosis items
-  - Bartender now passively gains money
-    - Add MoneyManager abstraction
-- Assassin
-  - Fix crash when dying to no one
-- Events
-  - Add TMMGameLifecycleEvents and TMMPlayerEvents
-  - Refactor some mixins to instead use events
-  - Add DefaultShopEntryEvents
-    - Poison now has a cost of 60
-    - Scorpion now has a cost of 40
-    - Body Bag now has a cost of 120
-- Misc
-  - Fix killer-adjacent `RoleAnnouncementText`s on game end
-  - Hide poison components from client (fixes https://github.com/doctor4t/TrainMurderMystery/issues/93)
+Umbra Express 1.1.1+1.21.1
+- Change instinct highlight color to reflect mood color (green -> red instead of green -> blue)
