@@ -46,7 +46,7 @@ public interface TMMPlayerEvents {
 
     @FunctionalInterface
     interface Initializing {
-        void onInitializing(ServerWorld serverWorld, ServerPlayerEntity serverPlayer, Role role, boolean playing, GameWorldComponent game);
+        void onInitializing(ServerWorld serverWorld, ServerPlayerEntity serverPlayer, @Nullable Role role, boolean playing, GameWorldComponent game);
     }
 
     @FunctionalInterface
