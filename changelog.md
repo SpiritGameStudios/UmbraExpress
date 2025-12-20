@@ -1,2 +1,2 @@
-Umbra Express 1.1.1+1.21.1
-- Change instinct highlight color to reflect mood color (green -> red instead of green -> blue)
+Umbra Express 1.1.2+1.21.1
+- Fix MoneyManager#amountGainedPerKill being applied to the wrong player
