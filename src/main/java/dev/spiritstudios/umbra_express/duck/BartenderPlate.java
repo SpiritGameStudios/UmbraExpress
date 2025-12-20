@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.duck;
 
-import dev.doctor4t.trainmurdermystery.block_entity.BeveragePlateBlockEntity;
+import dev.doctor4t.wathe.block_entity.BeveragePlateBlockEntity;
 
 public interface BartenderPlate {
 

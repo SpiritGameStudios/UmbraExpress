@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.mixin.qol;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import dev.doctor4t.trainmurdermystery.block.MountableBlock;
+import dev.doctor4t.wathe.block.MountableBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

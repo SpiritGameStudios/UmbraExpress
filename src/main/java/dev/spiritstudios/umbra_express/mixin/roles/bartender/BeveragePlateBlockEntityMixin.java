@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.mixin.roles.bartender;
 
-import dev.doctor4t.trainmurdermystery.block_entity.BeveragePlateBlockEntity;
+import dev.doctor4t.wathe.block_entity.BeveragePlateBlockEntity;
 import dev.spiritstudios.umbra_express.duck.BartenderPlate;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;

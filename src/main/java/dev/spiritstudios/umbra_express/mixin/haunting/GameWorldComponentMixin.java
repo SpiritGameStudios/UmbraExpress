@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.mixin.haunting;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,7 +22,7 @@ public class GameWorldComponentMixin {
     @Final
     private World world;
 
-    @Inject(method = "addRole(Ljava/util/UUID;Ldev/doctor4t/trainmurdermystery/api/Role;)V", at = @At("HEAD"))
+    @Inject(method = "addRole(Ljava/util/UUID;Ldev/doctor4t/wathe/api/Role;)V", at = @At("HEAD"))
     private void addKiller(UUID uuid, Role role, CallbackInfo ci) {
         if (!role.canUseKiller()) {
             return;

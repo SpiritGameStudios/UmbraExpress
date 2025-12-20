@@ -3,8 +3,8 @@ package dev.spiritstudios.umbra_express.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
@@ -46,7 +46,7 @@ public interface ListRoleCommand {
 		ServerCommandSource source = context.getSource();
 		List<Identifier> output = new ArrayList<>();
 		List<Identifier> disabledRoles = UmbraExpressConfig.getDisabledRoles();
-		for (Role role : TMMRoles.ROLES) {
+		for (Role role : WatheRoles.ROLES) {
 			Identifier id = role.identifier();
 			if (enabled) {
 				if (!disabledRoles.contains(id)) {

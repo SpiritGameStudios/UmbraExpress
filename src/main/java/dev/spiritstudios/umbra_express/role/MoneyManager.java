@@ -1,9 +1,9 @@
 package dev.spiritstudios.umbra_express.role;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.SharedConstants;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
@@ -15,10 +15,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
-public record MoneyManager(PassiveTicker passiveTicker, Function<PlayerEntity, Integer> amountGainedPerKill, int startingAmount, List<ShopEntry> shop) {
+public record MoneyManager(PassiveTicker passiveTicker, BountyProvider amountGainedPerKill, int startingAmount, List<ShopEntry> shop) {
 
     public static final MoneyManager KILLER_DEFAULT = new MoneyManager(PassiveTicker.KILLER_DEFAULT, target -> GameConstants.MONEY_PER_KILL, GameConstants.MONEY_START, GameConstants.SHOP_ENTRIES);
-    public static final Map<Role, MoneyManager> ROLE_MAP = Util.make(new HashMap<>(), map -> map.put(TMMRoles.KILLER, KILLER_DEFAULT));
+    public static final Map<Role, MoneyManager> ROLE_MAP = Util.make(new HashMap<>(), map -> map.put(WatheRoles.KILLER, KILLER_DEFAULT));
 
     public Builder toBuilder() {
         return builder()
@@ -50,7 +50,7 @@ public record MoneyManager(PassiveTicker passiveTicker, Function<PlayerEntity, I
     public static class Builder {
 
         private PassiveTicker passiveTicker = time -> 0;
-        private Function<PlayerEntity, Integer> amountGainedPerKill = target -> 0;
+        private BountyProvider amountGainedPerKill = target -> 0;
         private int startingAmount = 0;
         private final List<ShopEntry> shop = new ArrayList<>(List.of());
 
@@ -67,7 +67,7 @@ public record MoneyManager(PassiveTicker passiveTicker, Function<PlayerEntity, I
 			return this.amountGainedPerKill(target -> amount);
 		}
 
-        public Builder amountGainedPerKill(Function<PlayerEntity, Integer> amountGainedPerKill) {
+        public Builder amountGainedPerKill(BountyProvider amountGainedPerKill) {
             this.amountGainedPerKill = amountGainedPerKill;
             return this;
         }
@@ -91,18 +91,24 @@ public record MoneyManager(PassiveTicker passiveTicker, Function<PlayerEntity, I
             return new MoneyManager(this.passiveTicker, this.amountGainedPerKill, this.startingAmount, this.shop);
         }
 
-        public MoneyManager buildAndRegister(Role role) {
+        @SuppressWarnings("UnusedReturnValue")
+		public MoneyManager buildAndRegister(Role role) {
             return register(role, this.build());
         }
-
     }
 
+	@FunctionalInterface
     public interface PassiveTicker extends Function<Long, Integer> {
-
         PassiveTicker KILLER_DEFAULT = of(10, 5);
 
         static PassiveTicker of(int tickTimeSecs, int amountGainedPerTick) {
             return time -> time % ((long) tickTimeSecs * SharedConstants.TICKS_PER_SECOND) == 0 ? amountGainedPerTick : 0;
         }
     }
+
+	@FunctionalInterface
+	public interface BountyProvider extends Function<PlayerEntity, Integer> {
+		@Override
+		Integer apply(PlayerEntity target);
+	}
 }

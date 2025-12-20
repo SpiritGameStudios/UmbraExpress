@@ -6,8 +6,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
@@ -35,7 +35,7 @@ public interface DisableRoleCommand {
 		).suggests(
 			(context, builder) ->
 				CommandSource.suggestIdentifiers(
-					TMMRoles.ROLES.stream().map(Role::identifier),
+					WatheRoles.ROLES.stream().map(Role::identifier),
 					builder
 				)
 		).executes(DisableRoleCommand::executeGetToggle).build();
@@ -105,7 +105,7 @@ public interface DisableRoleCommand {
 	static Role getRoleArgument(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		Identifier id = IdentifierArgumentType.getIdentifier(context, "role");
 
-		for (Role role : TMMRoles.ROLES) {
+		for (Role role : WatheRoles.ROLES) {
 			if (role.identifier().equals(id)) {
 				return role;
 			}

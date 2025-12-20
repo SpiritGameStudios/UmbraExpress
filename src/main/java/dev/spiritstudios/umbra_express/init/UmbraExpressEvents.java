@@ -1,9 +1,9 @@
 package dev.spiritstudios.umbra_express.init;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.compat.TrainVoicePlugin;
+import dev.doctor4t.wathe.index.WatheItems;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
@@ -80,10 +80,10 @@ public interface UmbraExpressEvents {
 	static void registerShop() {
 		DefaultShopEntryEvents.MODIFY_PRICE.register((shopEntry, currentPrice) -> {
 			ItemStack stack = shopEntry.stack();
-			if (stack.isOf(TMMItems.POISON_VIAL) || stack.isOf(TMMItems.BODY_BAG)) {
+			if (stack.isOf(WatheItems.POISON_VIAL) || stack.isOf(WatheItems.BODY_BAG)) {
 				return (int) (currentPrice * 0.6);
 			}
-			if (stack.isOf(TMMItems.SCORPION)) {
+			if (stack.isOf(WatheItems.SCORPION)) {
 				return (int) (currentPrice * 0.8);
 			}
 			return currentPrice;

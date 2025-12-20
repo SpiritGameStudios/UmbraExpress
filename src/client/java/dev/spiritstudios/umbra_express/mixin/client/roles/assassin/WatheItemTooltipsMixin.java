@@ -1,9 +1,9 @@
 package dev.spiritstudios.umbra_express.mixin.client.roles.assassin;
 
 import dev.doctor4t.ratatouille.util.TextUtils;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
-import dev.doctor4t.trainmurdermystery.client.util.TMMItemTooltips;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.wathe.client.WatheClient;
+import dev.doctor4t.wathe.client.util.WatheItemTooltips;
+import dev.doctor4t.wathe.index.WatheItems;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.fabricmc.api.EnvType;
@@ -27,8 +27,8 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
-@Mixin(value = TMMItemTooltips.class, remap = false)
-public abstract class TMMItemTooltipsMixin {
+@Mixin(value = WatheItemTooltips.class, remap = false)
+public abstract class WatheItemTooltipsMixin {
 
 	// begin credit: color hex codes taken from old TMM hitlist
 	@Unique
@@ -39,11 +39,11 @@ public abstract class TMMItemTooltipsMixin {
 
 	@Inject(method = "lambda$addTooltips$0", at = @At("RETURN"), remap = true)
 	private static void appendHitlist(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipType tooltipType, List<Text> tooltipList, CallbackInfo ci) {
-		if (!itemStack.isOf(TMMItems.LETTER)) {
+		if (!itemStack.isOf(WatheItems.LETTER)) {
 			return;
 		}
 
-		if (TMMClient.gameComponent == null) {
+		if (WatheClient.gameComponent == null) {
 			return;
 		}
 
@@ -52,13 +52,13 @@ public abstract class TMMItemTooltipsMixin {
 			return;
 		}
 
-		if (!TMMClient.gameComponent.isRole(player, UmbraExpressRoles.ASSASSIN)) {
+		if (!WatheClient.gameComponent.isRole(player, UmbraExpressRoles.ASSASSIN)) {
 			return;
 		}
 
-		HitListWorldComponent hitList = HitListWorldComponent.cast(TMMClient.gameComponent);
+		HitListWorldComponent hitList = HitListWorldComponent.cast(WatheClient.gameComponent);
 
-		String hitlistTranslationKey = TextUtils.getItemTranslationKey(TMMItems.LETTER) + ".hitlist";
+		String hitlistTranslationKey = TextUtils.getItemTranslationKey(WatheItems.LETTER) + ".hitlist";
 
 		tooltipList.add(Text.translatable(hitlistTranslationKey + ".premise0"));
 		tooltipList.add(Text.translatable(hitlistTranslationKey + ".premise1").withColor(umbra_express$KILL_COLOR));
@@ -66,7 +66,7 @@ public abstract class TMMItemTooltipsMixin {
 		tooltipList.add(Text.translatable(hitlistTranslationKey + ".premise3"));
 		tooltipList.add(Text.translatable(hitlistTranslationKey + ".premise4"));
 		tooltipList.add(Text.translatable(hitlistTranslationKey + ".premise5"));
-		Text keybind = TMMClient.instinctKeybind.getBoundKeyLocalizedText().copy().styled(style -> style.withFormatting(Formatting.GOLD));
+		Text keybind = WatheClient.instinctKeybind.getBoundKeyLocalizedText().copy().styled(style -> style.withFormatting(Formatting.GOLD));
 		tooltipList.add(Text.stringifiedTranslatable(hitlistTranslationKey + ".premise6", keybind));
 
 		for (UUID uuid : hitList.umbra_express$getKilledTargets()) {
@@ -82,7 +82,7 @@ public abstract class TMMItemTooltipsMixin {
 
 	@Unique
 	private static void umbra_express$appendUuid(String hitlistTranslationKey, UUID uuid, Consumer<Text> tooltipAppender, boolean dead) {
-		PlayerListEntry entry = TMMClient.PLAYER_ENTRIES_CACHE.get(uuid);
+		PlayerListEntry entry = WatheClient.PLAYER_ENTRIES_CACHE.get(uuid);
 		if (entry == null) {
 			return;
 		}

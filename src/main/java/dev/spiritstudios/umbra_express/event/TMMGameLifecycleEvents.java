@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.event;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.server.network.ServerPlayerEntity;

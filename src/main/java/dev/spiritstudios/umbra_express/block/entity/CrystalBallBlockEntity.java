@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.block.entity;
 
-import dev.doctor4t.trainmurdermystery.block_entity.SyncingBlockEntity;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
+import dev.doctor4t.wathe.block_entity.SyncingBlockEntity;
+import dev.doctor4t.wathe.game.GameConstants;
 import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;

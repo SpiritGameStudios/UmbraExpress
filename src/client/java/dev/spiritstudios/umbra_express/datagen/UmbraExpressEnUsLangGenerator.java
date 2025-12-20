@@ -1,8 +1,8 @@
 package dev.spiritstudios.umbra_express.datagen;
 
 import dev.doctor4t.ratatouille.util.TextUtils;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.index.WatheItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressGameRules;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
@@ -54,7 +54,7 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add(antidoteTranslation, "Antidote");
 		translationBuilder.add(antidoteTranslation + ".tooltip", "Use on a poisoned passenger to cure them.");
 
-		String letterHitList = TextUtils.getItemTranslationKey(TMMItems.LETTER) + ".hitlist";
+		String letterHitList = TextUtils.getItemTranslationKey(WatheItems.LETTER) + ".hitlist";
 		translationBuilder.add(letterHitList + ".premise0", "");
 		translationBuilder.add(letterHitList + ".premise1", "==== ASSASSIN INSTRUCTIONS ====");
 		translationBuilder.add(letterHitList + ".premise2", "");

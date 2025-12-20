@@ -6,11 +6,11 @@
         "minVersion": "0.5.0"
     },
     "client": [
-        "TMMItemTooltipsAccessor",
+		"WatheItemTooltipsAccessor",
         "haunting.ClientPlayerInteractionManagerMixin",
         "qol.PlayerMoodComponentMixin",
-        "qol.TMMClientMixin",
-        "roles.assassin.TMMItemTooltipsMixin",
+		"qol.WatheClientMixin",
+		"roles.assassin.WatheItemTooltipsMixin",
         "roles.bartender.BeveragePlateBlockEntityMixinMixin",
         "roles.conductor.TimeRendererMixin",
         "roles.mystic.TimeRendererMixin",

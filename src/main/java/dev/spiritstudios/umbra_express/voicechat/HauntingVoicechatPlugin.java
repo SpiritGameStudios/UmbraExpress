@@ -7,7 +7,7 @@ import de.maxhenkel.voicechat.api.audiochannel.StaticAudioChannel;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.packets.MicrophonePacket;
-import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
+import dev.doctor4t.wathe.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import static dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin.SERVER_API;
+import static dev.doctor4t.wathe.compat.TrainVoicePlugin.SERVER_API;
 
 public class HauntingVoicechatPlugin implements VoicechatPlugin {
 	public static final Identifier ID = UmbraExpress.id("haunting");

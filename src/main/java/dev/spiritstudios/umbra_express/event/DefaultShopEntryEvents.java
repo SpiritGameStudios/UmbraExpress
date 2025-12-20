@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.event;
 
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.util.ShopEntry;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import org.jetbrains.annotations.ApiStatus;

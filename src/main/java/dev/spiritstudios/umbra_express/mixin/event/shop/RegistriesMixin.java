@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.mixin.event.shop;
 
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.util.ShopEntry;
 import dev.spiritstudios.umbra_express.duck.Sale;
 import dev.spiritstudios.umbra_express.event.DefaultShopEntryEvents;
 import net.minecraft.registry.Registries;

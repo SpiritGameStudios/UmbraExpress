@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.init;
 
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
+import dev.doctor4t.wathe.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
 import net.fabricmc.fabric.api.gamerule.v1.CustomGameRuleCategory;

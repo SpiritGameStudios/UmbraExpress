@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.block;
 
-import dev.doctor4t.trainmurdermystery.block.ElevatorButtonBlock;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.block.ElevatorButtonBlock;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.block.entity.BroadcastButtonBlockEntity;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;

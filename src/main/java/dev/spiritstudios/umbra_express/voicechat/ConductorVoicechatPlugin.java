@@ -6,8 +6,8 @@ import de.maxhenkel.voicechat.api.audiochannel.StaticAudioChannel;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.packets.MicrophonePacket;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin.SERVER_API;
+import static dev.doctor4t.wathe.compat.TrainVoicePlugin.SERVER_API;
 
 /**
  * @see TrainVoicePlugin

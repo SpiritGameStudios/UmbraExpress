@@ -74,7 +74,7 @@ dependencies {
 
 	modImplementation(libs.fabric.api)
 
-	modImplementation(libs.trainmurdermystery)
+	modImplementation(libs.wathe)
 
 	modImplementation(libs.ratatouille)
 

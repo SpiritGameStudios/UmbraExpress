@@ -5,8 +5,8 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.role.task.BroadcastTask;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,7 +58,7 @@ public class PlayerMoodComponentMixin {
         return original.call(instance, key);
     }
 
-    @Inject(method = "generateTask", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent$Task;values()[Ldev/doctor4t/trainmurdermystery/cca/PlayerMoodComponent$Task;", shift = At.Shift.BEFORE), cancellable = true)
+    @Inject(method = "generateTask", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/PlayerMoodComponent$Task;values()[Ldev/doctor4t/wathe/cca/PlayerMoodComponent$Task;", shift = At.Shift.BEFORE), cancellable = true)
     private void returnAnnouncementEarly(CallbackInfoReturnable<PlayerMoodComponent.TrainTask> cir) {
         if (GameWorldComponent.KEY.get(this.player.getWorld()).isRole(this.player, UmbraExpressRoles.CONDUCTOR) && !this.umbra_express$hasDoneAnnouncement) {
             this.umbra_express$hasDoneAnnouncement = true;

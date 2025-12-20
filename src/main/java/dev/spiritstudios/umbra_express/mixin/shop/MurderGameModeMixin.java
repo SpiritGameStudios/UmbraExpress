@@ -4,8 +4,8 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.game.gamemode.MurderGameMode;
 import dev.spiritstudios.umbra_express.role.MoneyManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -27,7 +27,7 @@ public class MurderGameModeMixin {
         this.lastInitializedTicks = serverWorld.getTime();
     }
 
-    @ModifyExpressionValue(method = "tickServerGameLoop", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z", remap = false, ordinal = 0), remap = false)
+    @ModifyExpressionValue(method = "tickServerGameLoop", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z", remap = false, ordinal = 0), remap = false)
     private boolean shouldAddToBalance(boolean original, ServerWorld serverWorld, GameWorldComponent gameWorldComponent, @Local(name = "player") ServerPlayerEntity player, @Share("moneyManager") LocalRef<MoneyManager> localRef) {
         MoneyManager moneyManager = MoneyManager.ROLE_MAP.get(gameWorldComponent.getRole(player));
         localRef.set(moneyManager);

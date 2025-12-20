@@ -2,7 +2,7 @@ package dev.spiritstudios.umbra_express.mixin.optimization;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import net.minecraft.world.World;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.spongepowered.asm.mixin.Final;

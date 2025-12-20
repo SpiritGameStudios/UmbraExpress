@@ -1,11 +1,11 @@
 package dev.spiritstudios.umbra_express.init;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
+import dev.doctor4t.wathe.game.GameConstants;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
 import dev.spiritstudios.umbra_express.role.CustomShopEntry;
@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
-import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
+import static dev.doctor4t.wathe.api.WatheRoles.CIVILIAN;
+import static dev.doctor4t.wathe.api.WatheRoles.KILLER;
 
 @ApiStatus.NonExtendable
 public interface UmbraExpressRoles {
@@ -50,7 +50,7 @@ public interface UmbraExpressRoles {
 		Role role = new Role(UmbraExpress.id(path), color, isInnocent, canUseKiller, moodType, maxSprintTime, canSeeTime);
 		TEXTS.put(role, registerText(path, color));
 
-		return TMMRoles.registerRole(role);
+		return WatheRoles.registerRole(role);
 	}
 
 	static RoleAnnouncementTexts.RoleAnnouncementText registerText(String name, int color) {

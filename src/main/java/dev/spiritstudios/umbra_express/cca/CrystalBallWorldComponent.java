@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.cca;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
