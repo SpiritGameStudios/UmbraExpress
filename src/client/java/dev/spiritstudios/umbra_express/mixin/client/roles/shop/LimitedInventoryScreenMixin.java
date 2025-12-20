@@ -20,7 +20,7 @@ import java.util.List;
 @Mixin(value = LimitedInventoryScreen.class, remap = false)
 public class LimitedInventoryScreenMixin {
 
-    @WrapOperation(method = "init", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z"), remap = false)
+    @WrapOperation(method = "init", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z"), remap = false)
     private boolean canUseStoreGui(GameWorldComponent instance, PlayerEntity player, Operation<Boolean> original, @Share("shop") LocalRef<List<ShopEntry>> localRef) {
         Role role = instance.getRole(player);
 
@@ -33,7 +33,7 @@ public class LimitedInventoryScreenMixin {
         return !shop.isEmpty();
     }
 
-    @ModifyExpressionValue(method = "init", at = @At(value = "FIELD", target = "Ldev/doctor4t/trainmurdermystery/game/GameConstants;SHOP_ENTRIES:Ljava/util/List;", remap = false, opcode = Opcodes.GETSTATIC), remap = false)
+    @ModifyExpressionValue(method = "init", at = @At(value = "FIELD", target = "Ldev/doctor4t/wathe/game/GameConstants;SHOP_ENTRIES:Ljava/util/List;", remap = false, opcode = Opcodes.GETSTATIC), remap = false)
     private List<ShopEntry> getShop(List<ShopEntry> original, @Share("shop") LocalRef<List<ShopEntry>> localRef) {
         return localRef.get();
     }

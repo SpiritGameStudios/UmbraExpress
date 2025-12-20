@@ -69,7 +69,7 @@ public class MurderGameModeMixin {
 	}
 
 	@Definition(id = "winStatus", local = @Local(type = GameFunctions.WinStatus.class, name = "winStatus"))
-	@Definition(id = "NONE", field = "Ldev/doctor4t/trainmurdermystery/game/GameFunctions$WinStatus;NONE:Ldev/doctor4t/trainmurdermystery/game/GameFunctions$WinStatus;", remap = false)
+	@Definition(id = "NONE", field = "Ldev/doctor4t/wathe/game/GameFunctions$WinStatus;NONE:Ldev/doctor4t/wathe/game/GameFunctions$WinStatus;", remap = false)
 	@Expression("winStatus != NONE")
 	@ModifyExpressionValue(method = "tickServerGameLoop", at = @At("MIXINEXTRAS:EXPRESSION"), remap = true)
 	private boolean endlessDev(boolean original, ServerWorld serverWorld, GameWorldComponent game) {

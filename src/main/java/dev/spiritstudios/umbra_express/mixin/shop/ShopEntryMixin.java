@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = ShopEntry.class, remap = false)
 public class ShopEntryMixin {
 
-    @WrapOperation(method = "onBuy", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z"), remap = false)
+    @WrapOperation(method = "onBuy", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z"), remap = false)
     private boolean canUseStoreGui(GameWorldComponent instance, PlayerEntity player, Operation<Boolean> original) {
         return MoneyManager.ROLE_MAP.containsKey(instance.getRole(player));
     }

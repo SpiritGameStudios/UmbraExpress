@@ -26,14 +26,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = TimeRenderer.class, remap = false)
 public class TimeRendererMixin {
 
-	@ModifyExpressionValue(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/Role;canSeeTime()Z", remap = false), remap = true)
+	@ModifyExpressionValue(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/api/Role;canSeeTime()Z", remap = false), remap = true)
 	private static boolean mysticCooldown(boolean original, @Share("isMystic")LocalBooleanRef localBooleanRef, @Local(argsOnly = true, name = "arg1") ClientPlayerEntity player, @Local(name = "gameWorldComponent") GameWorldComponent gameWorldComponent) {
 		boolean mystic = gameWorldComponent.isRole(player, UmbraExpressRoles.MYSTIC) && CrystalBallWorldComponent.KEY.get(player.getWorld()).isOnCooldown();
 		localBooleanRef.set(mystic);
 		return original || mystic;
 	}
 
-	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameTimeComponent;getTime()I", remap = false), remap = true)
+	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameTimeComponent;getTime()I", remap = false), remap = true)
 	private static int replaceTimeWithMystic(GameTimeComponent instance, Operation<Integer> original, @Local(argsOnly = true, name = "arg1") ClientPlayerEntity player, @Share("isMystic") LocalBooleanRef localBooleanRef) {
 		if (localBooleanRef.get()) {
 			return CrystalBallWorldComponent.KEY.get(player.getWorld()).getTicksForRendering();
@@ -41,7 +41,7 @@ public class TimeRendererMixin {
 		return original.call(instance);
 	}
 
-	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/client/gui/TimeRenderer$TimeNumberRenderer;render(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;IIIF)V"), remap = true)
+	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/client/gui/TimeRenderer$TimeNumberRenderer;render(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;IIIF)V"), remap = true)
 	private static void changeMysticCooldownColor(TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Share("isMystic") LocalBooleanRef localBooleanRef) {
 		if (localBooleanRef.get()) {
 			UmbraExpressClient.transformCooldownHudMatrices(context, delta);

@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = GameFunctions.class, remap = false)
 public class GameFunctionsMixin {
 
-    @WrapWithCondition(method = "baseInitialize", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/PlayerShopComponent;reset()V", ordinal = 1), remap = false)
+    @WrapWithCondition(method = "baseInitialize", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/PlayerShopComponent;reset()V", ordinal = 1), remap = false)
     private static boolean disableRedundantShopSync(PlayerShopComponent instance) {
         return false;
     }

@@ -27,7 +27,7 @@ public class MurderGameModeMixin {
         this.lastInitializedTicks = serverWorld.getTime();
     }
 
-    @ModifyExpressionValue(method = "tickServerGameLoop", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z", remap = false, ordinal = 0), remap = false)
+    @ModifyExpressionValue(method = "tickServerGameLoop", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/cca/GameWorldComponent;canUseKillerFeatures(Lnet/minecraft/entity/player/PlayerEntity;)Z", remap = false, ordinal = 0), remap = false)
     private boolean shouldAddToBalance(boolean original, ServerWorld serverWorld, GameWorldComponent gameWorldComponent, @Local(name = "player") ServerPlayerEntity player, @Share("moneyManager") LocalRef<MoneyManager> localRef) {
         MoneyManager moneyManager = MoneyManager.ROLE_MAP.get(gameWorldComponent.getRole(player));
         localRef.set(moneyManager);

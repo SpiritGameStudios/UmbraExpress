@@ -3,7 +3,7 @@ package dev.spiritstudios.umbra_express.datagen;
 import dev.doctor4t.wathe.datagen.WatheModelGen;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
-import dev.spiritstudios.umbra_express.mixin.roles.conductor.TMMModelGenAccessor;
+import dev.spiritstudios.umbra_express.mixin.roles.conductor.WatheModelGenAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
@@ -18,7 +18,7 @@ public class UmbraExpressModelGenerator extends WatheModelGen {
     @SuppressWarnings("CastToIncompatibleInterface")
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        ((TMMModelGenAccessor) this).umbra_express$invokeRegisterButton(blockStateModelGenerator, UmbraExpressBlocks.BROADCAST_BUTTON);
+        ((WatheModelGenAccessor) this).umbra_express$invokeRegisterButton(blockStateModelGenerator, UmbraExpressBlocks.BROADCAST_BUTTON);
         blockStateModelGenerator.registerSimpleState(UmbraExpressBlocks.CRYSTAL_BALL);
     }
 

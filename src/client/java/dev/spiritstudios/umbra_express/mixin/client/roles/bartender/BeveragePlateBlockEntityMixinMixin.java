@@ -9,7 +9,6 @@ import dev.doctor4t.wathe.api.event.CanSeePoison;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,13 +22,10 @@ public class BeveragePlateBlockEntityMixinMixin {
 		mixin = "dev.doctor4t.wathe.mixin.client.self.BeveragePlateBlockEntityMixin",
 		name = "tickWithoutFearOfCrashing"
 	)
-	@WrapOperation(method = "@MixinSquared:Handler", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/event/CanSeePoison;visible(Lnet/minecraft/entity/Entity;)Z"), allow = 1)
-	private static boolean bartenderSeesPlatePoison(CanSeePoison instance, Entity entity, Operation<Boolean> original) {
-		if (original.call(instance, entity)) {
+	@WrapOperation(method = "@MixinSquared:Handler", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/api/event/CanSeePoison;visible(Lnet/minecraft/entity/player/PlayerEntity;)Z"), allow = 1)
+	private static boolean bartenderSeesPlatePoison(CanSeePoison instance, PlayerEntity player, Operation<Boolean> original) {
+		if (original.call(instance, player)) {
 			return true;
-		}
-		if (!(entity instanceof PlayerEntity player)) {
-			return false;
 		}
 		GameWorldComponent game = GameWorldComponent.KEY.get(player.getWorld());
 		return game.isRole(player, UmbraExpressRoles.BARTENDER);

@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 
 @Environment(EnvType.CLIENT)
 @Mixin(value = WatheItemTooltips.class, remap = false)
-public abstract class TMMItemTooltipsMixin {
+public abstract class WatheItemTooltipsMixin {
 
 	// begin credit: color hex codes taken from old TMM hitlist
 	@Unique

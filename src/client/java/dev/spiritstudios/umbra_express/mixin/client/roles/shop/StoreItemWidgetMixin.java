@@ -15,7 +15,7 @@ public class StoreItemWidgetMixin {
 
     @Shadow(remap = false) @Final public ShopEntry entry;
 
-    @ModifyExpressionValue(method = "renderWidget", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/util/ShopEntry$Type;getTexture()Lnet/minecraft/util/Identifier;"), remap = false)
+    @ModifyExpressionValue(method = "renderWidget", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/util/ShopEntry$Type;getTexture()Lnet/minecraft/util/Identifier;"), remap = false)
     private Identifier getTexture(Identifier original) {
         return this.entry instanceof CustomShopEntry textureShopEntry ? textureShopEntry.texture : original;
     }

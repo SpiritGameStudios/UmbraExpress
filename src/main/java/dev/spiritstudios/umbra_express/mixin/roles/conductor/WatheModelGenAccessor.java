@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(WatheModelGen.class)
-public interface TMMModelGenAccessor {
+public interface WatheModelGenAccessor {
 
     @Invoker("registerButton")
     void umbra_express$invokeRegisterButton(BlockStateModelGenerator generator, Block block);

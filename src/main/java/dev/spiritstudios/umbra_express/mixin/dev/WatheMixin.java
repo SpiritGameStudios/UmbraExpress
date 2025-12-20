@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Wathe.class, remap = false)
-public class TMMMixin {
+public class WatheMixin {
 
 	@Inject(method = "isSupporter", at = @At("HEAD"), cancellable = true, remap = true)
 	private static void developmentCommands(PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {

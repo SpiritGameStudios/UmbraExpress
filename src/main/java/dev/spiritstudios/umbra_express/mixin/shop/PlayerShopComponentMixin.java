@@ -20,7 +20,7 @@ public class PlayerShopComponentMixin {
 
     @Shadow @Final private PlayerEntity player;
 
-    @ModifyExpressionValue(method = "tryBuy", at = @At(value = "FIELD", target = "Ldev/doctor4t/trainmurdermystery/game/GameConstants;SHOP_ENTRIES:Ljava/util/List;", opcode = Opcodes.GETSTATIC, remap = false), remap = false)
+    @ModifyExpressionValue(method = "tryBuy", at = @At(value = "FIELD", target = "Ldev/doctor4t/wathe/game/GameConstants;SHOP_ENTRIES:Ljava/util/List;", opcode = Opcodes.GETSTATIC, remap = false), remap = false)
     private List<ShopEntry> getShop(List<ShopEntry> original) {
         GameWorldComponent game = GameWorldComponent.KEY.get(this.player.getWorld());
         Role role = game.getRole(this.player);

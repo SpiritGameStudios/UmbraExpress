@@ -24,7 +24,7 @@ public class TimeRendererMixin {
 	@Unique
 	private static final TimeNumberRenderer umbra_express$VIEW = new TimeNumberRenderer();
 
-	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/client/gui/TimeRenderer$TimeNumberRenderer;render(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;IIIF)V"), remap = true)
+	@WrapOperation(method = "renderHud", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/client/gui/TimeRenderer$TimeNumberRenderer;render(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/client/gui/DrawContext;IIIF)V"), remap = true)
 	private static void renderBroadcastTimerIfConductor(TimeRenderer.TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Local(argsOnly = true, name = "arg1") ClientPlayerEntity player, @Local(name = "gameWorldComponent") GameWorldComponent game) {
 		original.call(instance, renderer, context, x, y, color, delta);
 
@@ -38,7 +38,7 @@ public class TimeRendererMixin {
 		original.call(umbra_express$VIEW, renderer, context, x, renderer.fontHeight + 8, broadcastWorldComponent.getRenderColor(), delta);
 	}
 
-	@WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/client/gui/TimeRenderer$TimeNumberRenderer;update()V"))
+	@WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Ldev/doctor4t/wathe/client/gui/TimeRenderer$TimeNumberRenderer;update()V"))
 	private static void tickConductorView(TimeNumberRenderer instance, Operation<Void> original) {
 		original.call(instance);
 		original.call(umbra_express$VIEW);

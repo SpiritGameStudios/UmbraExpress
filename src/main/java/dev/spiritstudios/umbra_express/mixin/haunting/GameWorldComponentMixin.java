@@ -22,7 +22,7 @@ public class GameWorldComponentMixin {
     @Final
     private World world;
 
-    @Inject(method = "addRole(Ljava/util/UUID;Ldev/doctor4t/trainmurdermystery/api/Role;)V", at = @At("HEAD"))
+    @Inject(method = "addRole(Ljava/util/UUID;Ldev/doctor4t/wathe/api/Role;)V", at = @At("HEAD"))
     private void addKiller(UUID uuid, Role role, CallbackInfo ci) {
         if (!role.canUseKiller()) {
             return;

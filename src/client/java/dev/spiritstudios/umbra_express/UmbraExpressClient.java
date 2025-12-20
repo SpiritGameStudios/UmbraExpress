@@ -4,7 +4,7 @@ import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.init.UmbraExpressParticles;
-import dev.spiritstudios.umbra_express.mixin.client.TMMItemTooltipsAccessor;
+import dev.spiritstudios.umbra_express.mixin.client.WatheItemTooltipsAccessor;
 import dev.spiritstudios.umbra_express.network.PlaySoundInUIS2CPayload;
 import dev.spiritstudios.umbra_express.network.WiggleCrystalBallCooldownHudS2CPayload;
 import dev.spiritstudios.umbra_express.particle.CrystalBallSparkleParticle;
@@ -52,8 +52,8 @@ public class UmbraExpressClient implements ClientModInitializer {
         });
 
         ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, list) -> {
-            TMMItemTooltipsAccessor.umbra_express$invokeAddTooltipForItem(UmbraExpressItems.MASTER_KEY, itemStack, list);
-            TMMItemTooltipsAccessor.umbra_express$invokeAddTooltipForItem(UmbraExpressItems.ANTIDOTE, itemStack, list);
+            WatheItemTooltipsAccessor.umbra_express$invokeAddTooltipForItem(UmbraExpressItems.MASTER_KEY, itemStack, list);
+            WatheItemTooltipsAccessor.umbra_express$invokeAddTooltipForItem(UmbraExpressItems.ANTIDOTE, itemStack, list);
         });
     }
 
