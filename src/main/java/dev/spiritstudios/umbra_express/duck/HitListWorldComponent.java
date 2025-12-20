@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.duck;
 
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 
 import java.util.List;
 import java.util.UUID;

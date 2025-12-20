@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.mixin.client.qol;
 
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.role.task;
 
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;

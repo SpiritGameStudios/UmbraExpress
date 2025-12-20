@@ -1,8 +1,8 @@
 package dev.spiritstudios.umbra_express.mixin.optimization;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.game.GameFunctions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

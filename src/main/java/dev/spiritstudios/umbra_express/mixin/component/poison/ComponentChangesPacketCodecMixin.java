@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.mixin.component.poison;
 
-import dev.doctor4t.trainmurdermystery.index.TMMDataComponentTypes;
+import dev.doctor4t.wathe.index.WatheDataComponentTypes;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.ComponentType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +19,7 @@ public class ComponentChangesPacketCodecMixin {
 		ComponentChanges.Builder builder = ComponentChanges.builder();
 		for (Map.Entry<ComponentType<?>, Optional<?>> entry : original.entrySet()) {
 			ComponentType<?> type = entry.getKey();
-			if (Objects.equals(TMMDataComponentTypes.POISONER, type)) {
+			if (Objects.equals(WatheDataComponentTypes.POISONER, type)) {
 				continue;
 			}
 			entry.getValue()

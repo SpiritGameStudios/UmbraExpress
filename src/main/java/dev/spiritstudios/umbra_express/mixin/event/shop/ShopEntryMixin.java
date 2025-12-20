@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.mixin.event.shop;
 
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.util.ShopEntry;
 import dev.spiritstudios.umbra_express.duck.Sale;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

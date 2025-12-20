@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.init;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.util.Identifier;
@@ -61,7 +61,7 @@ public class UmbraExpressConfig extends MidnightConfig {
 		Identifier id = Identifier.tryParse(forceDevRole);
 		if (id == null) return null;
 
-		for (Role maybe : TMMRoles.ROLES) {
+		for (Role maybe : WatheRoles.ROLES) {
 			if (maybe.identifier().equals(id)) {
 				return maybe;
 			}

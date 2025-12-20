@@ -1,8 +1,8 @@
 package dev.spiritstudios.umbra_express.mixin.event;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.game.GameFunctions;
 import dev.spiritstudios.umbra_express.event.TMMGameLifecycleEvents;
 import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
 import net.minecraft.server.network.ServerPlayerEntity;

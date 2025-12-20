@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.mixin.client;
 
-import dev.doctor4t.trainmurdermystery.client.util.TMMItemTooltips;
+import dev.doctor4t.wathe.client.util.WatheItemTooltips;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.List;
 
-@Mixin(value = TMMItemTooltips.class, remap = false)
+@Mixin(value = WatheItemTooltips.class, remap = false)
 public interface TMMItemTooltipsAccessor {
 
 	@Invoker(value = "addTooltipForItem", remap = false)

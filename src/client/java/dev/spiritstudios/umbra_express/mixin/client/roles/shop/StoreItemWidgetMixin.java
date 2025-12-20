@@ -1,8 +1,8 @@
 package dev.spiritstudios.umbra_express.mixin.client.roles.shop;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.client.gui.screen.ingame.LimitedInventoryScreen;
+import dev.doctor4t.wathe.util.ShopEntry;
 import dev.spiritstudios.umbra_express.role.CustomShopEntry;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;

@@ -1,6 +1,6 @@
 package dev.spiritstudios.umbra_express.datagen;
 
-import dev.doctor4t.trainmurdermystery.datagen.TMMModelGen;
+import dev.doctor4t.wathe.datagen.WatheModelGen;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlocks;
 import dev.spiritstudios.umbra_express.init.UmbraExpressItems;
 import dev.spiritstudios.umbra_express.mixin.roles.conductor.TMMModelGenAccessor;
@@ -9,7 +9,7 @@ import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 
-public class UmbraExpressModelGenerator extends TMMModelGen {
+public class UmbraExpressModelGenerator extends WatheModelGen {
 
     public UmbraExpressModelGenerator(FabricDataOutput output) {
         super(output);

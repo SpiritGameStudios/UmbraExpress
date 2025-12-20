@@ -1,9 +1,9 @@
 package dev.spiritstudios.umbra_express.role;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.api.TMMRoles;
-import dev.doctor4t.trainmurdermystery.game.GameConstants;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.SharedConstants;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
@@ -18,7 +18,7 @@ import java.util.function.UnaryOperator;
 public record MoneyManager(PassiveTicker passiveTicker, Function<PlayerEntity, Integer> amountGainedPerKill, int startingAmount, List<ShopEntry> shop) {
 
     public static final MoneyManager KILLER_DEFAULT = new MoneyManager(PassiveTicker.KILLER_DEFAULT, target -> GameConstants.MONEY_PER_KILL, GameConstants.MONEY_START, GameConstants.SHOP_ENTRIES);
-    public static final Map<Role, MoneyManager> ROLE_MAP = Util.make(new HashMap<>(), map -> map.put(TMMRoles.KILLER, KILLER_DEFAULT));
+    public static final Map<Role, MoneyManager> ROLE_MAP = Util.make(new HashMap<>(), map -> map.put(WatheRoles.KILLER, KILLER_DEFAULT));
 
     public Builder toBuilder() {
         return builder()

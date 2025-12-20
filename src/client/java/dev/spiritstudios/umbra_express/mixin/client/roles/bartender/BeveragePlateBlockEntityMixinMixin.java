@@ -3,9 +3,9 @@ package dev.spiritstudios.umbra_express.mixin.client.roles.bartender;
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.doctor4t.trainmurdermystery.block_entity.BeveragePlateBlockEntity;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.event.CanSeePoison;
+import dev.doctor4t.wathe.block_entity.BeveragePlateBlockEntity;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.api.event.CanSeePoison;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BeveragePlateBlockEntityMixinMixin {
 
 	@TargetHandler(
-		mixin = "dev.doctor4t.trainmurdermystery.mixin.client.self.BeveragePlateBlockEntityMixin",
+		mixin = "dev.doctor4t.wathe.mixin.client.self.BeveragePlateBlockEntityMixin",
 		name = "tickWithoutFearOfCrashing"
 	)
 	@WrapOperation(method = "@MixinSquared:Handler", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/event/CanSeePoison;visible(Lnet/minecraft/entity/Entity;)Z"), allow = 1)

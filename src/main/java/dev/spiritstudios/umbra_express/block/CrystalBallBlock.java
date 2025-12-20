@@ -1,10 +1,10 @@
 package dev.spiritstudios.umbra_express.block;
 
 import com.mojang.serialization.MapCodec;
-import dev.doctor4t.trainmurdermystery.cca.AreasWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.MapVariablesWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.game.GameFunctions;
 import dev.spiritstudios.umbra_express.block.entity.CrystalBallBlockEntity;
 import dev.spiritstudios.umbra_express.cca.CrystalBallWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
@@ -109,7 +109,7 @@ public class CrystalBallBlock extends BlockWithEntity {
         if (player.equals(mystic) || GameFunctions.isPlayerEliminated(player))
             return false;
 
-        AreasWorldComponent areas = AreasWorldComponent.KEY.get(world);
+		MapVariablesWorldComponent areas = MapVariablesWorldComponent.KEY.get(world);
 
         if (!areas.getPlayArea().contains(player.getPos()))
             return false;

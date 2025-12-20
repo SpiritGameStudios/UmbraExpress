@@ -1,10 +1,10 @@
 package dev.spiritstudios.umbra_express.mixin.shop;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.util.ShopEntry;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.util.ShopEntry;
 import dev.spiritstudios.umbra_express.role.MoneyManager;
 import net.minecraft.entity.player.PlayerEntity;
 import org.objectweb.asm.Opcodes;

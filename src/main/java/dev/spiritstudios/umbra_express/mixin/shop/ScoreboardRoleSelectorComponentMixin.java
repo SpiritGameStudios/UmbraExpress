@@ -1,8 +1,8 @@
 package dev.spiritstudios.umbra_express.mixin.shop;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
-import dev.doctor4t.trainmurdermystery.cca.ScoreboardRoleSelectorComponent;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.cca.ScoreboardRoleSelectorComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 

@@ -1,12 +1,12 @@
 package dev.spiritstudios.umbra_express;
 
-import dev.doctor4t.trainmurdermystery.block.NeonPillarBlock;
-import dev.doctor4t.trainmurdermystery.block.NeonTubeBlock;
-import dev.doctor4t.trainmurdermystery.block.OrnamentBlock;
-import dev.doctor4t.trainmurdermystery.block.ToggleableFacingLightBlock;
-import dev.doctor4t.trainmurdermystery.cca.AreasWorldComponent;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
-import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
+import dev.doctor4t.wathe.block.NeonPillarBlock;
+import dev.doctor4t.wathe.block.NeonTubeBlock;
+import dev.doctor4t.wathe.block.OrnamentBlock;
+import dev.doctor4t.wathe.block.ToggleableFacingLightBlock;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.MapVariablesWorldComponent;
+import dev.doctor4t.wathe.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.init.*;
 import dev.spiritstudios.umbra_express.network.PlaySoundInUIS2CPayload;
 import dev.spiritstudios.umbra_express.network.WiggleCrystalBallCooldownHudS2CPayload;
@@ -59,7 +59,7 @@ public class UmbraExpress implements ModInitializer {
 			TrainVoicePlugin.addPlayer(player.getUuid());
 			ConductorVoicechatPlugin.addReceiver(player);
 
-			AreasWorldComponent.PosWithOrientation spectatorSpawnPos = AreasWorldComponent.KEY.get(serverWorld).getSpectatorSpawnPos();
+			MapVariablesWorldComponent.PosWithOrientation spectatorSpawnPos = MapVariablesWorldComponent.KEY.get(serverWorld).getSpectatorSpawnPos();
 			player.teleport(serverWorld, spectatorSpawnPos.pos.getX(), spectatorSpawnPos.pos.getY(), spectatorSpawnPos.pos.getZ(), spectatorSpawnPos.yaw, spectatorSpawnPos.pitch);
 		});
 

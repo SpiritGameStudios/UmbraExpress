@@ -2,7 +2,7 @@ package dev.spiritstudios.umbra_express.mixin.dev;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.wathe.game.GameFunctions;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import net.minecraft.server.world.ServerWorld;
 import org.objectweb.asm.Opcodes;

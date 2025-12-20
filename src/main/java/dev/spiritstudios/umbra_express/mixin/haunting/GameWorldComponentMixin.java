@@ -1,7 +1,7 @@
 package dev.spiritstudios.umbra_express.mixin.haunting;
 
-import dev.doctor4t.trainmurdermystery.api.Role;
-import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
+import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.voicechat.HauntingVoicechatPlugin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;

@@ -3,7 +3,7 @@ package dev.spiritstudios.umbra_express.mixin.client.qol;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.doctor4t.trainmurdermystery.client.TMMClient;
+import dev.doctor4t.wathe.client.WatheClient;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TMMClient.class)
+@Mixin(WatheClient.class)
 public class TMMClientMixin {
 
     @WrapOperation(method = "getInstinctHighlight", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;hsvToRgb(FFF)I"))
