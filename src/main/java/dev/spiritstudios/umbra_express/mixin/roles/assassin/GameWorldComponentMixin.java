@@ -57,7 +57,8 @@ public abstract class GameWorldComponentMixin implements HitListWorldComponent {
 				if (!GameFunctions.isPlayerAliveAndSurvival(player)) {
 					return false;
 				}
-				return !this.getRole(player).canUseKiller();
+				Role role = this.getRole(player);
+				return role != null && !this.getRole(player).canUseKiller();
 			}).toList();
 		if (targets.isEmpty()) {
 			this.umbra_express$assassinationTarget = null;

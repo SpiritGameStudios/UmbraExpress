@@ -56,7 +56,7 @@ public record RoleReplacer(Role original, Role replacement, ReplacementQuotient 
 		 * @param chance the chance that the check will succeed.
 		 *               At 1f, this will be equivalent to
 		 *               {@linkplain ReplacementPredicate#ALWAYS}
-		 * @return the checker
+		 * @return the predicate
 		 */
 		static ReplacementPredicate fromRandom(float chance) {
 			return (totalPlayers, serverWorld, uuid) -> serverWorld.getRandom().nextFloat() <= chance;

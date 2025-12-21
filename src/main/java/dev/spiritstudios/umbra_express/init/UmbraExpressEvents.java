@@ -28,8 +28,11 @@ public interface UmbraExpressEvents {
         TMMGameLifecycleEvents.BASE_INITIALIZED.register((serverWorld, game) -> {
             HitListWorldComponent hitlist = HitListWorldComponent.cast(game);
             resetWorld(serverWorld, hitlist);
-            hitlist.umbra_express$rerollTarget();
         });
+
+		TMMGameLifecycleEvents.INITIALIZING.register((serverWorld, game, readyPlayerList) -> {
+			HitListWorldComponent.cast(game).umbra_express$rerollTarget();
+		});
 
         // is it necessary to split these??
         TMMGameLifecycleEvents.FINALIZING.register((serverWorld, game) -> resetWorld(serverWorld, HitListWorldComponent.cast(game)));
