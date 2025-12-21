@@ -11,6 +11,7 @@ import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.role.MoneyManager;
 import net.fabricmc.loader.api.FabricLoader;
@@ -42,7 +43,7 @@ public class MurderGameModeMixin {
 				player = serverWorld.getPlayerByUuid(host.getId());
 			}
 
-			if (player == null) {
+			if (!(player instanceof ServerPlayerEntity serverPlayer) || !players.contains(serverPlayer)) {
 				return;
 			}
 
@@ -53,9 +54,7 @@ public class MurderGameModeMixin {
 
 			gameComponent.addRole(player, devRole);
 
-			if (MoneyManager.ROLE_MAP.containsKey(devRole)) {
-				PlayerShopComponent.KEY.get(player).setBalance(MoneyManager.ROLE_MAP.get(devRole).startingAmount());
-			}
+			TMMPlayerEvents.INITIALIZING.invoker().onInitializing(serverWorld, serverPlayer, devRole, true, gameComponent);
 
 			cir.setReturnValue(cir.getReturnValueI() + (devRole.canUseKiller() ? 1 : 0));
 		}

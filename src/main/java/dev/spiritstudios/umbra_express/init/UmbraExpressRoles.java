@@ -14,6 +14,7 @@ import dev.spiritstudios.umbra_express.role.RoleReplacer;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementQuotient;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementPredicate;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.CIVILIAN;
 import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
@@ -30,6 +32,7 @@ import static dev.doctor4t.trainmurdermystery.api.TMMRoles.KILLER;
 public interface UmbraExpressRoles {
 
 	Map<Role, RoleAnnouncementTexts.RoleAnnouncementText> TEXTS = new HashMap<>();
+	Map<Role, Function<PlayerEntity, List<ItemStack>>> ITEM_GIVERS = new HashMap<>();
 	List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
 
     Role CONDUCTOR = registerInnocent("conductor", 0x7604E7, true);
@@ -98,6 +101,8 @@ public interface UmbraExpressRoles {
 		registerReplacer(CIVILIAN, LOCKSMITH, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
 		registerReplacer(CIVILIAN, MYSTIC, ReplacementQuotient.ONE_OF, ReplacementPredicate.minPlayers(8));
 		registerReplacer(KILLER, ASSASSIN, ReplacementQuotient.ALL_OF, ReplacementPredicate.fromRandom(0.5F));
+
+		ITEM_GIVERS.put(LOCKSMITH, player -> List.of(UmbraExpressItems.MASTER_KEY.getDefaultStack()));
 
 		MoneyManager.builder()
 			.passiveTicker(10, 5)

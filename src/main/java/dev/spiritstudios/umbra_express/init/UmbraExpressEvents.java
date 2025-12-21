@@ -49,8 +49,11 @@ public interface UmbraExpressEvents {
                 return;
             }
 
-            if (safeRoleEquals(role, UmbraExpressRoles.LOCKSMITH))
-                giveItem(serverPlayer, UmbraExpressItems.MASTER_KEY);
+            if (UmbraExpressRoles.ITEM_GIVERS.containsKey(role)) {
+				UmbraExpressRoles.ITEM_GIVERS.get(role)
+					.apply(serverPlayer)
+					.forEach(serverPlayer::giveItemStack);
+			}
 
             if (MoneyManager.ROLE_MAP.containsKey(role))
                 PlayerShopComponent.KEY.get(serverPlayer).setBalance(MoneyManager.ROLE_MAP.get(role).startingAmount());
@@ -101,9 +104,5 @@ public interface UmbraExpressEvents {
 
     static boolean safeRoleEquals(Role a, Role b) {
         return a != null && Objects.equals(a, b);
-    }
-
-    static void giveItem(ServerPlayerEntity serverPlayer, Item item) {
-        serverPlayer.giveItemStack(item.getDefaultStack());
     }
 }
