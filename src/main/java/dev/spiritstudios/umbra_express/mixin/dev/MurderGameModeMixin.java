@@ -52,11 +52,17 @@ public class MurderGameModeMixin {
 				return;
 			}
 
+			boolean wasKiller = false;
+			Role prevRole = gameComponent.getRole(player);
+			if (prevRole != null && prevRole.canUseKiller()) {
+				wasKiller = true;
+			}
+
 			gameComponent.addRole(player, devRole);
 
 			TMMPlayerEvents.INITIALIZING.invoker().onInitializing(serverWorld, serverPlayer, devRole, true, gameComponent);
 
-			cir.setReturnValue(cir.getReturnValueI() + (devRole.canUseKiller() ? 1 : 0));
+			cir.setReturnValue(cir.getReturnValueI() + (devRole.canUseKiller() && !wasKiller ? 1 : 0));
 		}
 	}
 
