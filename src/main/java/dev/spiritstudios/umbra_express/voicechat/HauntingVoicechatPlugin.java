@@ -79,7 +79,7 @@ public class HauntingVoicechatPlugin implements VoicechatPlugin {
 		if (microphonePacket.getOpusEncodedData().length <= 0) {
 			return;
 		}
-		
+
 		if (!microphonePacket.isWhispering() && !WorldBlackoutComponent.KEY.get(serverPlayer.getWorld()).isBlackoutActive()) {
 			// if not whispering or not blackout, don't send = send if whispering or blackout
 			return;

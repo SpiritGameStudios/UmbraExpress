@@ -46,7 +46,6 @@ public class UmbraExpressTagGenerators {
 		@Override
 		protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 			getOrCreateTagBuilder(UmbraExpressTags.HAUNTING_INTERACTABLE)
-				.add(TMMBlocks.TRIMMED_LANTERN)
 				.add(TMMBlocks.WALL_LAMP);
 		}
 	}
