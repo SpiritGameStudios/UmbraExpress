@@ -9,6 +9,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.ApiStatus;
 
+import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.PERMISSION_CHECKER;
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.argument;
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.literal;
 
@@ -25,6 +26,7 @@ public interface LobbyApparitionCommand {
 			.build();
 
 		LiteralCommandNode<ServerCommandSource> set = literal("set")
+			.requires(PERMISSION_CHECKER)
 			.then(
 				argument("value", BoolArgumentType.bool())
 					.executes(LobbyApparitionCommand::executeSet)

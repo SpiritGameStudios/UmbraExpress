@@ -45,7 +45,7 @@ public class UmbraExpress implements ModInitializer {
 		UmbraExpressParticles.init();
 		UmbraExpressSoundEvents.init();
 
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> UmbraExpressCommands.init(dispatcher));
+		CommandRegistrationCallback.EVENT.register(UmbraExpressCommands::init);
 
 		ServerPlayerEvents.JOIN.register(player -> {
 			ServerWorld serverWorld = player.getServerWorld();

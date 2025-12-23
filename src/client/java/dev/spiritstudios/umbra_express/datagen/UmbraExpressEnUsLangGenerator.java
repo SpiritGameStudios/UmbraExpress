@@ -92,6 +92,10 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 		translationBuilder.add("commands.umbra_express.roles.toggle.set.true", "Role %s is now disabled");
 		translationBuilder.add("commands.umbra_express.roles.toggle.set.false", "Role %s is now enabled");
 
+		translationBuilder.add("commands.umbra_express.roles.find.notplayersource", "The source of the command did not originate from a player!");
+		translationBuilder.add("commands.umbra_express.roles.find.notrunning", "Game is not running!");
+		translationBuilder.add("commands.umbra_express.roles.find.result", "%1$s is a(n) %2$s");
+
 		translationBuilder.add("commands.umbra_express.lobby_apparition.get.true", "View Apparition in Lobby is currently set to true");
 		translationBuilder.add("commands.umbra_express.lobby_apparition.get.false", "View Apparition in Lobby is currently set to false");
 		translationBuilder.add("commands.umbra_express.lobby_apparition.set.true", "View Apparition in Lobby is now set to true");

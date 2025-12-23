@@ -8,13 +8,21 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.spiritstudios.umbra_express.command.DisableRoleCommand;
 import dev.spiritstudios.umbra_express.command.ListRoleCommand;
 import dev.spiritstudios.umbra_express.command.LobbyApparitionCommand;
+import dev.spiritstudios.umbra_express.command.WhoAmICommand;
+import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.ApiStatus;
+
+import java.util.function.Predicate;
 
 @ApiStatus.NonExtendable
 public interface UmbraExpressCommands {
 
-	static void init(CommandDispatcher<ServerCommandSource> dispatcher) {
+	int MIN_PERMISSION_LEVEL = 2;
+	Predicate<ServerCommandSource> PERMISSION_CHECKER = source -> source.hasPermissionLevel(MIN_PERMISSION_LEVEL);
+
+	static void init(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess registryAccess, CommandManager.RegistrationEnvironment environment) {
 		LiteralCommandNode<ServerCommandSource> umbraRoot = literal("umbraexpress").build();
 
 		LiteralCommandNode<ServerCommandSource> roles = literal("roles").build();
@@ -26,6 +34,7 @@ public interface UmbraExpressCommands {
 
 		DisableRoleCommand.register(roles);
 		ListRoleCommand.register(roles);
+		WhoAmICommand.register(roles);
 	}
 
 	static LiteralArgumentBuilder<ServerCommandSource> literal(String name) {

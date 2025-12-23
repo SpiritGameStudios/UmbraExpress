@@ -16,6 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 
+import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.PERMISSION_CHECKER;
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.argument;
 import static dev.spiritstudios.umbra_express.init.UmbraExpressCommands.literal;
 
@@ -41,13 +42,15 @@ public interface DisableRoleCommand {
 		).executes(DisableRoleCommand::executeGetToggle).build();
 
 		LiteralCommandNode<ServerCommandSource> disable = literal("disable")
+			.requires(PERMISSION_CHECKER)
 			.executes(context -> executeSetToggle(context, true)).build();
 
-
 		LiteralCommandNode<ServerCommandSource> enable = literal("enable")
+			.requires(PERMISSION_CHECKER)
 			.executes(context -> executeSetToggle(context, false)).build();
 
 		LiteralCommandNode<ServerCommandSource> clear = literal("clearDisabledRoles")
+			.requires(PERMISSION_CHECKER)
 			.executes(context -> {
 				UmbraExpressConfig.disabledRoles.clear();
 				UmbraExpressConfig.trySaveChanges();
