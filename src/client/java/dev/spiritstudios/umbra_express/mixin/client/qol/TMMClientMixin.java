@@ -25,5 +25,4 @@ public class TMMClientMixin {
         if (UmbraExpressConfig.accurateInstinctHighlights)
             cir.setReturnValue(MathHelper.hsvToRgb(mood / 3.0F, 1.0F, 1.0F));
     }
-
 }

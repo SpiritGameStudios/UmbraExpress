@@ -28,14 +28,14 @@ public class GameFunctionsMixin {
         TMMGameLifecycleEvents.START.invoker().onStart(world, game);
     }
 
-    @Inject(method = "initializeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;initializeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;Ljava/util/List;)V"), remap = false)
+	@Inject(method = "baseInitialize", at = @At("RETURN"), remap = false)
+	private static void onInitialized(ServerWorld serverWorld, GameWorldComponent gameComponent, List<ServerPlayerEntity> players, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
+		TMMGameLifecycleEvents.BASE_INITIALIZED.invoker().onBaseInitialized(serverWorld, gameWorldComponent);
+	}
+
+    @Inject(method = "initializeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;initializeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;Ljava/util/List;)V", shift = At.Shift.AFTER), remap = false)
     private static void onInitializing(ServerWorld serverWorld, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent, @Local(name = "readyPlayerList") List<ServerPlayerEntity> readyPlayerList) {
         TMMGameLifecycleEvents.INITIALIZING.invoker().onInitializing(serverWorld, gameWorldComponent, readyPlayerList);
-    }
-
-    @Inject(method = "baseInitialize", at = @At("RETURN"), remap = false)
-    private static void onInitialized(ServerWorld serverWorld, GameWorldComponent gameComponent, List<ServerPlayerEntity> players, CallbackInfo ci, @Local(name = "gameComponent") GameWorldComponent gameWorldComponent) {
-        TMMGameLifecycleEvents.BASE_INITIALIZED.invoker().onBaseInitialized(serverWorld, gameWorldComponent);
     }
 
     @Inject(method = "finalizeGame", at = @At(value = "INVOKE", target = "Ldev/doctor4t/trainmurdermystery/api/GameMode;finalizeGame(Lnet/minecraft/server/world/ServerWorld;Ldev/doctor4t/trainmurdermystery/cca/GameWorldComponent;)V", remap = false))

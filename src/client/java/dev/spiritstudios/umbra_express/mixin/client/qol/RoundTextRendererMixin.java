@@ -3,6 +3,7 @@ package dev.spiritstudios.umbra_express.mixin.client.qol;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.trainmurdermystery.client.TMMClient;
 import dev.doctor4t.trainmurdermystery.client.gui.RoundTextRenderer;
 import dev.spiritstudios.umbra_express.UmbraExpress;
@@ -49,8 +50,13 @@ public class RoundTextRendererMixin {
 	}
 
 	@ModifyExpressionValue(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/option/KeyBinding;isPressed()Z"))
-	private static boolean updatePressingPlayerList(boolean original) {
-		umbra_express$forceShowWelcome = original && TMMClient.gameComponent != null && TMMClient.gameComponent.isRunning();
-		return original;
+	private static boolean updatePressingPlayerList(boolean original, @Local ClientPlayerEntity player) {
+		if (!original) {
+			return false;
+		}
+		if (TMMClient.gameComponent != null) {
+			umbra_express$forceShowWelcome = TMMClient.gameComponent.isRunning() && (player == null || !player.isSpectator());
+		}
+		return true;
 	}
 }
