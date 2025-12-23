@@ -7,6 +7,7 @@ import de.maxhenkel.voicechat.api.audiochannel.StaticAudioChannel;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.packets.MicrophonePacket;
+import dev.doctor4t.trainmurdermystery.cca.WorldBlackoutComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -75,7 +76,12 @@ public class HauntingVoicechatPlugin implements VoicechatPlugin {
 
 		MicrophonePacket microphonePacket = event.getPacket();
 		//noinspection NonStrictComparisonCanBeEquality
-		if (microphonePacket.getOpusEncodedData().length <= 0 || microphonePacket.isWhispering()) {
+		if (microphonePacket.getOpusEncodedData().length <= 0) {
+			return;
+		}
+		
+		if (!microphonePacket.isWhispering() && !WorldBlackoutComponent.KEY.get(serverPlayer.getWorld()).isBlackoutActive()) {
+			// if not whispering or not blackout, don't send = send if whispering or blackout
 			return;
 		}
 
