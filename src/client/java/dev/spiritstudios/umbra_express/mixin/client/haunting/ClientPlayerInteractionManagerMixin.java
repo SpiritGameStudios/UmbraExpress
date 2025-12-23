@@ -32,6 +32,6 @@ public class ClientPlayerInteractionManagerMixin {
 
 		if (blockPos == null || this.client.world == null) return true;
 
-		return !UmbraExpress.canBeUsedByGhost(this.client.world.getBlockState(blockPos).getBlock());
+		return !UmbraExpress.canBeUsedByGhost(this.client.world.getBlockState(blockPos));
     }
 }

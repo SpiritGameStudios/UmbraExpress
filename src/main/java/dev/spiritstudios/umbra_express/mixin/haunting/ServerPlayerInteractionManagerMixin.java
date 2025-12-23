@@ -32,6 +32,6 @@ public class ServerPlayerInteractionManagerMixin {
             return true;
         }
 
-        return !UmbraExpress.canBeUsedByGhost(world.getBlockState(blockPos).getBlock());
+        return !UmbraExpress.canBeUsedByGhost(world.getBlockState(blockPos));
     }
 }

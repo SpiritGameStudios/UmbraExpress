@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -80,8 +81,8 @@ public class UmbraExpress implements ModInitializer {
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	public static boolean canBeUsedByGhost(Block block) {
-		return block instanceof ToggleableFacingLightBlock || block instanceof NeonPillarBlock || block instanceof NeonTubeBlock || block instanceof OrnamentBlock;
+	public static boolean canBeUsedByGhost(BlockState blockState) {
+		return blockState.isIn(UmbraExpressTags.HAUNTING_INTERACTABLE);
 	}
 
 	public static String getCooldownTimeString(int cooldownTicks, boolean roundUp) {
