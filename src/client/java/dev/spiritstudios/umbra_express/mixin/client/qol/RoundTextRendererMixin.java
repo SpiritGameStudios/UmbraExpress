@@ -26,14 +26,19 @@ public class RoundTextRendererMixin {
 
 	@WrapMethod(method = "renderHud")
 	private static void showWelcomeWhenPressingPlayerList(TextRenderer renderer, ClientPlayerEntity player, DrawContext context, Operation<Void> original) {
-		if (umbra_express$forceShowWelcome) {
-			int realWelcomeTime = welcomeTime;
-			welcomeTime = 2;
-			try {
-				original.call(renderer, player, context);
-			} catch (Throwable throwable) {
-				UmbraExpress.LOGGER.error("An error occurred when wrapping RoundTextRenderer.renderHud", throwable);
-			}
+		if (!umbra_express$forceShowWelcome) {
+			original.call(renderer, player, context);
+			return;
+		}
+
+		int realWelcomeTime = welcomeTime;
+		welcomeTime = 2;
+		try {
+			original.call(renderer, player, context);
+		} catch (Throwable throwable) {
+			UmbraExpress.LOGGER.error("An error occurred when wrapping RoundTextRenderer.renderHud", throwable);
+		}
+		if (welcomeTime == 2) {
 			welcomeTime = realWelcomeTime;
 		}
 	}
