@@ -8,3 +8,8 @@ Umbra Express 1.1.7+1.21.1
 - Commands
   - Added proper permission level checks for set commands
   - Added the role find command (shows the role of the source entity)
+- Conductor
+  - Conductor is no longer a role
+  - Instead, you can randomly receive the ability to broadcast at the beginning of the game
+  - The player who receives this ability will be designated the "Conductor" but their real role will be whatever they were previously assigned
+- Locksmith now requires a minimum of 7 players
