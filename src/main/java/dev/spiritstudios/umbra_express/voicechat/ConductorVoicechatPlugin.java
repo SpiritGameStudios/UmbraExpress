@@ -10,6 +10,7 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.spiritstudios.umbra_express.UmbraExpress;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
+import dev.spiritstudios.umbra_express.duck.ConductorWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -78,7 +79,7 @@ public class ConductorVoicechatPlugin implements VoicechatPlugin {
         World world = serverPlayer.getEntityWorld();
         GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(world);
         if (gameWorldComponent.isRunning()) {
-            if (!BroadcastWorldComponent.KEY.get(world).isBroadcasting() || !gameWorldComponent.isRole(serverPlayer, UmbraExpressRoles.CONDUCTOR)) {
+            if (!BroadcastWorldComponent.KEY.get(world).isBroadcasting() || !ConductorWorldComponent.cast(gameWorldComponent).umbra_express$isConductor(serverPlayer)) {
                 return;
             }
         } else if (!serverPlayer.getUuid().equals(announcerUUID)) {

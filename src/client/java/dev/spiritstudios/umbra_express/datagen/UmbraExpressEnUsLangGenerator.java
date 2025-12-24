@@ -28,7 +28,6 @@ public class UmbraExpressEnUsLangGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
-		generateForInnocentWithCustomGoal(UmbraExpressRoles.CONDUCTOR, "Announce important news in the train cab.", translationBuilder);
 		generateForInnocentWithCustomGoal(UmbraExpressRoles.BARTENDER, "Purchase alleviating concoctions to help your fellow passengers.", translationBuilder);
 		generateForInnocent(UmbraExpressRoles.LOCKSMITH, translationBuilder);
 		generateForInnocentWithCustomGoal(UmbraExpressRoles.MYSTIC, "Find a crystal ball and cast divine, arcane apparitions.", translationBuilder);

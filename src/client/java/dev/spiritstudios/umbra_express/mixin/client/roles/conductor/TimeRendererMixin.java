@@ -7,6 +7,7 @@ import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.TimeRenderer;
 import dev.doctor4t.trainmurdermystery.client.gui.TimeRenderer.TimeNumberRenderer;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
+import dev.spiritstudios.umbra_express.duck.ConductorWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,7 +29,7 @@ public class TimeRendererMixin {
 	private static void renderBroadcastTimerIfConductor(TimeRenderer.TimeNumberRenderer instance, TextRenderer renderer, DrawContext context, int x, int y, int color, float delta, Operation<Void> original, @Local(argsOnly = true, name = "arg1") ClientPlayerEntity player, @Local(name = "gameWorldComponent") GameWorldComponent game) {
 		original.call(instance, renderer, context, x, y, color, delta);
 
-		if (!game.isRole(player, UmbraExpressRoles.CONDUCTOR)) {
+		if (!ConductorWorldComponent.cast(game).umbra_express$isConductor(player)) {
 			umbra_express$VIEW.setTarget(0);
 			return;
 		}

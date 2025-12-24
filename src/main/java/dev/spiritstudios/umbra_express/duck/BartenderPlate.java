@@ -25,5 +25,4 @@ public interface BartenderPlate {
         assert blockEntity instanceof BartenderPlate;
         return (BartenderPlate) blockEntity;
     }
-
 }

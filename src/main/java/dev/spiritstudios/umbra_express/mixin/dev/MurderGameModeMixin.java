@@ -11,6 +11,7 @@ import dev.doctor4t.trainmurdermystery.cca.PlayerShopComponent;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
 import dev.spiritstudios.umbra_express.UmbraExpress;
+import dev.spiritstudios.umbra_express.duck.ConductorWorldComponent;
 import dev.spiritstudios.umbra_express.event.TMMPlayerEvents;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.role.MoneyManager;
@@ -47,7 +48,16 @@ public class MurderGameModeMixin {
 				return;
 			}
 
-			Role devRole = UmbraExpressConfig.getDevRole();
+			UmbraExpressConfig.MaybeConductor maybe = UmbraExpressConfig.getDevRole();
+			if (maybe == null) {
+				return;
+			}
+			if (maybe.conductor()) {
+				ConductorWorldComponent.cast(gameComponent).umbra_express$setConductor(serverPlayer.getUuid());
+				return;
+			}
+
+			Role devRole = maybe.otherwise();
 			if (devRole == null) {
 				return;
 			}

@@ -6,6 +6,7 @@ import dev.doctor4t.trainmurdermystery.compat.TrainVoicePlugin;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
 import dev.spiritstudios.umbra_express.cca.CooldownWorldComponent;
+import dev.spiritstudios.umbra_express.duck.ConductorWorldComponent;
 import dev.spiritstudios.umbra_express.duck.HitListWorldComponent;
 import dev.spiritstudios.umbra_express.event.DefaultShopEntryEvents;
 import dev.spiritstudios.umbra_express.event.TMMGameLifecycleEvents;
@@ -41,7 +42,7 @@ public interface UmbraExpressEvents {
 
     static void registerPlayer() {
         TMMPlayerEvents.INITIALIZING.register((serverWorld, serverPlayer, role, playing, game) -> {
-			if (!safeRoleEquals(role, UmbraExpressRoles.CONDUCTOR))
+			if (!ConductorWorldComponent.cast(game).umbra_express$isConductor(serverPlayer))
 				ConductorVoicechatPlugin.addReceiver(serverPlayer);
 
             if (!playing) {
@@ -69,7 +70,7 @@ public interface UmbraExpressEvents {
         });
 
         TMMPlayerEvents.DIED.register((world, player, playerRole, killer, killerRole, deathReason, game) -> {
-            if (safeRoleEquals(playerRole, UmbraExpressRoles.CONDUCTOR))
+            if (ConductorWorldComponent.cast(game).umbra_express$isConductor(player))
                 BroadcastWorldComponent.KEY.get(world).setBroadcasting(false);
 
             if (killer != null && safeRoleEquals(killerRole, UmbraExpressRoles.ASSASSIN) && game.isRunning()) {

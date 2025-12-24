@@ -4,6 +4,7 @@ import dev.doctor4t.trainmurdermystery.block.ElevatorButtonBlock;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.spiritstudios.umbra_express.block.entity.BroadcastButtonBlockEntity;
 import dev.spiritstudios.umbra_express.cca.BroadcastWorldComponent;
+import dev.spiritstudios.umbra_express.duck.ConductorWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressBlockEntities;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.voicechat.ConductorVoicechatPlugin;
@@ -52,7 +53,7 @@ public class BroadcastButtonBlock extends ElevatorButtonBlock implements BlockEn
         if (!client && player instanceof ServerPlayerEntity serverPlayer) {
             GameWorldComponent game = GameWorldComponent.KEY.get(world);
             if (game.isRunning()) {
-                if (game.isRole(serverPlayer, UmbraExpressRoles.CONDUCTOR)) {
+                if (ConductorWorldComponent.cast(game).umbra_express$isConductor(serverPlayer)) {
                     BroadcastWorldComponent.KEY.get(world).setBroadcasting(true);
                 }
             } else {

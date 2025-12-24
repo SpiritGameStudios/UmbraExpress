@@ -15,6 +15,7 @@ import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementQuotient;
 import dev.spiritstudios.umbra_express.role.RoleReplacer.ReplacementPredicate;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +36,7 @@ public interface UmbraExpressRoles {
 	Map<Role, Function<PlayerEntity, List<ItemStack>>> ITEM_GIVERS = new HashMap<>();
 	List<RoleReplacer> ROLE_REPLACEMENTS = new ArrayList<>();
 
-    Role CONDUCTOR = registerInnocent("conductor", 0x7604E7, true);
+	Identifier CONDUCTOR = UmbraExpress.id("conductor");
 	Role MYSTIC = registerInnocent("mystic", 0xE783D5, false);
 	Role BARTENDER = registerInnocent("bartender", 0x3DE0AF, false);
 	Role LOCKSMITH = registerInnocent("locksmith", 0xFFE447, false);
@@ -96,7 +97,6 @@ public interface UmbraExpressRoles {
 	}
 
     static void init() {
-        registerReplacer(CIVILIAN, CONDUCTOR, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
 		registerReplacer(CIVILIAN, BARTENDER, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
 		registerReplacer(CIVILIAN, LOCKSMITH, ReplacementQuotient.ONE_OF, ReplacementPredicate.minPlayers(7));
 		registerReplacer(CIVILIAN, MYSTIC, ReplacementQuotient.ONE_OF, ReplacementPredicate.minPlayers(8));

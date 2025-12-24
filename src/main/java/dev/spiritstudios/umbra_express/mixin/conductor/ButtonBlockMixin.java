@@ -1,4 +1,4 @@
-package dev.spiritstudios.umbra_express.mixin.roles.conductor;
+package dev.spiritstudios.umbra_express.mixin.conductor;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import dev.spiritstudios.umbra_express.block.BroadcastButtonBlock;

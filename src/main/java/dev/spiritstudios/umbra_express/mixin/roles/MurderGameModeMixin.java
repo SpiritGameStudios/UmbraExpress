@@ -7,12 +7,14 @@ import dev.doctor4t.trainmurdermystery.api.Role;
 import dev.doctor4t.trainmurdermystery.cca.GameWorldComponent;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.trainmurdermystery.game.MurderGameMode;
+import dev.spiritstudios.umbra_express.duck.ConductorWorldComponent;
 import dev.spiritstudios.umbra_express.init.UmbraExpressConfig;
 import dev.spiritstudios.umbra_express.init.UmbraExpressRoles;
 import dev.spiritstudios.umbra_express.role.RoleReplacer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,6 +38,13 @@ public class MurderGameModeMixin {
 			}
 			replacer.replace(world, gameComponent, totalPlayers);
 		}
+
+		if (!disabled.contains(UmbraExpressRoles.CONDUCTOR)) {
+			Util.getRandomOrEmpty(players, world.getRandom())
+				.ifPresent(player ->
+					ConductorWorldComponent.cast(gameComponent).umbra_express$setConductor(player.getUuid())
+				);
+		}
 	}
 
 	@WrapOperation(method = "initializeGame", at = @At(value = "INVOKE", target = "Ljava/util/ArrayList;indexOf(Ljava/lang/Object;)I"), remap = true)
@@ -43,5 +52,4 @@ public class MurderGameModeMixin {
 		Role role = gameWorldComponent.getRole(serverPlayerEntity);
         return original.call(instance, UmbraExpressRoles.TEXTS.containsKey(role) ? UmbraExpressRoles.TEXTS.get(role) : o);
     }
-
 }

@@ -1,4 +1,4 @@
-package dev.spiritstudios.umbra_express.mixin.roles.conductor;
+package dev.spiritstudios.umbra_express.mixin.conductor;
 
 import dev.doctor4t.trainmurdermystery.datagen.TMMModelGen;
 import net.minecraft.block.Block;

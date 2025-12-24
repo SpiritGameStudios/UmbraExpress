@@ -57,13 +57,17 @@ public class UmbraExpressConfig extends MidnightConfig {
 	}
 
 	@Nullable
-	public static Role getDevRole() {
+	public static MaybeConductor getDevRole() {
 		Identifier id = Identifier.tryParse(forceDevRole);
 		if (id == null) return null;
 
+		if (id.equals(UmbraExpressRoles.CONDUCTOR)) {
+			return new MaybeConductor(true, null);
+		}
+
 		for (Role maybe : TMMRoles.ROLES) {
 			if (maybe.identifier().equals(id)) {
-				return maybe;
+				return new MaybeConductor(false, maybe);
 			}
 		}
 
@@ -80,5 +84,8 @@ public class UmbraExpressConfig extends MidnightConfig {
 		} catch (Throwable throwable) {
 			UmbraExpress.LOGGER.error("An error occurred while saving the config!", throwable);
 		}
+	}
+
+	public record MaybeConductor(boolean conductor, Role otherwise) {
 	}
 }
