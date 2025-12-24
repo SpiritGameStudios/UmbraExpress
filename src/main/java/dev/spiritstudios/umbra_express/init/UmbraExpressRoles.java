@@ -98,7 +98,7 @@ public interface UmbraExpressRoles {
     static void init() {
         registerReplacer(CIVILIAN, CONDUCTOR, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
 		registerReplacer(CIVILIAN, BARTENDER, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
-		registerReplacer(CIVILIAN, LOCKSMITH, ReplacementQuotient.ONE_OF, ReplacementPredicate.ALWAYS);
+		registerReplacer(CIVILIAN, LOCKSMITH, ReplacementQuotient.ONE_OF, ReplacementPredicate.minPlayers(7));
 		registerReplacer(CIVILIAN, MYSTIC, ReplacementQuotient.ONE_OF, ReplacementPredicate.minPlayers(8));
 		registerReplacer(KILLER, ASSASSIN, ReplacementQuotient.ALL_OF, ReplacementPredicate.fromRandom(0.5F));
 
