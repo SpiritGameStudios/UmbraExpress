@@ -57,8 +57,14 @@ repositories {
 		name = "MixinSquared"
 		url = uri("https://maven.bawnorton.com/releases")
 	}
+	maven {
+		name = "Jitpack"
+		url = uri("https://jitpack.io")
+		content {
+			includeGroup("com.github")
+		}
+	}
 }
-
 
 fabricApi {
 	configureDataGeneration {
@@ -94,6 +100,9 @@ dependencies {
 	include(libs.mixinsquared)
 	implementation(libs.mixinsquared)
 	annotationProcessor(libs.mixinsquared)
+
+	include(libs.mm)
+	modImplementation(libs.mm)
 }
 
 tasks.processResources {

@@ -16,6 +16,7 @@ midnightlib = "1.9.1+1.21.1-fabric"
 voicechat_api = "2.6.0"
 voicechat = "fabric-1.21.1-2.6.6"
 mixinsquared = "0.3.7-beta.1"
+mm = "v2.3"
 
 [plugins]
 fabric_loom = { id = "fabric-loom", version.ref = "fabric_loom" }
@@ -44,3 +45,4 @@ voicechat_api = { group = "de.maxhenkel.voicechat", name = "voicechat-api", vers
 voicechat = { group = "maven.modrinth", name = "simple-voice-chat", version.ref = "voicechat" }
 
 mixinsquared = { group = "com.github.bawnorton.mixinsquared", name = "mixinsquared-fabric", version.ref = "mixinsquared" }
+mm = { group = "com.github.Chocohead", name = "Fabric-ASM", version.ref = "mm" }

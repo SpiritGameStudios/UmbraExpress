@@ -10,7 +10,6 @@
 		"conductor.ButtonBlockMixin",
 		"conductor.GameWorldComponentMixin",
 		"conductor.PlayerMoodComponentMixin",
-		"conductor.PlayerMoodComponentMixin$TaskMixin",
 		"conductor.TMMModelGenAccessor",
 		"dev.GameFunctionsMixin",
 		"dev.MurderGameModeMixin",

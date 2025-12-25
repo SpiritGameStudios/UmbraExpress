@@ -35,6 +35,9 @@
 	],
 	"cardinal-components": [
 		"dev.spiritstudios.umbra_express.init.UmbraExpressWorldComponents"
+	],
+	"mm:early_risers": [
+		"dev.spiritstudios.umbra_express.asm.PlayerMoodComponentTaskEarlyRiser"
 	]
   },
   "mixins": [
