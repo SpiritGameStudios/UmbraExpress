@@ -40,7 +40,8 @@
 		"shop.ShopEntryMixin"
 	],
 	"injectors": {
-		"defaultRequire": 1
+		"defaultRequire": 1,
+		"maxShiftBy": 1
 	},
 	"overwrites": {
 		"requireAnnotations": true
