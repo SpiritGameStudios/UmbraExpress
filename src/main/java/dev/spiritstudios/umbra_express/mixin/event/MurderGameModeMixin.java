@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Debug(export = true)
+//@Debug(export = true)
 @Mixin(value = MurderGameMode.class ,remap = false, priority = 2000) // priority higher than roles mixin
 public class MurderGameModeMixin {
 	@Inject(method = "assignRolesAndGetKillerCount", at = @At("RETURN"), remap = true)

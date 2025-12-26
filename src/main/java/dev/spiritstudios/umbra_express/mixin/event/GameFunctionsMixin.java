@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Debug(export = true)
+//@Debug(export = true)
 @Mixin(value = GameFunctions.class, remap = false)
 public class GameFunctionsMixin {
 
